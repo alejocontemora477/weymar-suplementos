@@ -432,7 +432,8 @@
   <div class="wrap">
     <p class="catalog-headline">Elegí tus productos y armamos el pedido para confirmarlo por WhatsApp.</p>
     <div class="tabs">
-      <button class="tab active" data-cat="creatina" onclick="showCategory('creatina', this)">Creatinas</button>
+      <button class="tab active" data-cat="todo" onclick="showCategory('todo', this)">Ver todo</button>
+      <button class="tab" data-cat="creatina" onclick="showCategory('creatina', this)">Creatinas</button>
       <button class="tab" data-cat="proteinas" onclick="showCategory('proteinas', this)">Proteínas</button>
       <button class="tab" data-cat="pre" onclick="showCategory('pre', this)">Pre-entrenos</button>
       <button class="tab" data-cat="salud" onclick="showCategory('salud', this)">Salud y Bienestar</button>
@@ -831,6 +832,7 @@
   ];
 
   const CATEGORY_LABELS = {
+    todo: "Todos los productos",
     creatina: "Creatinas",
     proteinas: "Proteínas",
     pre: "Pre-entrenos",
@@ -839,7 +841,7 @@
   };
 
   let cart = {}; // { productId: qty }
-  let activeCategory = "creatina";
+  let activeCategory = "todo";
 
   function dumbbellIcon(){
     return '<svg viewBox="0 0 24 24" fill="none" stroke="#34c6f4" stroke-width="1.6" stroke-linecap="round"><path d="M2 12h3M19 12h3M5 8v8M19 8v8M8 12h8"/></svg>';
@@ -856,7 +858,7 @@
     banner.innerHTML = activeCategory === "proteinas"
       ? `<div class="promo-banner"><div class="promo-banner-icon">🎁</div><p>Comprando una <strong>proteína o aumentador de masa Ena</strong>, te llevás un <strong>shaker Ena de regalo</strong>.</p></div>`
       : "";
-    const items = PRODUCTS.filter(p => p.cat === activeCategory);
+    const items = activeCategory === "todo" ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeCategory);
     if(items.length === 0){
       grid.innerHTML = `<div class="empty-panel"><b>${CATEGORY_LABELS[activeCategory]} próximamente</b>Estamos cargando esta categoría. Escribinos por WhatsApp si buscás algo puntual.</div>`;
       return;
