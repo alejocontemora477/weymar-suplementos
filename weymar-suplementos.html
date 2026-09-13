@@ -201,6 +201,14 @@
     transition:background .15s ease, color .15s ease;
   }
   .add-btn:hover{background:var(--celeste); color:#06131a;}
+  .card.is-agotado .card-thumb{opacity:0.42;}
+  .card.is-agotado h3{color:var(--muted);}
+  .sin-stock{
+    border:1px solid var(--line); color:var(--muted);
+    padding:9px 16px; border-radius:6px; font-size:0.86rem; font-weight:600;
+  }
+  .modal-add:disabled{background:var(--line); color:var(--muted); cursor:not-allowed;}
+  .catalogo-error{grid-column:1/-1; text-align:center; color:var(--muted); padding:48px 24px;}
   .empty-panel{
     grid-column:1/-1;
     border:1px dashed var(--line); border-radius:10px;
@@ -520,316 +528,7 @@
 
   // EDITAR ACÁ: catálogo de productos. Agregá más objetos a medida que sumes stock.
   // Los precios son de ejemplo (marcados EDITAR) — reemplazalos por los reales.
-  const PRODUCTS = [
-    {
-      id: "creatina-star",
-      cat: "creatina",
-      brand: "Star Nutrition",
-      name: "Creatina Monohidratada Sin Sabor - Doypack 300g",
-      desc: "Creatina monohidratada ultramicronizada, 100% pura, sin TACC. 60 servicios de 5g.",
-      price: 25000,
-      image: "img/creatina-star.webp"
-    },
-    {
-      id: "creatina-enasport",
-      cat: "creatina",
-      brand: "Ena Sport",
-      name: "Creatina Monohidratada 300g - Sabor Fruit Punch",
-      desc: "Fórmula de alta pureza, con sabor. 300g.",
-      price: 28000,
-      image: "img/creatina-enasport.webp"
-    },
-    {
-      id: "creatina-onefit",
-      cat: "creatina",
-      brand: "One Fit Nutrition",
-      name: "Poweraded Creatine Micronized 200g",
-      desc: "Monohidrato de creatina micronizado + vitamina C. 40 servicios de 5g. Formulado en USA.",
-      price: 16500,
-      image: "img/creatina-onefit.webp"
-    },
-    {
-      id: "magnesio-onefit",
-      cat: "salud",
-      brand: "One Fit Nutrition",
-      name: "Citrato de Magnesio en Polvo 150g",
-      desc: "300mg de magnesio por porción. Ayuda a la síntesis de proteínas y reduce dolores de cabeza. 60 servicios.",
-      price: 11500,
-      image: "img/magnesio-onefit.webp"
-    },
-    {
-      id: "magnesio-star",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "Citrato de Magnesio - 60 Cápsulas",
-      desc: "Suplemento dietario a base de magnesio en cápsulas. Libre de gluten, sin TACC.",
-      price: 16500,
-      image: "img/magnesio-star.webp"
-    },
-    {
-      id: "colageno-star-limon",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "Collagen Colágeno Hidrolizado Sabor Limón 210g",
-      desc: "Colágeno hidrolizado con ácido hialurónico, coenzima Q10, resveratrol y vitamina C. 20 servicios.",
-      price: 21700,
-      image: "img/colageno-star-limon.webp"
-    },
-    {
-      id: "colageno-star-sport-naranja",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "Collagen Sport Sabor Naranja 360g",
-      desc: "Colágeno hidrolizado con vitamina C, magnesio y cafeína, pensado para rendimiento deportivo. 30 servicios.",
-      price: 24000,
-      image: "img/colageno-star-sport-naranja.webp"
-    },
-    {
-      id: "omega3-onefit",
-      cat: "salud",
-      brand: "One Fit Nutrition",
-      name: "Daily Omega 3 - 30 Cápsulas",
-      desc: "400mg EPA y 200mg DHA por porción. Sin mercurio. Apoya memoria, concentración y foco mental.",
-      price: 22900,
-      image: "img/omega3-onefit.webp"
-    },
-    {
-      id: "vitaminas-k2d3-star",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "Vitaminas K2 + D3 - 60 Cápsulas",
-      desc: "Suplemento dietario a base de vitamina K2 y D3. Libre de gluten.",
-      price: 27000,
-      image: "img/vitaminas-k2d3-star.webp"
-    },
-    {
-      id: "vitaminac-star",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "Vitamina C - 60 Cápsulas",
-      desc: "Suplemento dietario a base de vitamina C en cápsulas. Libre de gluten, sin TACC.",
-      price: 8900,
-      image: "img/vitaminac-star.webp"
-    },
-    {
-      id: "proteina-onefit",
-      cat: "proteinas",
-      brand: "One Fit Nutrition",
-      name: "Classic Whey Protein 907g - Frutilla",
-      desc: "24g de proteína, 4.5g BCAA y 4g de glutamina por porción.",
-      price: 39500,
-      image: "img/proteina-onefit.webp"
-    },
-    {
-      id: "proteina-star",
-      cat: "proteinas",
-      brand: "Star Nutrition",
-      name: "Whey Protein 2lb - Chocolate Suizo",
-      desc: "Whey protein micro filtrado, 25g de proteína por porción. 30 servicios.",
-      price: 62000,
-      image: "img/proteina-star.webp"
-    },
-    {
-      id: "proteina-ena",
-      cat: "proteinas",
-      brand: "Ena Sport",
-      name: "Proteína Ena",
-      desc: "Proteína en polvo. Presentación y sabor a confirmar.",
-      price: 85000,
-      image: "img/proteina-ena.webp"
-    },
-    {
-      id: "pre-tnt-dynamite",
-      cat: "pre",
-      brand: "Star Nutrition",
-      name: "TNT Dynamite Explosive Energy 240g - Citrus Slush",
-      desc: "Pre-entreno de alta intensidad, sabor cítrico. 30 servicios.",
-      price: 24500,
-      image: "img/pre-tnt-dynamite.webp"
-    },
-    {
-      id: "barrita-wiki",
-      cat: "barritas",
-      brand: "Wiki",
-      name: "Wiki Taste - Barra de Quinoa Inflada y Chocolate",
-      desc: "Golosina saludable sin azúcar agregada, sin gluten, apta vegana y sin lactosa. 57 calorías.",
-      price: 1500,
-      image: "img/barrita-wiki.webp"
-    },
-    {
-      id: "barrita-mole",
-      cat: "barritas",
-      brand: "Molé",
-      name: "Barra Proteica Coco y Pasta de Maní 45g",
-      desc: "12g de proteína a base de soja y maní, con coco rallado, vitamina B12 y magnesio.",
-      price: 2000,
-      image: "img/barrita-mole.webp"
-    },
-    {
-      id: "barrita-mervick",
-      cat: "barritas",
-      brand: "Mervick",
-      name: "Whey Protein Bar 15g Proteína - Dark Chocolate",
-      desc: "Barrita de proteína sabor chocolate amargo, 40g.",
-      price: 2500,
-      image: "img/barrita-mervick.webp"
-    },
-    {
-      id: "vitamina-multi-star",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "All In One Multivitamin - 60 Comprimidos",
-      desc: "23 vitaminas y minerales por servicio. Libre de gluten, sin TACC. 60 servicios.",
-      price: 25000,
-      image: "img/vitamina-multi-star.webp"
-    },
-    {
-      id: "accesorio-shaker-star",
-      cat: "proteinas",
-      brand: "Star Nutrition",
-      name: "Shaker Star Nutrition",
-      desc: "Vaso mezclador con resorte, ideal para batidos de proteína.",
-      price: 0, // EDITAR PRECIO
-      image: "img/accesorio-shaker-star.webp"
-    },
-    {
-      id: "creatina-star-fruitpunch",
-      cat: "creatina",
-      brand: "Star Nutrition",
-      name: "Creatina Monohidratada 300g - Sabor Fruit Punch",
-      desc: "Creatina monohidratada con sabor, doypack 300g.",
-      price: 25000,
-      image: "img/creatina-star-fruitpunch.webp"
-    },
-    {
-      id: "creatina-star-pote",
-      cat: "creatina",
-      brand: "Star Nutrition",
-      name: "Creatina Monohidratada Sin Sabor - Pote 300g",
-      desc: "Creatina monohidratada pura en pote, 300g.",
-      price: 28500,
-      image: "img/creatina-star-pote.webp"
-    },
-    {
-      id: "creatina-star-500g",
-      cat: "creatina",
-      brand: "Star Nutrition",
-      name: "Creatina Monohidratada Sin Sabor 500g",
-      desc: "Creatina monohidratada pura, formato grande de 500g.",
-      price: 45000,
-      image: "img/creatina-star-500g.webp"
-    },
-    {
-      id: "creatina-star-1kg",
-      cat: "creatina",
-      brand: "Star Nutrition",
-      name: "Creatina Monohidratada Sin Sabor 1kg",
-      desc: "Creatina monohidratada pura, formato de 1kg para uso prolongado.",
-      price: 82000,
-      image: "img/creatina-star-1kg.webp"
-    },
-    {
-      id: "colageno-star-frutosrojos",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "Collagen Colágeno Hidrolizado Sabor Frutos Rojos 210g",
-      desc: "Colágeno hidrolizado con ácido hialurónico, coenzima Q10, resveratrol y vitamina C. 20 servicios.",
-      price: 22000,
-      image: "img/colageno-star-frutosrojos.webp"
-    },
-    {
-      id: "omega3-star",
-      cat: "salud",
-      brand: "Star Nutrition",
-      name: "Omega 3 - Cápsulas",
-      desc: "Suplemento de ácidos grasos Omega 3.",
-      price: 32000,
-      image: "img/omega3-star.webp"
-    },
-    {
-      id: "glutamina-star",
-      cat: "pre",
-      brand: "Star Nutrition",
-      name: "Glutamina",
-      desc: "Aminoácido que ayuda a la recuperación muscular post-entrenamiento.",
-      price: 29500,
-      image: "img/glutamina-star.webp"
-    },
-    {
-      id: "bcaa-mtor",
-      cat: "pre",
-      brand: "MTOR",
-      name: "BCAA Fruit Punch",
-      desc: "Aminoácidos ramificados (BCAA) sabor frutal, para tomar durante o después del entrenamiento.",
-      price: 29500,
-      image: "img/bcaa-mtor.webp"
-    },
-    {
-      id: "pump-v8-watermelon",
-      cat: "pre",
-      brand: "Pump V8",
-      name: "Pre-entreno Watermelon",
-      desc: "Pre-entreno sabor sandía para más energía y bombeo muscular.",
-      price: 31000,
-      image: "img/pump-v8-watermelon.webp"
-    },
-    {
-      id: "cafeina-star",
-      cat: "pre",
-      brand: "Star Nutrition",
-      name: "Cafeína - 30 Cápsulas",
-      desc: "Cafeína en cápsulas para más energía y foco antes de entrenar.",
-      price: 10000,
-      image: "img/cafeina-star.webp"
-    },
-    {
-      id: "pasta-mani-entrenuts",
-      cat: "barritas",
-      brand: "Entrenuts",
-      name: "Pasta de Maní Cookies and Cream",
-      desc: "Pasta de maní saborizada, ideal como snack proteico.",
-      price: 3900,
-      image: "img/pasta-mani-entrenuts.webp"
-    },
-    {
-      id: "shaker-ena-plus",
-      cat: "proteinas",
-      brand: "Ena Sport",
-      name: "Shaker Ena Plus con Compartimientos",
-      desc: "Vaso mezclador con compartimientos extra para llevar suplementos.",
-      price: 7500,
-      image: "img/shaker-ena-plus.webp"
-    },
-    {
-      id: "shaker-ena-simple",
-      cat: "proteinas",
-      brand: "Ena Sport",
-      name: "Shaker Ena Sin Compartimientos",
-      desc: "Vaso mezclador simple, ideal para batidos de proteína.",
-      price: 6500,
-      image: "img/shaker-ena-simple.webp"
-    },
-    {
-      id: "gainer-ena-ultramass-choc",
-      cat: "proteinas",
-      brand: "Ena Sport",
-      name: "Ultra Mass Weight Gainer 1500g - Double Rich Chocolate",
-      desc: "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, 393 kcal por porción.",
-      price: 45000,
-      offer: true,
-      image: "img/gainer-ena-ultramass-choc.webp"
-    },
-    {
-      id: "gainer-ena-ultramass-van",
-      cat: "proteinas",
-      brand: "Ena Sport",
-      name: "Ultra Mass Weight Gainer 1500g - Vanilla Ice Cream",
-      desc: "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, 399 kcal por porción.",
-      price: 45000,
-      offer: true,
-      image: "img/gainer-ena-ultramass-van.webp"
-    }
-  ];
+  let PRODUCTS = [];
 
   const CATEGORY_LABELS = {
     todo: "Todos los productos",
@@ -864,7 +563,7 @@
       return;
     }
     grid.innerHTML = items.map(p => `
-      <div class="card${p.offer ? ' is-offer' : ''}" role="button" tabindex="0" aria-label="Ver ${p.name}" onclick="openProduct('${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProduct('${p.id}')}">
+      <div class="card${p.offer ? ' is-offer' : ''}${sinStock(p) ? ' is-agotado' : ''}" role="button" tabindex="0" aria-label="Ver ${p.name}" onclick="openProduct('${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProduct('${p.id}')}">
         ${p.offer ? '<div class="offer-badge">Súper oferta</div>' : ''}
         <div class="card-thumb">${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:4px;">` : dumbbellIcon()}<span class="zoom-hint" aria-hidden="true">&#10530;</span></div>
         <div class="brand-tag">${p.brand}</div>
@@ -872,7 +571,7 @@
         <p class="desc">${p.desc}</p>
         <div class="card-foot">
           <div class="price">${formatPrice(p.price)}</div>
-          <button class="add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">${p.price > 0 ? 'Agregar' : 'Consultar'}</button>
+          ${sinStock(p) ? '<span class="sin-stock">Sin stock</span>' : `<button class="add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">${p.price > 0 ? 'Agregar' : 'Consultar'}</button>`}
         </div>
       </div>
     `).join("");
@@ -892,7 +591,10 @@
     document.getElementById("modal-desc").textContent = p.desc;
     document.getElementById("modal-price").textContent = formatPrice(p.price);
     const btn = document.getElementById("modal-add");
-    btn.textContent = p.price > 0 ? "Agregar al carrito" : "Consultar por WhatsApp";
+    btn.disabled = sinStock(p);
+    btn.textContent = sinStock(p)
+      ? "Sin stock por ahora"
+      : (p.price > 0 ? "Agregar al carrito" : "Consultar por WhatsApp");
     btn.onclick = () => {
       if(p.price > 0){ addToCart(p.id); closeProduct(); }
       else { closeProduct(); consultarProducto(p); }
@@ -924,7 +626,11 @@
     renderGrid();
   }
 
+  function sinStock(p){ return Number(p.stock) === 0; }
+
   function addToCart(id){
+    const prod = PRODUCTS.find(x => x.id === id);
+    if(!prod || sinStock(prod)) return;
     cart[id] = (cart[id] || 0) + 1;
     renderCart();
     toggleCart(true);
@@ -1002,8 +708,23 @@
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   }
 
-  renderGrid();
-  renderCart();
+  async function cargarCatalogo(){
+    try{
+      const r = await fetch("productos.json?v=" + Date.now(), { cache: "no-store" });
+      if(!r.ok) throw new Error("HTTP " + r.status);
+      const data = await r.json();
+      if(!Array.isArray(data.productos)) throw new Error("formato inesperado");
+      PRODUCTS = data.productos;
+    }catch(e){
+      document.getElementById("product-grid").innerHTML =
+        '<div class="catalogo-error"><b>No pudimos cargar el catálogo.</b><br>Recargá la página o escribinos por WhatsApp.</div>';
+      return;
+    }
+    renderGrid();
+    renderCart();
+  }
+
+  cargarCatalogo();
 </script>
 
 <a href="https://wa.me/5492914411785?text=Hola!%20Tengo%20una%20consulta." target="_blank" class="wa-float" aria-label="Escribinos por WhatsApp">

@@ -1,0 +1,346 @@
+{
+   "productos" : [
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "creatina",
+         "desc" : "Creatina monohidratada ultramicronizada, 100% pura, sin TACC. 60 servicios de 5g.",
+         "id" : "creatina-star",
+         "image" : "img/creatina-star.webp",
+         "name" : "Creatina Monohidratada Sin Sabor - Doypack 300g",
+         "price" : 25000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "creatina",
+         "desc" : "Fórmula de alta pureza, con sabor. 300g.",
+         "id" : "creatina-enasport",
+         "image" : "img/creatina-enasport.webp",
+         "name" : "Creatina Monohidratada 300g - Sabor Fruit Punch",
+         "price" : 28000,
+         "stock" : 10
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "creatina",
+         "desc" : "Monohidrato de creatina micronizado + vitamina C. 40 servicios de 5g. Formulado en USA.",
+         "id" : "creatina-onefit",
+         "image" : "img/creatina-onefit.webp",
+         "name" : "Poweraded Creatine Micronized 200g",
+         "price" : 16500,
+         "stock" : 10
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "salud",
+         "desc" : "300mg de magnesio por porción. Ayuda a la síntesis de proteínas y reduce dolores de cabeza. 60 servicios.",
+         "id" : "magnesio-onefit",
+         "image" : "img/magnesio-onefit.webp",
+         "name" : "Citrato de Magnesio en Polvo 150g",
+         "price" : 11500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "Suplemento dietario a base de magnesio en cápsulas. Libre de gluten, sin TACC.",
+         "id" : "magnesio-star",
+         "image" : "img/magnesio-star.webp",
+         "name" : "Citrato de Magnesio - 60 Cápsulas",
+         "price" : 16500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "Colágeno hidrolizado con ácido hialurónico, coenzima Q10, resveratrol y vitamina C. 20 servicios.",
+         "id" : "colageno-star-limon",
+         "image" : "img/colageno-star-limon.webp",
+         "name" : "Collagen Colágeno Hidrolizado Sabor Limón 210g",
+         "price" : 21700,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "Colágeno hidrolizado con vitamina C, magnesio y cafeína, pensado para rendimiento deportivo. 30 servicios.",
+         "id" : "colageno-star-sport-naranja",
+         "image" : "img/colageno-star-sport-naranja.webp",
+         "name" : "Collagen Sport Sabor Naranja 360g",
+         "price" : 24000,
+         "stock" : 10
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "salud",
+         "desc" : "400mg EPA y 200mg DHA por porción. Sin mercurio. Apoya memoria, concentración y foco mental.",
+         "id" : "omega3-onefit",
+         "image" : "img/omega3-onefit.webp",
+         "name" : "Daily Omega 3 - 30 Cápsulas",
+         "price" : 22900,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "Suplemento dietario a base de vitamina K2 y D3. Libre de gluten.",
+         "id" : "vitaminas-k2d3-star",
+         "image" : "img/vitaminas-k2d3-star.webp",
+         "name" : "Vitaminas K2 + D3 - 60 Cápsulas",
+         "price" : 27000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "Suplemento dietario a base de vitamina C en cápsulas. Libre de gluten, sin TACC.",
+         "id" : "vitaminac-star",
+         "image" : "img/vitaminac-star.webp",
+         "name" : "Vitamina C - 60 Cápsulas",
+         "price" : 8900,
+         "stock" : 10
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "proteinas",
+         "desc" : "24g de proteína, 4.5g BCAA y 4g de glutamina por porción.",
+         "id" : "proteina-onefit",
+         "image" : "img/proteina-onefit.webp",
+         "name" : "Classic Whey Protein 907g - Frutilla",
+         "price" : 39500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "proteinas",
+         "desc" : "Whey protein micro filtrado, 25g de proteína por porción. 30 servicios.",
+         "id" : "proteina-star",
+         "image" : "img/proteina-star.webp",
+         "name" : "Whey Protein 2lb - Chocolate Suizo",
+         "price" : 62000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "proteinas",
+         "desc" : "Proteína en polvo. Presentación y sabor a confirmar.",
+         "id" : "proteina-ena",
+         "image" : "img/proteina-ena.webp",
+         "name" : "Proteína Ena",
+         "price" : 85000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "pre",
+         "desc" : "Pre-entreno de alta intensidad, sabor cítrico. 30 servicios.",
+         "id" : "pre-tnt-dynamite",
+         "image" : "img/pre-tnt-dynamite.webp",
+         "name" : "TNT Dynamite Explosive Energy 240g - Citrus Slush",
+         "price" : 24500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Wiki",
+         "cat" : "barritas",
+         "desc" : "Golosina saludable sin azúcar agregada, sin gluten, apta vegana y sin lactosa. 57 calorías.",
+         "id" : "barrita-wiki",
+         "image" : "img/barrita-wiki.webp",
+         "name" : "Wiki Taste - Barra de Quinoa Inflada y Chocolate",
+         "price" : 1500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Molé",
+         "cat" : "barritas",
+         "desc" : "12g de proteína a base de soja y maní, con coco rallado, vitamina B12 y magnesio.",
+         "id" : "barrita-mole",
+         "image" : "img/barrita-mole.webp",
+         "name" : "Barra Proteica Coco y Pasta de Maní 45g",
+         "price" : 2000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Mervick",
+         "cat" : "barritas",
+         "desc" : "Barrita de proteína sabor chocolate amargo, 40g.",
+         "id" : "barrita-mervick",
+         "image" : "img/barrita-mervick.webp",
+         "name" : "Whey Protein Bar 15g Proteína - Dark Chocolate",
+         "price" : 2500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "23 vitaminas y minerales por servicio. Libre de gluten, sin TACC. 60 servicios.",
+         "id" : "vitamina-multi-star",
+         "image" : "img/vitamina-multi-star.webp",
+         "name" : "All In One Multivitamin - 60 Comprimidos",
+         "price" : 25000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "proteinas",
+         "desc" : "Vaso mezclador con resorte, ideal para batidos de proteína.",
+         "id" : "accesorio-shaker-star",
+         "image" : "img/accesorio-shaker-star.webp",
+         "name" : "Shaker Star Nutrition",
+         "price" : 0,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "creatina",
+         "desc" : "Creatina monohidratada con sabor, doypack 300g.",
+         "id" : "creatina-star-fruitpunch",
+         "image" : "img/creatina-star-fruitpunch.webp",
+         "name" : "Creatina Monohidratada 300g - Sabor Fruit Punch",
+         "price" : 25000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "creatina",
+         "desc" : "Creatina monohidratada pura en pote, 300g.",
+         "id" : "creatina-star-pote",
+         "image" : "img/creatina-star-pote.webp",
+         "name" : "Creatina Monohidratada Sin Sabor - Pote 300g",
+         "price" : 28500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "creatina",
+         "desc" : "Creatina monohidratada pura, formato grande de 500g.",
+         "id" : "creatina-star-500g",
+         "image" : "img/creatina-star-500g.webp",
+         "name" : "Creatina Monohidratada Sin Sabor 500g",
+         "price" : 45000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "creatina",
+         "desc" : "Creatina monohidratada pura, formato de 1kg para uso prolongado.",
+         "id" : "creatina-star-1kg",
+         "image" : "img/creatina-star-1kg.webp",
+         "name" : "Creatina Monohidratada Sin Sabor 1kg",
+         "price" : 82000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "Colágeno hidrolizado con ácido hialurónico, coenzima Q10, resveratrol y vitamina C. 20 servicios.",
+         "id" : "colageno-star-frutosrojos",
+         "image" : "img/colageno-star-frutosrojos.webp",
+         "name" : "Collagen Colágeno Hidrolizado Sabor Frutos Rojos 210g",
+         "price" : 22000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
+         "desc" : "Suplemento de ácidos grasos Omega 3.",
+         "id" : "omega3-star",
+         "image" : "img/omega3-star.webp",
+         "name" : "Omega 3 - Cápsulas",
+         "price" : 32000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "pre",
+         "desc" : "Aminoácido que ayuda a la recuperación muscular post-entrenamiento.",
+         "id" : "glutamina-star",
+         "image" : "img/glutamina-star.webp",
+         "name" : "Glutamina",
+         "price" : 29500,
+         "stock" : 10
+      },
+      {
+         "brand" : "MTOR",
+         "cat" : "pre",
+         "desc" : "Aminoácidos ramificados (BCAA) sabor frutal, para tomar durante o después del entrenamiento.",
+         "id" : "bcaa-mtor",
+         "image" : "img/bcaa-mtor.webp",
+         "name" : "BCAA Fruit Punch",
+         "price" : 29500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Pump V8",
+         "cat" : "pre",
+         "desc" : "Pre-entreno sabor sandía para más energía y bombeo muscular.",
+         "id" : "pump-v8-watermelon",
+         "image" : "img/pump-v8-watermelon.webp",
+         "name" : "Pre-entreno Watermelon",
+         "price" : 31000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "pre",
+         "desc" : "Cafeína en cápsulas para más energía y foco antes de entrenar.",
+         "id" : "cafeina-star",
+         "image" : "img/cafeina-star.webp",
+         "name" : "Cafeína - 30 Cápsulas",
+         "price" : 10000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Entrenuts",
+         "cat" : "barritas",
+         "desc" : "Pasta de maní saborizada, ideal como snack proteico.",
+         "id" : "pasta-mani-entrenuts",
+         "image" : "img/pasta-mani-entrenuts.webp",
+         "name" : "Pasta de Maní Cookies and Cream",
+         "price" : 3900,
+         "stock" : 10
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "proteinas",
+         "desc" : "Vaso mezclador con compartimientos extra para llevar suplementos.",
+         "id" : "shaker-ena-plus",
+         "image" : "img/shaker-ena-plus.webp",
+         "name" : "Shaker Ena Plus con Compartimientos",
+         "price" : 7500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "proteinas",
+         "desc" : "Vaso mezclador simple, ideal para batidos de proteína.",
+         "id" : "shaker-ena-simple",
+         "image" : "img/shaker-ena-simple.webp",
+         "name" : "Shaker Ena Sin Compartimientos",
+         "price" : 6500,
+         "stock" : 10
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "proteinas",
+         "desc" : "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, 393 kcal por porción.",
+         "id" : "gainer-ena-ultramass-choc",
+         "image" : "img/gainer-ena-ultramass-choc.webp",
+         "name" : "Ultra Mass Weight Gainer 1500g - Double Rich Chocolate",
+         "offer" : true,
+         "price" : 45000,
+         "stock" : 10
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "proteinas",
+         "desc" : "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, 399 kcal por porción.",
+         "id" : "gainer-ena-ultramass-van",
+         "image" : "img/gainer-ena-ultramass-van.webp",
+         "name" : "Ultra Mass Weight Gainer 1500g - Vanilla Ice Cream",
+         "offer" : true,
+         "price" : 45000,
+         "stock" : 10
+      }
+   ]
+}

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Panel Weymar</title>
+<link rel="icon" href="img/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#070b0f; --bg-alt:#0e161d; --panel:#101a22; --line:#1d2a34;
+    --celeste:#34c6f4; --white:#eef6fa; --muted:#8ea3b0;
+    --ok:#3ddc97; --mal:#ff6b6b; --alerta:#ffc857;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; background:var(--bg); color:var(--white); font-family:'Work Sans',system-ui,sans-serif; font-size:15px;}
+  h1,h2,h3{font-family:'Barlow Condensed',sans-serif; margin:0; letter-spacing:0.01em;}
+  input,select,textarea,button{font-family:inherit; font-size:inherit;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 18px;}
+
+  /* ---- Login ---- */
+  #login{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
+  .login-caja{background:var(--bg-alt); border:1px solid var(--line); border-radius:12px; padding:34px 30px; width:100%; max-width:380px;}
+  .login-caja img{width:52px; height:52px; border-radius:8px; display:block; margin-bottom:18px;}
+  .login-caja h1{font-size:1.9rem; margin-bottom:6px;}
+  .login-caja p{color:var(--muted); font-size:0.9rem; margin:0 0 22px;}
+  .campo{display:block; width:100%; background:var(--panel); border:1px solid var(--line); color:var(--white);
+         padding:11px 13px; border-radius:7px; outline:none;}
+  .campo:focus{border-color:var(--celeste);}
+  .btn{border:none; border-radius:7px; padding:12px 18px; font-weight:600; cursor:pointer; background:var(--celeste); color:#06131a;}
+  .btn:disabled{opacity:0.5; cursor:not-allowed;}
+  .btn-borde{background:transparent; border:1px solid var(--line); color:var(--white);}
+  .btn-borde:hover:not(:disabled){border-color:var(--celeste); color:var(--celeste);}
+  .btn-ancho{width:100%; margin-top:16px;}
+
+  /* ---- Barra superior ---- */
+  header{position:sticky; top:0; z-index:20; background:rgba(7,11,15,0.96); border-bottom:1px solid var(--line);}
+  .barra{display:flex; align-items:center; gap:12px; padding:14px 0; flex-wrap:wrap;}
+  .barra h1{font-size:1.5rem; margin-right:auto;}
+  .pendiente{color:var(--alerta); font-size:0.86rem;}
+
+  /* ---- Herramientas ---- */
+  .herramientas{display:flex; gap:10px; flex-wrap:wrap; margin:22px 0 16px;}
+  .herramientas .campo{width:auto; flex:1; min-width:180px;}
+  select.campo{min-width:150px; flex:0 0 auto;}
+
+  /* ---- Producto ---- */
+  .prod{background:var(--bg-alt); border:1px solid var(--line); border-radius:10px; padding:14px; margin-bottom:12px;
+        display:grid; grid-template-columns:96px 1fr; gap:14px;}
+  .prod.agotado{border-color:#4a2b2b;}
+  .foto{position:relative; width:96px; height:96px; border-radius:8px; overflow:hidden;
+        background:linear-gradient(135deg,#0c1a22,#06131a); border:1px solid var(--line);
+        display:flex; align-items:center; justify-content:center;}
+  .foto img{width:100%; height:100%; object-fit:contain; padding:4px;}
+  .foto .vacia{color:var(--muted); font-size:0.7rem; text-align:center; padding:4px;}
+  .foto label{position:absolute; left:0; right:0; bottom:0; background:rgba(6,19,26,0.88); color:var(--celeste);
+              font-size:0.68rem; text-align:center; padding:3px; cursor:pointer;}
+  .foto input[type=file]{display:none;}
+  .campos{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:9px;}
+  .campos label{display:flex; flex-direction:column; gap:4px; font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.04em;}
+  .campos .ancho{grid-column:1/-1;}
+  .acciones{grid-column:1/-1; display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding-top:10px; border-top:1px solid var(--line); margin-top:4px;}
+  .chip{font-size:0.78rem; padding:6px 11px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--muted); cursor:pointer;}
+  .chip:hover{border-color:var(--celeste); color:var(--celeste);}
+  .chip.borrar{margin-left:auto; border-color:#4a2b2b; color:var(--mal);}
+  .chip.borrar:hover{border-color:var(--mal); color:var(--mal);}
+  .etiqueta-agotado{color:var(--mal); font-size:0.78rem; font-weight:600;}
+
+  /* ---- Avisos ---- */
+  #aviso{position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60;
+         padding:12px 20px; border-radius:8px; font-weight:600; font-size:0.9rem; max-width:92vw; text-align:center;
+         box-shadow:0 10px 30px rgba(0,0,0,0.5); display:none;}
+  #aviso.ok{background:var(--ok); color:#06131a; display:block;}
+  #aviso.mal{background:var(--mal); color:#fff; display:block;}
+  #aviso.info{background:var(--panel); color:var(--white); border:1px solid var(--line); display:block;}
+  .vacio{text-align:center; color:var(--muted); padding:50px 20px;}
+  .nota{color:var(--muted); font-size:0.82rem; line-height:1.6; margin:18px 0 40px;}
+  @media (max-width:560px){
+    .prod{grid-template-columns:72px 1fr; gap:10px;}
+    .foto{width:72px; height:72px;}
+    .barra h1{font-size:1.25rem; width:100%; margin-bottom:2px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="login">
+  <form class="login-caja" onsubmit="entrar(event)">
+    <img src="img/logo.webp" alt="">
+    <h1>Panel Weymar</h1>
+    <p>Ingresá la contraseña para administrar el catálogo.</p>
+    <input class="campo" type="password" id="pass" placeholder="Contraseña" autocomplete="current-password" required>
+    <button class="btn btn-ancho" id="btn-entrar" type="submit">Entrar</button>
+  </form>
+</div>
+
+<div id="panel" hidden>
+  <header>
+    <div class="wrap barra">
+      <h1>Catálogo</h1>
+      <span class="pendiente" id="pendiente"></span>
+      <button class="btn btn-borde" onclick="agregarProducto()">+ Producto</button>
+      <button class="btn" id="btn-guardar" onclick="guardar()" disabled>Guardar cambios</button>
+      <button class="btn btn-borde" onclick="salir()">Salir</button>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="herramientas">
+      <input class="campo" id="buscar" placeholder="Buscar por nombre o marca…" oninput="pintar()">
+      <select class="campo" id="filtro" onchange="pintar()">
+        <option value="">Todas las categorías</option>
+        <option value="creatina">Creatinas</option>
+        <option value="proteinas">Proteínas</option>
+        <option value="pre">Pre-entrenos</option>
+        <option value="salud">Salud y Bienestar</option>
+        <option value="barritas">Dulces Fit</option>
+      </select>
+      <select class="campo" id="soloStock" onchange="pintar()">
+        <option value="">Con y sin stock</option>
+        <option value="sin">Solo sin stock</option>
+        <option value="bajo">Stock bajo (3 o menos)</option>
+      </select>
+    </div>
+
+    <div id="lista"></div>
+
+    <p class="nota">
+      Los cambios se guardan todos juntos con <b>Guardar cambios</b>. Después de guardar, la web tarda
+      alrededor de 30 segundos en mostrarlos, porque se vuelve a publicar sola.<br>
+      Poné el stock en <b>0</b> para que un producto aparezca como "Sin stock" sin borrarlo.
+    </p>
+  </div>
+</div>
+
+<div id="aviso"></div>
+
+<script>
+  let productos = [];
+  let guardado = "";          // copia de referencia para saber si hay cambios sin guardar
+  let subiendoFotos = 0;
+
+  const $ = (id) => document.getElementById(id);
+  const clave = () => sessionStorage.getItem("weymar_pass") || "";
+
+  function avisar(texto, tipo = "info", ms = 3500) {
+    const a = $("aviso");
+    a.textContent = texto;
+    a.className = tipo;
+    clearTimeout(avisar._t);
+    if (ms) avisar._t = setTimeout(() => { a.className = ""; }, ms);
+  }
+
+  async function pedir(ruta, cuerpo) {
+    const r = await fetch(ruta, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(Object.assign({ password: clave() }, cuerpo)),
+    });
+    const data = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(data.error || ("Error " + r.status));
+    return data;
+  }
+
+  // ---------- Sesión ----------
+  async function entrar(e) {
+    e.preventDefault();
+    const btn = $("btn-entrar");
+    btn.disabled = true;
+    btn.textContent = "Verificando…";
+    sessionStorage.setItem("weymar_pass", $("pass").value);
+    try {
+      await pedir("/api/login", {});
+      $("login").hidden = true;
+      $("panel").hidden = false;
+      await cargar();
+    } catch (err) {
+      sessionStorage.removeItem("weymar_pass");
+      avisar(err.message, "mal", 6000);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Entrar";
+    }
+  }
+
+  function salir() {
+    if (hayCambios() && !confirm("Tenés cambios sin guardar. ¿Salir igual?")) return;
+    sessionStorage.removeItem("weymar_pass");
+    location.reload();
+  }
+
+  // ---------- Datos ----------
+  async function cargar() {
+    avisar("Cargando catálogo…", "info", 0);
+    try {
+      const r = await fetch("/api/productos", { cache: "no-store" });
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.error || ("Error " + r.status));
+      productos = data.productos || [];
+      guardado = JSON.stringify(productos);
+      pintar();
+      avisar(productos.length + " productos cargados", "ok");
+    } catch (err) {
+      avisar("No pude cargar el catálogo: " + err.message, "mal", 0);
+    }
+  }
+
+  const hayCambios = () => JSON.stringify(productos) !== guardado;
+
+  function marcar() {
+    const cambios = hayCambios();
+    $("btn-guardar").disabled = !cambios || subiendoFotos > 0;
+    $("pendiente").textContent = subiendoFotos > 0
+      ? ("Subiendo " + subiendoFotos + " foto(s)…")
+      : (cambios ? "Cambios sin guardar" : "");
+  }
+
+  function editar(id, campo, valor) {
+    const p = productos.find((x) => x.id === id);
+    if (!p) return;
+    p[campo] = (campo === "price" || campo === "stock")
+      ? Math.max(0, Math.round(Number(valor) || 0))
+      : valor;
+    if (campo === "stock") pintar(); else marcar();
+  }
+
+  // ---------- Pintado ----------
+  function pintar() {
+    const texto = $("buscar").value.trim().toLowerCase();
+    const cat = $("filtro").value;
+    const modo = $("soloStock").value;
+
+    const visibles = productos.filter((p) => {
+      if (cat && p.cat !== cat) return false;
+      if (modo === "sin" && Number(p.stock) !== 0) return false;
+      if (modo === "bajo" && Number(p.stock) > 3) return false;
+      if (texto && !((p.name + " " + p.brand).toLowerCase().includes(texto))) return false;
+      return true;
+    });
+
+    $("lista").innerHTML = visibles.length
+      ? visibles.map(fila).join("")
+      : '<div class="vacio">No hay productos que coincidan con el filtro.</div>';
+    marcar();
+  }
+
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  function opcionesCat(sel) {
+    const cats = [["creatina","Creatinas"],["proteinas","Proteínas"],["pre","Pre-entrenos"],["salud","Salud y Bienestar"],["barritas","Dulces Fit"]];
+    return cats.map((c) => '<option value="' + c[0] + '"' + (c[0] === sel ? " selected" : "") + ">" + c[1] + "</option>").join("");
+  }
+
+  function fila(p) {
+    const agotado = Number(p.stock) === 0;
+    return '' +
+    '<div class="prod' + (agotado ? " agotado" : "") + '">' +
+      '<div class="foto">' +
+        (p.image ? '<img src="' + esc(p.image) + '" alt="">' : '<span class="vacia">sin foto</span>') +
+        '<label>cambiar<input type="file" accept="image/*" onchange="subirFoto(\'' + p.id + '\', this)"></label>' +
+      '</div>' +
+      '<div class="campos">' +
+        '<label class="ancho">Nombre' +
+          '<input class="campo" value="' + esc(p.name) + '" oninput="editar(\'' + p.id + '\',\'name\',this.value)">' +
+        '</label>' +
+        '<label>Marca' +
+          '<input class="campo" value="' + esc(p.brand) + '" oninput="editar(\'' + p.id + '\',\'brand\',this.value)">' +
+        '</label>' +
+        '<label>Categoría' +
+          '<select class="campo" onchange="editar(\'' + p.id + '\',\'cat\',this.value)">' + opcionesCat(p.cat) + '</select>' +
+        '</label>' +
+        '<label>Precio' +
+          '<input class="campo" type="number" min="0" step="100" value="' + (Number(p.price) || 0) + '" oninput="editar(\'' + p.id + '\',\'price\',this.value)">' +
+        '</label>' +
+        '<label>Stock' +
+          '<input class="campo" type="number" min="0" step="1" value="' + (Number(p.stock) || 0) + '" oninput="editar(\'' + p.id + '\',\'stock\',this.value)">' +
+        '</label>' +
+        '<label class="ancho">Descripción' +
+          '<input class="campo" value="' + esc(p.desc) + '" oninput="editar(\'' + p.id + '\',\'desc\',this.value)">' +
+        '</label>' +
+        '<div class="acciones">' +
+          (agotado
+            ? '<span class="etiqueta-agotado">Sin stock</span><button class="chip" onclick="editar(\'' + p.id + '\',\'stock\',10)">Reponer 10</button>'
+            : '<button class="chip" onclick="editar(\'' + p.id + '\',\'stock\',0)">Marcar sin stock</button>') +
+          '<button class="chip" onclick="alternarOferta(\'' + p.id + '\')">' + (p.offer ? "✓ En oferta" : "Marcar oferta") + '</button>' +
+          '<button class="chip borrar" onclick="borrar(\'' + p.id + '\')">Borrar</button>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }
+
+  function alternarOferta(id) {
+    const p = productos.find((x) => x.id === id);
+    if (!p) return;
+    if (p.offer) delete p.offer; else p.offer = true;
+    pintar();
+  }
+
+  function borrar(id) {
+    const p = productos.find((x) => x.id === id);
+    if (!p) return;
+    if (!confirm('¿Borrar "' + p.name + '"?\n\nSe puede recuperar desde el historial de GitHub.')) return;
+    productos = productos.filter((x) => x.id !== id);
+    pintar();
+  }
+
+  function agregarProducto() {
+    const name = prompt("Nombre del producto:");
+    if (!name || !name.trim()) return;
+    const base = name.toLowerCase().normalize("NFD").replace(new RegExp("[\u0300-\u036f]", "g"), "")
+      .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 50) || "producto";
+    let id = base, n = 2;
+    while (productos.some((p) => p.id === id)) id = base + "-" + (n++);
+    productos.unshift({
+      id: id, cat: $("filtro").value || "creatina", brand: "",
+      name: name.trim(), desc: "", price: 0, stock: 0, image: "",
+    });
+    $("buscar").value = "";
+    $("soloStock").value = "";
+    pintar();
+    avisar("Producto creado. Completá los datos, subí la foto y guardá.", "ok", 5000);
+  }
+
+  // ---------- Fotos ----------
+  // Reducimos la foto en el navegador antes de mandarla: entra mucho mas rapido
+  // y el catalogo no se llena de imagenes de 4 MB sacadas del celular.
+  function achicar(file) {
+    return new Promise((resolve, reject) => {
+      const lector = new FileReader();
+      lector.onerror = () => reject(new Error("No pude leer el archivo"));
+      lector.onload = () => {
+        const im = new Image();
+        im.onerror = () => reject(new Error("El navegador no puede abrir ese formato. Probá con JPG o PNG."));
+        im.onload = () => {
+          const lado = 800;
+          const escala = Math.min(1, lado / Math.max(im.width, im.height));
+          const c = document.createElement("canvas");
+          c.width = Math.round(im.width * escala);
+          c.height = Math.round(im.height * escala);
+          c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+          let url = c.toDataURL("image/webp", 0.82);
+          if (url.indexOf("data:image/webp") !== 0) url = c.toDataURL("image/jpeg", 0.85); // Safari viejo
+          resolve(url);
+        };
+        im.src = lector.result;
+      };
+      lector.readAsDataURL(file);
+    });
+  }
+
+  async function subirFoto(id, input) {
+    const file = input.files && input.files[0];
+    input.value = "";
+    if (!file) return;
+    subiendoFotos++;
+    marcar();
+    avisar("Procesando la foto…", "info", 0);
+    try {
+      const dataUrl = await achicar(file);
+      const r = await pedir("/api/imagen", { id: id, dataUrl: dataUrl });
+      const p = productos.find((x) => x.id === id);
+      if (p) p.image = r.image;
+      pintar();
+      avisar("Foto subida (" + Math.round(r.bytes / 1024) + " KB). Acordate de guardar.", "ok");
+    } catch (err) {
+      avisar("La foto no se subió: " + err.message, "mal", 7000);
+    } finally {
+      subiendoFotos--;
+      marcar();
+    }
+  }
+
+  // ---------- Guardar ----------
+  async function guardar() {
+    $("btn-guardar").disabled = true;
+    avisar("Guardando…", "info", 0);
+    try {
+      const r = await pedir("/api/productos", { productos: productos });
+      guardado = JSON.stringify(productos);
+      avisar("Guardado: " + r.total + " productos. En ~30 segundos se ve en la web.", "ok", 6000);
+    } catch (err) {
+      avisar(err.message, "mal", 9000);
+    } finally {
+      marcar();
+    }
+  }
+
+  window.addEventListener("beforeunload", (e) => {
+    if (hayCambios()) { e.preventDefault(); e.returnValue = ""; }
+  });
+</script>
+</body>
+</html>
