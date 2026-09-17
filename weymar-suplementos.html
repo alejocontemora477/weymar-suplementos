@@ -398,6 +398,35 @@
     background:var(--panel); color:var(--white); cursor:pointer; font-size:0.9rem;
   }
   .drawer-foot{padding:20px 24px; border-top:1px solid var(--line);}
+  /* Datos que completa el cliente antes de mandar el pedido */
+  .datos-pedido{display:none; margin-bottom:18px;}
+  .datos-pedido.show{display:block;}
+  .dato-label{
+    display:block; color:var(--muted); font-size:0.78rem; font-weight:600;
+    text-transform:uppercase; letter-spacing:0.06em; margin-bottom:8px;
+  }
+  .dato-campo{
+    width:100%; background:var(--bg); color:var(--white);
+    border:1px solid var(--line); border-radius:6px;
+    padding:11px 13px; font-family:inherit; font-size:0.95rem;
+  }
+  .dato-campo::placeholder{color:#5c7080;}
+  .dato-campo:focus{outline:none; border-color:var(--celeste);}
+  .dato-campo.falta, .pago-opciones.falta .pago-btn{border-color:var(--rojo);}
+  .pago-opciones{display:flex; gap:10px;}
+  .pago-btn{
+    flex:1; background:transparent; color:var(--white);
+    border:1px solid var(--line); border-radius:6px;
+    padding:11px 8px; font-family:inherit; font-size:0.92rem; font-weight:600;
+    cursor:pointer; transition:border-color .15s, background .15s;
+  }
+  .pago-btn:hover{border-color:var(--celeste);}
+  .pago-btn.active{background:var(--celeste); color:#06131a; border-color:var(--celeste);}
+  .dato-error{
+    display:none; color:var(--rojo); font-size:0.8rem; margin-top:7px;
+  }
+  .dato-error.show{display:block;}
+  .datos-pedido > .dato-label:not(:first-child){margin-top:16px;}
   .total-row{display:flex; justify-content:space-between; margin-bottom:16px; font-family:'Barlow Condensed'; font-size:1.3rem;}
   .whatsapp-btn{
     width:100%; background:var(--celeste); color:#06131a; border:none;
@@ -598,6 +627,19 @@
   </div>
   <div class="drawer-items" id="drawer-items"></div>
   <div class="drawer-foot">
+    <div class="datos-pedido" id="datos-pedido">
+      <label class="dato-label" for="cliente-nombre">Tu nombre</label>
+      <input class="dato-campo" id="cliente-nombre" type="text" autocomplete="name"
+             placeholder="Nombre y apellido" maxlength="60" oninput="validarDatos()">
+      <span class="dato-error" id="error-nombre">Poné tu nombre para poder armar el pedido.</span>
+
+      <span class="dato-label">Cómo vas a pagar</span>
+      <div class="pago-opciones">
+        <button type="button" class="pago-btn" data-pago="Efectivo" onclick="pickPago(this)">Efectivo</button>
+        <button type="button" class="pago-btn" data-pago="Transferencia" onclick="pickPago(this)">Transferencia</button>
+      </div>
+      <span class="dato-error" id="error-pago">Elegí un método de pago.</span>
+    </div>
     <div class="total-row"><span>Total</span><span id="cart-total">$0</span></div>
     <button class="whatsapp-btn" id="checkout-btn" onclick="checkoutWhatsapp()">Finalizar por WhatsApp</button>
   </div>
@@ -807,6 +849,9 @@
     const totalCount = keys.reduce((sum, k) => sum + cart[k], 0);
     countEl.textContent = totalCount;
 
+    // Los datos del cliente solo tienen sentido con algo en el carrito.
+    document.getElementById("datos-pedido").classList.toggle("show", keys.length > 0);
+
     if(keys.length === 0){
       itemsWrap.innerHTML = `<div class="cart-empty-msg">Todavía no agregaste productos.</div>`;
       document.getElementById("cart-total").textContent = "$0";
@@ -840,6 +885,44 @@
     document.getElementById("checkout-btn").disabled = false;
   }
 
+  // Datos del cliente: nombre y forma de pago. Se piden en el carrito y
+  // viajan en el mensaje de WhatsApp junto con el pedido.
+  function pickPago(btn){
+    const elegido = btn.classList.contains("active");
+    btn.parentElement.querySelectorAll(".pago-btn").forEach(b => b.classList.remove("active"));
+    // Volver a tocar el mismo boton lo deselecciona, por si se equivocaron.
+    if(!elegido) btn.classList.add("active");
+    validarDatos();
+  }
+
+  function pagoElegido(){
+    const activo = document.querySelector(".pago-btn.active");
+    return activo ? activo.dataset.pago : "";
+  }
+
+  function nombreCliente(){
+    return document.getElementById("cliente-nombre").value.trim();
+  }
+
+  // Marca lo que falta y devuelve si el pedido se puede mandar.
+  function validarDatos(mostrarErrores){
+    const campo = document.getElementById("cliente-nombre");
+    const opciones = document.querySelector(".pago-opciones");
+    const faltaNombre = !nombreCliente();
+    const faltaPago = !pagoElegido();
+
+    // Mientras escriben solo sacamos avisos, no los agregamos.
+    campo.classList.toggle("falta", mostrarErrores && faltaNombre);
+    opciones.classList.toggle("falta", mostrarErrores && faltaPago);
+    document.getElementById("error-nombre").classList.toggle("show", mostrarErrores && faltaNombre);
+    document.getElementById("error-pago").classList.toggle("show", mostrarErrores && faltaPago);
+
+    if(!faltaNombre) { campo.classList.remove("falta"); document.getElementById("error-nombre").classList.remove("show"); }
+    if(!faltaPago) { opciones.classList.remove("falta"); document.getElementById("error-pago").classList.remove("show"); }
+
+    return !faltaNombre && !faltaPago;
+  }
+
   function toggleCart(open){
     document.getElementById("drawer").classList.toggle("open", open);
     document.getElementById("overlay").classList.toggle("open", open);
@@ -848,7 +931,13 @@
   function checkoutWhatsapp(){
     const keys = Object.keys(cart);
     if(keys.length === 0) return;
-    let lines = ["Hola! Quiero hacer este pedido:"];
+    // Sin nombre y forma de pago no sale el mensaje: marcamos lo que falta.
+    if(!validarDatos(true)){
+      const campo = document.getElementById("cliente-nombre");
+      if(!nombreCliente()) campo.focus();
+      return;
+    }
+    let lines = [`Hola! Soy ${nombreCliente()} y quiero hacer este pedido:`];
     let total = 0;
     let hasConsultar = false;
     keys.forEach(key => {
@@ -865,6 +954,7 @@
       }
     });
     lines.push(`Total${hasConsultar ? " (parcial, falta cotizar algunos items)" : ""}: ${formatPrice(total)}`);
+    lines.push(`Forma de pago: ${pagoElegido()}`);
     const text = encodeURIComponent(lines.join("\n"));
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   }
