@@ -4,6 +4,9 @@ const ARCHIVO = "productos.json";
 const CATEGORIAS = ["creatina", "proteinas", "pre", "salud", "barritas"];
 const MAX_PRODUCTOS = 500;
 const MAX_SABORES = 12;
+const MAX_FOTOS = 6;
+// Solo rutas locales dentro de img/: evita incrustar imagenes de terceros.
+const RUTA_IMAGEN = /^img\/[A-Za-z0-9._-]+$/;
 
 // Valida y normaliza lo que manda el admin. Nunca confiamos en el cliente:
 // si algo no cierra, cortamos antes de escribir en el repo.
@@ -48,9 +51,25 @@ function revisar(lista) {
     }
 
     const image = String(p.image || "").trim();
-    // Solo rutas locales dentro de img/: evita incrustar imagenes de terceros.
-    if (image && !/^img\/[A-Za-z0-9._-]+$/.test(image)) {
+    if (image && !RUTA_IMAGEN.test(image)) {
       return { error: `Imagen invalida en "${id}": debe ser un archivo dentro de img/` };
+    }
+
+    // Fotos extra que se muestran como miniaturas en la ficha del producto.
+    let gallery = null;
+    if (p.gallery != null) {
+      if (!Array.isArray(p.gallery)) return { error: `Galeria invalida en "${id}": debe ser una lista` };
+      if (p.gallery.length > MAX_FOTOS) {
+        return { error: `Demasiadas fotos en "${id}": maximo ${MAX_FOTOS}` };
+      }
+      gallery = [];
+      for (const g of p.gallery) {
+        const foto = String(g == null ? "" : g).trim();
+        if (!RUTA_IMAGEN.test(foto)) {
+          return { error: `Foto invalida en "${id}": debe ser un archivo dentro de img/` };
+        }
+        if (!gallery.includes(foto)) gallery.push(foto);
+      }
     }
 
     // Variantes de sabor. Es opcional: si no viene, el producto no tiene sabores.
@@ -75,6 +94,7 @@ function revisar(lista) {
     const limpio = { id, cat, brand, name, desc, price: Math.round(price), stock, image };
     if (p.offer === true) limpio.offer = true;
     if (flavors && flavors.length) limpio.flavors = flavors;
+    if (gallery && gallery.length) limpio.gallery = gallery;
     limpios.push(limpio);
   }
   return { productos: limpios };

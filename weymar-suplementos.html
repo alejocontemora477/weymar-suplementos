@@ -280,9 +280,13 @@
     display:flex; align-items:center; justify-content:center;
   }
   .modal-close:hover{background:var(--celeste); color:#06131a; border-color:var(--celeste);}
-  .modal-media{
+  .modal-media-col{
     background:linear-gradient(135deg, #0c1a22, #06131a);
     border-right:1px solid var(--line);
+    display:flex; flex-direction:column; padding-bottom:12px;
+  }
+  .modal-media{
+    flex:1;
     display:flex; align-items:center; justify-content:center;
     padding:18px; min-height:340px;
   }
@@ -303,6 +307,19 @@
     font-family:'Barlow Condensed', sans-serif; font-size:2.4rem;
     color:var(--white); line-height:1; margin-top:6px;
   }
+  /* Galeria del modal: foto principal + miniaturas */
+  .modal-thumbs{
+    display:flex; gap:8px; padding:10px 12px 0; flex-wrap:wrap;
+  }
+  .modal-thumb{
+    width:56px; height:56px; border-radius:8px; overflow:hidden;
+    border:1px solid var(--line); background:var(--bg); cursor:pointer;
+    padding:0; flex:0 0 auto; transition:border-color .15s;
+  }
+  .modal-thumb img{width:100%; height:100%; object-fit:contain; padding:3px;}
+  .modal-thumb:hover{border-color:var(--celeste);}
+  .modal-thumb.active{border-color:var(--celeste); box-shadow:0 0 0 1px var(--celeste);}
+
   /* Selector de sabores (productos con variantes) */
   .modal-flavors{display:none; margin-top:18px;}
   .modal-flavors.show{display:block;}
@@ -340,7 +357,8 @@
       grid-template-columns:1fr; max-width:none;
       max-height:100vh; height:100%; border:none; border-radius:0;
     }
-    .modal-media{border-right:none; border-bottom:1px solid var(--line); min-height:0; padding:20px;}
+    .modal-media-col{border-right:none; border-bottom:1px solid var(--line);}
+    .modal-media{min-height:0; padding:20px;}
     .modal-media img{max-height:44vh;}
     .modal-body{padding:24px 20px 28px;}
     .modal-body h3{font-size:1.6rem;}
@@ -556,7 +574,10 @@
 <div class="modal" id="product-modal" onclick="if(event.target === this) closeProduct()">
   <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-name">
     <button class="modal-close" onclick="closeProduct()" aria-label="Cerrar">&times;</button>
-    <div class="modal-media" id="modal-media"></div>
+    <div class="modal-media-col">
+      <div class="modal-media" id="modal-media"></div>
+      <div class="modal-thumbs" id="modal-thumbs"></div>
+    </div>
     <div class="modal-body">
       <div id="modal-badge"></div>
       <div class="brand-tag" id="modal-brand"></div>
@@ -616,6 +637,13 @@
   function flavorsOf(p){
     return Array.isArray(p.flavors) && p.flavors.length ? p.flavors : [];
   }
+
+  // Fotos del producto: la principal primero y despues las de "gallery"
+  // (normalmente la foto vieja de catalogo, que queda como referencia).
+  function imagesOf(p){
+    const extra = Array.isArray(p.gallery) ? p.gallery.filter(Boolean) : [];
+    return [p.image, ...extra].filter(Boolean);
+  }
   function cartKey(id, flavor){
     return flavor ? id + "::" + flavor : id;
   }
@@ -667,9 +695,17 @@
   function openProduct(id){
     const p = PRODUCTS.find(x => x.id === id);
     if(!p) return;
-    document.getElementById("modal-media").innerHTML = p.image
-      ? `<img src="${p.image}" alt="${p.name}">`
+    const fotos = imagesOf(p);
+    document.getElementById("modal-media").innerHTML = fotos.length
+      ? `<img src="${fotos[0]}" alt="${p.name}" id="modal-main-img">`
       : dumbbellIcon();
+    // Con una sola foto no tiene sentido mostrar miniaturas.
+    document.getElementById("modal-thumbs").innerHTML = fotos.length > 1
+      ? fotos.map((src, i) => `
+          <button type="button" class="modal-thumb${i === 0 ? " active" : ""}" onclick="pickImage(this, '${src}')" aria-label="Ver foto ${i + 1}">
+            <img src="${src}" alt="" loading="lazy">
+          </button>`).join("")
+      : "";
     document.getElementById("modal-badge").innerHTML = p.offer
       ? '<div class="offer-badge">Súper oferta</div>'
       : '';
@@ -705,6 +741,13 @@
   function closeProduct(){
     document.getElementById("product-modal").classList.remove("open");
     document.body.style.overflow = "";
+  }
+
+  function pickImage(btn, src){
+    const img = document.getElementById("modal-main-img");
+    if(img) img.src = src;
+    btn.parentElement.querySelectorAll(".modal-thumb").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
   }
 
   function pickFlavor(btn){
@@ -845,7 +888,7 @@
   cargarCatalogo();
 </script>
 
-<a href="https://wa.me/5492914411785?text=Hola!%20Tengo%20una%20consulta." target="_blank" class="wa-float" aria-label="Escribinos por WhatsApp">
+<a href="https://wa.me/5492914411785?text=Hola!%20Vengo%20de%20la%20Web%20de%20Suplementos%20Weymar%20%F0%9F%99%8C" target="_blank" class="wa-float" aria-label="Escribinos por WhatsApp">
   <svg viewBox="0 0 32 32" fill="#fff" xmlns="http://www.w3.org/2000/svg">
     <path d="M16.004 2.667C8.63 2.667 2.67 8.627 2.67 16c0 2.42.635 4.79 1.842 6.877L2.5 29.333l6.62-1.978A13.28 13.28 0 0016.004 29.33c7.373 0 13.333-5.96 13.333-13.333 0-7.373-5.96-13.33-13.333-13.33zm0 24.14a10.77 10.77 0 01-5.49-1.507l-.394-.234-3.93 1.174 1.19-3.83-.256-.394a10.76 10.76 0 01-1.646-5.716c0-5.96 4.85-10.807 10.813-10.807 5.96 0 10.807 4.847 10.807 10.807 0 5.963-4.847 10.807-10.807 10.807zm5.923-8.09c-.324-.163-1.917-.946-2.214-1.053-.297-.108-.514-.163-.73.163-.216.325-.838 1.053-1.028 1.27-.19.216-.378.243-.702.08-.324-.162-1.368-.504-2.606-1.607-.963-.859-1.614-1.92-1.803-2.245-.19-.325-.02-.5.142-.663.146-.145.324-.378.487-.567.163-.19.216-.325.324-.542.108-.216.054-.406-.027-.568-.081-.163-.73-1.76-1-2.412-.263-.632-.53-.547-.73-.557l-.622-.011c-.216 0-.567.081-.865.406-.297.325-1.135 1.108-1.135 2.703 0 1.595 1.162 3.136 1.324 3.352.163.216 2.29 3.497 5.55 4.905.775.334 1.38.534 1.852.684.778.247 1.486.212 2.046.129.624-.093 1.917-.784 2.187-1.541.27-.758.27-1.407.19-1.542-.081-.135-.297-.216-.622-.379z"/>
   </svg>
