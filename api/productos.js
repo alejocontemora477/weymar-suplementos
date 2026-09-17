@@ -3,6 +3,7 @@ const { passwordOk, faltaConfig, leerArchivo, escribirArchivo } = require("./_gi
 const ARCHIVO = "productos.json";
 const CATEGORIAS = ["creatina", "proteinas", "pre", "salud", "barritas"];
 const MAX_PRODUCTOS = 500;
+const MAX_SABORES = 12;
 
 // Valida y normaliza lo que manda el admin. Nunca confiamos en el cliente:
 // si algo no cierra, cortamos antes de escribir en el repo.
@@ -52,8 +53,28 @@ function revisar(lista) {
       return { error: `Imagen invalida en "${id}": debe ser un archivo dentro de img/` };
     }
 
+    // Variantes de sabor. Es opcional: si no viene, el producto no tiene sabores.
+    let flavors = null;
+    if (p.flavors != null) {
+      if (!Array.isArray(p.flavors)) return { error: `Sabores invalidos en "${id}": debe ser una lista` };
+      if (p.flavors.length > MAX_SABORES) {
+        return { error: `Demasiados sabores en "${id}": maximo ${MAX_SABORES}` };
+      }
+      const vistosSabor = new Set();
+      flavors = [];
+      for (const s of p.flavors) {
+        const sabor = String(s == null ? "" : s).trim();
+        if (!sabor || sabor.length > 60) return { error: `Sabor invalido en "${id}"` };
+        const clave = sabor.toLowerCase();
+        if (vistosSabor.has(clave)) return { error: `Sabor repetido en "${id}": "${sabor}"` };
+        vistosSabor.add(clave);
+        flavors.push(sabor);
+      }
+    }
+
     const limpio = { id, cat, brand, name, desc, price: Math.round(price), stock, image };
     if (p.offer === true) limpio.offer = true;
+    if (flavors && flavors.length) limpio.flavors = flavors;
     limpios.push(limpio);
   }
   return { productos: limpios };

@@ -13,10 +13,11 @@
       {
          "brand" : "Ena Sport",
          "cat" : "creatina",
-         "desc" : "Fórmula de alta pureza, con sabor. 300g.",
-         "id" : "creatina-enasport",
-         "image" : "img/creatina-enasport.webp",
-         "name" : "Creatina Monohidratada 300g - Sabor Fruit Punch",
+         "desc" : "Creatina monohidrato micronizada de alta pureza, 5g por porción. Libre de gluten. Disponible sin sabor (60 ingestas) y fruit punch (46 ingestas).",
+         "flavors" : [ "Sin sabor", "Fruit Punch" ],
+         "id" : "creatina-ena",
+         "image" : "img/creatina-ena.webp",
+         "name" : "Creatina Monohidratada Micronizada 300g",
          "price" : 28000,
          "stock" : 10
       },
@@ -123,10 +124,11 @@
       {
          "brand" : "Ena Sport",
          "cat" : "proteinas",
-         "desc" : "Proteína en polvo. Presentación y sabor a confirmar.",
+         "desc" : "Blend de isolate y concentrado: 25g de proteína y 6g de BCAA por porción. 30 servicios. Elegí tu sabor.",
+         "flavors" : [ "Chocolate", "Vainilla", "Cookies and Cream" ],
          "id" : "proteina-ena",
          "image" : "img/proteina-ena.webp",
-         "name" : "Proteína Ena",
+         "name" : "Truemade Whey Protein 930g",
          "price" : 85000,
          "stock" : 10
       },
@@ -188,7 +190,7 @@
          "image" : "img/accesorio-shaker-star.webp",
          "name" : "Shaker Star Nutrition",
          "price" : 0,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
