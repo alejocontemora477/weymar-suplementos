@@ -158,16 +158,6 @@
          "stock" : 10
       },
       {
-         "brand" : "Molé",
-         "cat" : "barritas",
-         "desc" : "12g de proteína a base de soja y maní, con coco rallado, vitamina B12 y magnesio.",
-         "id" : "barrita-mole",
-         "image" : "img/barrita-mole.webp",
-         "name" : "Barra Proteica Coco y Pasta de Maní 45g",
-         "price" : 2000,
-         "stock" : 10
-      },
-      {
          "brand" : "Mervick",
          "cat" : "barritas",
          "desc" : "Barrita de proteína sabor chocolate amargo, 40g.",
