@@ -79,6 +79,9 @@
     transition:color .15s ease;
   }
   nav a:hover{color:var(--white);}
+  .nav-instagram{display:inline-flex; align-items:center; gap:7px;}
+  .nav-instagram svg{width:18px; height:18px; flex:0 0 auto;}
+  nav a.nav-instagram:hover{color:var(--celeste);}
   .cart-btn{
     position:relative;
     background:var(--celeste);
@@ -129,9 +132,6 @@
     max-width:none; margin:-8% 0 0; /* la imagen del logo tiene aire transparente abajo */
   }
   .hero .hero-tagline span{color:var(--celeste);}
-  .btn-instagram{display:inline-flex; align-items:center; gap:8px;}
-  .btn-instagram svg{width:18px; height:18px; flex:0 0 auto;}
-  .btn-instagram:hover{border-color:var(--celeste); color:var(--celeste);}
   .kicker{color:var(--celeste); font-size:0.95rem; font-weight:600; margin-bottom:14px;}
   .hero h1{font-size:clamp(2.6rem, 6vw, 4.4rem); margin-bottom:20px;}
   .hero h1 span{color:var(--celeste);}
@@ -508,7 +508,12 @@
 
   @media (max-width: 860px){
     .grid{grid-template-columns:repeat(2, 1fr);}
-    nav{display:none;}
+    /* En pantallas chicas el menu se reduce al icono de Instagram */
+    nav{margin-left:auto; margin-right:14px;}
+    nav a:not(.nav-instagram){display:none;}
+    .nav-instagram span{display:none;}
+    .nav-instagram svg{width:24px; height:24px;}
+    nav a.nav-instagram{color:var(--white);}
     .stat-row b{font-size:2.2rem;}
     .hero-inner{gap:28px;}
   }
@@ -540,6 +545,10 @@
     <nav>
       <a href="#catalogo">Catálogo</a>
       <a href="#contacto">Contacto</a>
+      <a href="https://www.instagram.com/suplementosweymar/" target="_blank" rel="noopener" class="nav-instagram" aria-label="Instagram de Weymar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
+        <span>Instagram</span>
+      </a>
     </nav>
     <button class="cart-btn" onclick="toggleCart(true)">
       Carrito <span class="cart-count" id="cart-count">0</span>
@@ -555,12 +564,7 @@
       <p>Todos los suplementos que estás buscando, de las mejores marcas. Atención personalizada y contestamos rápido. Envíos a toda Argentina.</p>
       <div class="hero-actions">
         <a href="#catalogo" class="btn-primary">Ver catálogo</a>
-        <a href="https://wa.me/5492914411785" target="_blank" class="btn-ghost">Escribinos directo</a>
-        <a href="https://www.instagram.com/suplementosweymar/" target="_blank" rel="noopener" class="btn-ghost btn-instagram" aria-label="Seguinos en Instagram">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.6" fill="currentColor"/></svg>
-          Instagram
-        </a>
-      </div>
+        <a href="https://wa.me/5492914411785" target="_blank" class="btn-ghost">Escribinos directo</a>      </div>
       <div class="stat-stack">
         <div class="stat-row"><b>+1000</b><span>clientes ya confiaron en nosotros</span></div>
         <div class="stat-row"><b>100%</b><span>atención personalizada por WhatsApp</span></div>
