@@ -5,6 +5,7 @@ const CATEGORIAS = ["creatina", "proteinas", "pre", "salud", "barritas", "oferta
 const MAX_PRODUCTOS = 500;
 const MAX_SABORES = 12;
 const MAX_FOTOS = 6;
+const MAX_COMBO = 6;
 // Solo rutas locales dentro de img/: evita incrustar imagenes de terceros.
 const RUTA_IMAGEN = /^img\/[A-Za-z0-9._-]+$/;
 
@@ -105,12 +106,37 @@ function revisar(lista) {
       }
     }
 
+    // Combo a eleccion: toma los sabores de otro producto ("comboOf") y se
+    // eligen "comboSize" unidades. Que el producto base exista se revisa al
+    // final, cuando ya se conocen todos los ids.
+    let comboOf = null;
+    let comboSize = null;
+    if (p.comboOf != null && String(p.comboOf).trim() !== "") {
+      comboOf = String(p.comboOf).trim();
+      if (comboOf === id) return { error: `"${id}" no puede ser combo de si mismo` };
+      comboSize = p.comboSize == null ? 2 : Number(p.comboSize);
+      if (!Number.isInteger(comboSize) || comboSize < 2 || comboSize > MAX_COMBO) {
+        return { error: `Cantidad del combo invalida en "${id}": entre 2 y ${MAX_COMBO}` };
+      }
+    }
+
     const limpio = { id, cat, brand, name, desc, price: Math.round(price), stock, image };
     if (p.offer === true) limpio.offer = true;
     if (flavors && flavors.length) limpio.flavors = flavors;
     if (flavorsOut && flavorsOut.length) limpio.flavorsOut = flavorsOut;
     if (gallery && gallery.length) limpio.gallery = gallery;
+    if (comboOf) { limpio.comboOf = comboOf; limpio.comboSize = comboSize; }
     limpios.push(limpio);
+  }
+
+  // El producto base de cada combo tiene que existir, tener sabores y no
+  // ser a su vez un combo.
+  for (const c of limpios) {
+    if (!c.comboOf) continue;
+    const base = limpios.find((x) => x.id === c.comboOf);
+    if (!base) return { error: `El combo "${c.id}" apunta a "${c.comboOf}", que no existe` };
+    if (base.comboOf) return { error: `El combo "${c.id}" apunta a otro combo ("${base.id}")` };
+    if (!base.flavors) return { error: `El combo "${c.id}" apunta a "${base.id}", que no tiene sabores` };
   }
   return { productos: limpios };
 }

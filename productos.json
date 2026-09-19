@@ -15,12 +15,11 @@
          "cat" : "creatina",
          "desc" : "Creatina monohidrato micronizada de alta pureza, 5g por porción. Libre de gluten. Disponible sin sabor (60 ingestas) y fruit punch (46 ingestas).",
          "flavors" : [ "Sin sabor", "Fruit Punch" ],
-         "flavorsOut" : [ "Fruit Punch" ],
          "id" : "creatina-ena",
          "image" : "img/creatina-ena.webp",
          "name" : "Creatina Monohidratada Micronizada 300g",
-         "price" : 28000,
-         "stock" : 2
+         "price" : 26500,
+         "stock" : 6
       },
       {
          "brand" : "One Fit Nutrition",
@@ -131,13 +130,13 @@
          "brand" : "Ena Sport",
          "cat" : "proteinas",
          "desc" : "Blend de isolate y concentrado: 25g de proteína y 6g de BCAA por porción. 30 servicios. Elegí tu sabor.",
-         "flavors" : [ "Chocolate", "Vainilla", "Cookies and Cream" ],
+         "flavors" : [ "Chocolate", "Vainilla", "Frutilla", "Cookies and Cream" ],
          "gallery" : [ "img/proteina-ena-2.webp" ],
          "id" : "proteina-ena",
          "image" : "img/proteina-ena.webp",
          "name" : "Truemade Whey Protein 930g",
          "price" : 85000,
-         "stock" : 3
+         "stock" : 4
       },
       {
          "brand" : "Star Nutrition",
@@ -233,13 +232,15 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "ofertas",
-         "desc" : "Llevate los dos sabores: un Collagen Frutos Rojos y un Collagen Limón de 210g. Comprándolos juntos pagás menos que llevándolos por separado.",
+         "comboOf" : "colageno-star",
+         "comboSize" : 2,
+         "desc" : "Llevate 2 Collagen de 210g del sabor que quieras: dos iguales o uno de cada uno. Comprándolos juntos pagás menos que llevándolos por separado.",
          "id" : "combo-colagenos",
          "image" : "img/combo-colagenos.webp",
-         "name" : "Combo 2 Colágenos 210g - Frutos Rojos + Limón",
+         "name" : "Combo 2 Colágenos 210g a Elección",
          "offer" : true,
          "price" : 40000,
-         "stock" : 0
+         "stock" : 1
       },
       {
          "brand" : "Star Nutrition",
@@ -311,7 +312,7 @@
          "image" : "img/shaker-ena-plus.webp",
          "name" : "Shaker Ena Plus con Compartimientos",
          "price" : 7500,
-         "stock" : 0
+         "stock" : 5
       },
       {
          "brand" : "Ena Sport",

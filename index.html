@@ -187,10 +187,12 @@
   .tab.active{
     background:var(--celeste); color:#06131a; border-color:var(--celeste); font-weight:600;
   }
-  .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:14px;}
+  /* 2 productos por fila: tarjetas grandes para que la foto luzca */
+  .grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
   .card{
-    background:var(--panel); border:1px solid var(--line); border-radius:10px;
-    padding:12px 14px 14px; display:flex; flex-direction:column; gap:9px;
+    background:linear-gradient(180deg, #122029, var(--panel) 55%);
+    border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px 20px; display:flex; flex-direction:column; gap:12px;
     position:relative;
   }
   .card.is-offer{
@@ -222,24 +224,28 @@
   }
   .promo-banner strong{color:var(--celeste);}
   .card-thumb{
-    height:120px; border-radius:8px;
-    background:linear-gradient(135deg, #0c1a22, #06131a);
+    height:320px; border-radius:12px;
+    background:radial-gradient(circle at 50% 45%, rgba(52,198,244,0.16), transparent 62%), linear-gradient(135deg, #0c1a22, #06131a);
     border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
   }
   .card-thumb svg{width:44px; height:44px; opacity:0.85;}
-  .card h3{font-size:1.3rem; text-transform:none; font-weight:700; letter-spacing:0;}
-  .card .brand-tag{color:var(--celeste); font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
-  .card p.desc{color:var(--muted); font-size:0.88rem; flex-grow:1;}
-  .card-foot{display:flex; align-items:center; justify-content:space-between; margin-top:4px;}
-  .price{font-family:'Barlow Condensed'; font-size:1.5rem; color:var(--white);}
+  .card h3{font-size:1.65rem; text-transform:none; font-weight:700; letter-spacing:0; line-height:1.1;}
+  .card .brand-tag{color:var(--celeste); font-size:0.84rem; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
+  .card p.desc{color:var(--muted); font-size:0.95rem; line-height:1.55; flex-grow:1;}
+  .card-foot{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    margin-top:6px; padding-top:14px; border-top:1px solid var(--line);
+  }
+  .price{font-family:'Barlow Condensed'; font-weight:800; font-size:2.2rem; line-height:1; color:var(--celeste);}
+  .card.is-agotado .price{color:var(--muted);}
   .price em{font-style:normal; color:var(--muted); font-size:0.7rem; display:block; text-transform:none; font-family:'Work Sans';}
   .add-btn{
-    background:transparent; border:1px solid var(--celeste); color:var(--celeste);
-    padding:9px 16px; border-radius:6px; font-weight:600; cursor:pointer; font-size:0.86rem;
-    transition:background .15s ease, color .15s ease;
+    background:var(--celeste); border:1px solid var(--celeste); color:#06131a;
+    padding:12px 22px; border-radius:8px; font-weight:700; cursor:pointer; font-size:0.95rem;
+    transition:filter .15s ease, box-shadow .15s ease;
   }
-  .add-btn:hover{background:var(--celeste); color:#06131a;}
+  .add-btn:hover{filter:brightness(1.1); box-shadow:0 6px 18px rgba(52,198,244,0.35);}
   .card.is-agotado .card-thumb{opacity:0.42;}
   .card.is-agotado h3{color:var(--muted);}
   .sin-stock{
@@ -257,8 +263,14 @@
   .empty-panel b{color:var(--white); display:block; margin-bottom:6px; font-family:'Barlow Condensed'; font-size:1.4rem; text-transform:none;}
 
   /* Product modal */
-  .card{cursor:pointer; transition:border-color .15s ease, transform .15s ease;}
-  .card:hover{border-color:var(--celeste); transform:translateY(-2px);}
+  .card{cursor:pointer; transition:border-color .2s ease, transform .2s ease, box-shadow .2s ease;}
+  .card:hover{
+    border-color:var(--celeste); transform:translateY(-4px);
+    box-shadow:0 14px 34px rgba(0,0,0,0.45), 0 0 0 1px rgba(52,198,244,0.25);
+  }
+  .card-thumb img{transition:transform .35s ease;}
+  .card:hover .card-thumb img{transform:scale(1.05);}
+  .card.is-agotado:hover .card-thumb img{transform:none;}
   .card:focus-visible{outline:2px solid var(--celeste); outline-offset:3px;}
   .card-thumb{position:relative; overflow:hidden;}
   .zoom-hint{
@@ -358,6 +370,16 @@
     text-transform:uppercase; letter-spacing:0.04em; margin-top:2px;
   }
   .card-flavor-tag.agotado{text-decoration:line-through; opacity:0.55;}
+  /* Combo a eleccion: una fila de sabores por unidad */
+  .flavor-hint{text-transform:none; letter-spacing:0; font-weight:500;}
+  .flavor-row{display:flex; align-items:center; gap:12px;}
+  .flavor-row + .flavor-row{margin-top:10px;}
+  .flavor-row-num{
+    flex:0 0 auto; width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg); border:1px solid var(--line);
+    color:var(--celeste); font-size:0.82rem; font-weight:700;
+  }
   .card-flavors{
     display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;
   }
@@ -507,7 +529,11 @@
   .footer-links a:hover{color:var(--celeste);}
 
   @media (max-width: 860px){
-    .grid{grid-template-columns:repeat(2, 1fr);}
+    .grid{grid-template-columns:repeat(2, 1fr); gap:16px;}
+    .card-thumb{height:250px;}
+    .card h3{font-size:1.4rem;}
+    .price{font-size:1.9rem;}
+    .card-foot{flex-wrap:wrap;}
     /* En pantallas chicas el menu se reduce al icono de Instagram */
     nav{margin-left:auto; margin-right:14px;}
     nav a:not(.nav-instagram){display:none;}
@@ -524,6 +550,7 @@
   }
   @media (max-width: 560px){
     .grid{grid-template-columns:1fr;}
+    .card-thumb{height:300px;}
     .header-inner{padding:12px 16px;}
     .hero{padding:56px 0 40px;}
   }
@@ -709,8 +736,18 @@
 
   // Variantes de sabor: el carrito guarda una linea por sabor, con la clave
   // "id::sabor". Los productos sin variantes siguen usando solo el id.
+  // Combos "a eleccion" ("comboOf"): toman los sabores y los agotados del
+  // producto base, asi el stock por sabor se actualiza en un solo lugar.
+  function baseDe(p){
+    return p.comboOf ? (PRODUCTS.find(x => x.id === p.comboOf) || null) : null;
+  }
+  // Cuantas unidades se eligen: 1 para un producto normal, N para un combo.
+  function unidadesCombo(p){
+    return p.comboOf ? Math.max(2, Number(p.comboSize) || 2) : 1;
+  }
   function flavorsOf(p){
-    return Array.isArray(p.flavors) && p.flavors.length ? p.flavors : [];
+    const src = baseDe(p) || p;
+    return Array.isArray(src.flavors) && src.flavors.length ? src.flavors : [];
   }
 
   // Fotos del producto: la principal primero y despues las de "gallery"
@@ -721,10 +758,33 @@
   }
   // Sabores sin stock ("flavorsOut"): se muestran tachados y no se pueden pedir.
   function flavorAgotado(p, flavor){
-    return Array.isArray(p.flavorsOut) && p.flavorsOut.includes(flavor);
+    const src = baseDe(p) || p;
+    return Array.isArray(src.flavorsOut) && src.flavorsOut.includes(flavor);
   }
   function flavorsDisponibles(p){
     return flavorsOf(p).filter(f => !flavorAgotado(p, f));
+  }
+
+  // En un combo el "sabor" es la combinacion elegida, p. ej. "Limón + Limón".
+  // Se ordena segun la lista de sabores, asi "A + B" y "B + A" son la misma
+  // linea del carrito.
+  const SEP_COMBO = " + ";
+  function normalizarSabor(p, flavor){
+    if(unidadesCombo(p) === 1) return flavor;
+    const orden = flavorsOf(p);
+    return flavor.split(SEP_COMBO)
+      .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
+      .join(SEP_COMBO);
+  }
+  function saborValido(p, flavor){
+    const partes = flavor.split(SEP_COMBO);
+    if(partes.length !== unidadesCombo(p)) return false;
+    return partes.every(s => flavorsOf(p).includes(s) && !flavorAgotado(p, s));
+  }
+  function saborPorDefecto(p){
+    const primero = flavorsDisponibles(p)[0];
+    if(!primero) return "";
+    return Array(unidadesCombo(p)).fill(primero).join(SEP_COMBO);
   }
   function cartKey(id, flavor){
     return flavor ? id + "::" + flavor : id;
@@ -735,11 +795,14 @@
   }
   // "Sin sabor" ya se explica solo: evita que quede "Sabor: Sin sabor".
   function esSinSabor(flavor){ return /^sin sabor/i.test(flavor); }
+  function esCombinacion(flavor){ return flavor.includes(SEP_COMBO); }
   function flavorTag(flavor){
+    if(esCombinacion(flavor)) return "Sabores: " + flavor;
     return esSinSabor(flavor) ? "Sin sabor" : "Sabor: " + flavor;
   }
   function flavorSuffix(flavor){
     if(!flavor) return "";
+    if(esCombinacion(flavor)) return " - sabores " + flavor;
     return esSinSabor(flavor) ? " - sin sabor" : " - sabor " + flavor;
   }
 
@@ -785,7 +848,7 @@
           ${sinStock(p)
             ? '<span class="sin-stock">Sin stock</span>'
             : (flavorsOf(p).length
-                ? `<button class="add-btn" onclick="event.stopPropagation(); openProduct('${p.id}')">Elegir sabor</button>`
+                ? `<button class="add-btn" onclick="event.stopPropagation(); openProduct('${p.id}')">${unidadesCombo(p) > 1 ? "Elegir sabores" : "Elegir sabor"}</button>`
                 : `<button class="add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">${p.price > 0 ? 'Agregar' : 'Consultar'}</button>`)}
         </div>
       </div>
@@ -817,15 +880,24 @@
     const flavors = flavorsOf(p);
     const wrap = document.getElementById("modal-flavors");
     wrap.classList.toggle("show", flavors.length > 0);
-    // Arranca elegido el primer sabor que tenga stock.
+    // Arranca elegido el primer sabor que tenga stock. En un combo hay una
+    // fila de botones por unidad, y se puede repetir el mismo sabor.
     const primero = flavorsDisponibles(p)[0];
-    wrap.innerHTML = flavors.length
-      ? `<div class="flavor-label">Elegí el sabor</div>
-         <div class="flavor-options">${flavors.map(f => flavorAgotado(p, f)
-           ? `<button type="button" class="flavor-btn" disabled data-flavor="${f}">${f}<span class="sin-stock-sabor">Sin stock</span></button>`
-           : `<button type="button" class="flavor-btn${f === primero ? " active" : ""}" data-flavor="${f}" onclick="pickFlavor(this)">${f}</button>`
-         ).join("")}</div>`
-      : "";
+    const unidades = unidadesCombo(p);
+    const filaSabores = () => `<div class="flavor-options">${flavors.map(f => flavorAgotado(p, f)
+      ? `<button type="button" class="flavor-btn" disabled data-flavor="${f}">${f}<span class="sin-stock-sabor">Sin stock</span></button>`
+      : `<button type="button" class="flavor-btn${f === primero ? " active" : ""}" data-flavor="${f}" onclick="pickFlavor(this)">${f}</button>`
+    ).join("")}</div>`;
+    if(!flavors.length){
+      wrap.innerHTML = "";
+    } else if(unidades === 1){
+      wrap.innerHTML = `<div class="flavor-label">Elegí el sabor</div>${filaSabores()}`;
+    } else {
+      wrap.innerHTML = `<div class="flavor-label">Elegí los ${unidades} sabores <span class="flavor-hint">(podés repetir)</span></div>` +
+        Array.from({ length: unidades }, (_, i) =>
+          `<div class="flavor-row"><span class="flavor-row-num">${i + 1}</span>${filaSabores()}</div>`
+        ).join("");
+    }
 
     const btn = document.getElementById("modal-add");
     btn.disabled = sinStock(p);
@@ -858,9 +930,15 @@
     btn.classList.add("active");
   }
 
+  // Un sabor por fila; en un combo se unen con " + ". Si falta elegir en
+  // alguna fila, devuelve vacio y addToCart no agrega nada.
   function selectedFlavor(){
-    const active = document.querySelector("#modal-flavors .flavor-btn.active");
-    return active ? active.dataset.flavor : "";
+    const filas = [...document.querySelectorAll("#modal-flavors .flavor-options")];
+    const elegidos = filas
+      .map(f => f.querySelector(".flavor-btn.active"))
+      .filter(Boolean)
+      .map(b => b.dataset.flavor);
+    return elegidos.length === filas.length ? elegidos.join(SEP_COMBO) : "";
   }
 
   function consultarProducto(p, flavor){
@@ -885,6 +963,9 @@
   // Tambien cuenta como sin stock si tiene sabores y estan todos agotados.
   function sinStock(p){
     if(Number(p.stock) === 0) return true;
+    // Un combo necesita al menos N unidades del producto base.
+    const base = baseDe(p);
+    if(base && Number(base.stock) < unidadesCombo(p)) return true;
     return flavorsOf(p).length > 0 && flavorsDisponibles(p).length === 0;
   }
 
@@ -899,10 +980,12 @@
     if(!prod || sinStock(prod)) return;
     const flavors = flavorsOf(prod);
     // Si el producto tiene variantes y no llego ninguna, caemos en la primera
-    // con stock. Un sabor agotado nunca entra al carrito.
-    if(flavor && flavorAgotado(prod, flavor)) return;
-    const elegido = flavors.length ? (flavor || flavorsDisponibles(prod)[0]) : "";
-    if(flavors.length && !elegido) return;
+    // con stock. Un sabor agotado (o una combinacion incompleta) nunca entra.
+    let elegido = "";
+    if(flavors.length){
+      elegido = normalizarSabor(prod, flavor || saborPorDefecto(prod));
+      if(!elegido || !saborValido(prod, elegido)) return;
+    }
     const key = cartKey(id, elegido);
     cart[key] = (cart[key] || 0) + 1;
     renderCart();
