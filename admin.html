@@ -117,6 +117,7 @@
         <option value="pre">Pre-entrenos</option>
         <option value="salud">Salud y Bienestar</option>
         <option value="barritas">Dulces Fit</option>
+        <option value="ofertas">Ofertas y Combos</option>
       </select>
       <select class="campo" id="soloStock" onchange="pintar()">
         <option value="">Con y sin stock</option>
@@ -250,7 +251,7 @@
     ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   function opcionesCat(sel) {
-    const cats = [["creatina","Creatinas"],["proteinas","Proteínas"],["pre","Pre-entrenos"],["salud","Salud y Bienestar"],["barritas","Dulces Fit"]];
+    const cats = [["creatina","Creatinas"],["proteinas","Proteínas"],["pre","Pre-entrenos"],["salud","Salud y Bienestar"],["barritas","Dulces Fit"],["ofertas","Ofertas y Combos"]];
     return cats.map((c) => '<option value="' + c[0] + '"' + (c[0] === sel ? " selected" : "") + ">" + c[1] + "</option>").join("");
   }
 

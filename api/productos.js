@@ -1,7 +1,7 @@
 const { passwordOk, faltaConfig, leerArchivo, escribirArchivo } = require("./_github");
 
 const ARCHIVO = "productos.json";
-const CATEGORIAS = ["creatina", "proteinas", "pre", "salud", "barritas"];
+const CATEGORIAS = ["creatina", "proteinas", "pre", "salud", "barritas", "ofertas"];
 const MAX_PRODUCTOS = 500;
 const MAX_SABORES = 12;
 const MAX_FOTOS = 6;

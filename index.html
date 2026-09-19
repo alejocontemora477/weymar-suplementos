@@ -540,7 +540,7 @@
     <div class="hero-copy">
       <div class="kicker">Bahía Blanca</div>
       <h1>Menos vueltas.<br><span>Más resultados</span>.</h1>
-      <p>Suplementos de las mejores marcas para tu entrenamiento, con atención directa en Bahía Blanca.</p>
+      <p>Todos los suplementos que estás buscando, de las mejores marcas. Atención personalizada y contestamos rápido. Envíos a toda Argentina.</p>
       <div class="hero-actions">
         <a href="#catalogo" class="btn-primary">Ver catálogo</a>
         <a href="https://wa.me/5492914411785" target="_blank" class="btn-ghost">Escribinos directo</a>
@@ -558,9 +558,10 @@
 
 <section class="catalog" id="catalogo">
   <div class="wrap">
-    <p class="catalog-headline">Elegí tus productos y armamos el pedido para confirmarlo por WhatsApp.</p>
+    <p class="catalog-headline">Elegí tus productos 💪</p>
     <div class="tabs">
       <button class="tab active" data-cat="todo" onclick="showCategory('todo', this)">Ver todo</button>
+      <button class="tab" data-cat="ofertas" onclick="showCategory('ofertas', this)">Ofertas y Combos</button>
       <button class="tab" data-cat="creatina" onclick="showCategory('creatina', this)">Creatinas</button>
       <button class="tab" data-cat="proteinas" onclick="showCategory('proteinas', this)">Proteínas</button>
       <button class="tab" data-cat="pre" onclick="showCategory('pre', this)">Pre-entrenos</button>
@@ -669,7 +670,8 @@
     proteinas: "Proteínas",
     pre: "Pre-entrenos",
     salud: "Salud y Bienestar",
-    barritas: "Dulces Fit"
+    barritas: "Dulces Fit",
+    ofertas: "Ofertas y Combos"
   };
 
   let cart = {}; // { productId: qty }
@@ -720,20 +722,38 @@
     return esSinSabor(flavor) ? " - sin sabor" : " - sabor " + flavor;
   }
 
+  // "Ofertas y Combos" junta los productos de esa categoria (los combos)
+  // con cualquier producto marcado en oferta que tenga stock. Asi, marcar
+  // una oferta desde el panel la hace aparecer aca sin tocar nada mas.
+  function productosDeCategoria(cat){
+    if(cat === "todo") return PRODUCTS;
+    if(cat === "ofertas") return PRODUCTS.filter(p => p.cat === "ofertas" || enOferta(p));
+    return PRODUCTS.filter(p => p.cat === cat);
+  }
+
+  // Los agotados van siempre al final. El orden entre los que tienen stock
+  // (y entre los agotados) se mantiene como esta en el catalogo.
+  function ordenarPorStock(lista){
+    return lista
+      .map((p, i) => ({ p, i }))
+      .sort((a, b) => (sinStock(a.p) - sinStock(b.p)) || (a.i - b.i))
+      .map(x => x.p);
+  }
+
   function renderGrid(){
     const grid = document.getElementById("product-grid");
     const banner = document.getElementById("category-banner");
     banner.innerHTML = activeCategory === "proteinas"
       ? `<div class="promo-banner"><div class="promo-banner-icon">🎁</div><p>Comprando una <strong>proteína o aumentador de masa Ena</strong>, te llevás un <strong>shaker Ena de regalo</strong>.</p></div>`
       : "";
-    const items = activeCategory === "todo" ? PRODUCTS : PRODUCTS.filter(p => p.cat === activeCategory);
+    const items = ordenarPorStock(productosDeCategoria(activeCategory));
     if(items.length === 0){
       grid.innerHTML = `<div class="empty-panel"><b>${CATEGORY_LABELS[activeCategory]} próximamente</b>Estamos cargando esta categoría. Escribinos por WhatsApp si buscás algo puntual.</div>`;
       return;
     }
     grid.innerHTML = items.map(p => `
-      <div class="card${p.offer ? ' is-offer' : ''}${sinStock(p) ? ' is-agotado' : ''}" role="button" tabindex="0" aria-label="Ver ${p.name}" onclick="openProduct('${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProduct('${p.id}')}">
-        ${p.offer ? '<div class="offer-badge">Súper oferta</div>' : ''}
+      <div class="card${enOferta(p) ? ' is-offer' : ''}${sinStock(p) ? ' is-agotado' : ''}" role="button" tabindex="0" aria-label="Ver ${p.name}" onclick="openProduct('${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProduct('${p.id}')}">
+        ${enOferta(p) ? '<div class="offer-badge">Súper oferta</div>' : ''}
         <div class="card-thumb">${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:4px;">` : dumbbellIcon()}<span class="zoom-hint" aria-hidden="true">&#10530;</span></div>
         <div class="brand-tag">${p.brand}</div>
         <h3>${p.name}</h3>
@@ -765,7 +785,7 @@
             <img src="${src}" alt="" loading="lazy">
           </button>`).join("")
       : "";
-    document.getElementById("modal-badge").innerHTML = p.offer
+    document.getElementById("modal-badge").innerHTML = enOferta(p)
       ? '<div class="offer-badge">Súper oferta</div>'
       : '';
     document.getElementById("modal-brand").textContent = p.brand;
@@ -845,6 +865,12 @@
   function sinStock(p){
     if(Number(p.stock) === 0) return true;
     return flavorsOf(p).length > 0 && flavorsDisponibles(p).length === 0;
+  }
+
+  // Una oferta sin stock no se puede aprovechar: no mostramos el cartel.
+  // La marca "offer" queda guardada, asi vuelve sola cuando se reponga.
+  function enOferta(p){
+    return p.offer === true && !sinStock(p);
   }
 
   function addToCart(id, flavor){
