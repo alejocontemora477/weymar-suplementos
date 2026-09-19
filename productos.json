@@ -7,19 +7,20 @@
          "id" : "creatina-star",
          "image" : "img/creatina-star.webp",
          "name" : "Creatina Monohidratada Sin Sabor - Doypack 300g",
-         "price" : 25000,
-         "stock" : 10
+         "price" : 24900,
+         "stock" : 0
       },
       {
          "brand" : "Ena Sport",
          "cat" : "creatina",
          "desc" : "Creatina monohidrato micronizada de alta pureza, 5g por porción. Libre de gluten. Disponible sin sabor (60 ingestas) y fruit punch (46 ingestas).",
          "flavors" : [ "Sin sabor", "Fruit Punch" ],
+         "flavorsOut" : [ "Fruit Punch" ],
          "id" : "creatina-ena",
          "image" : "img/creatina-ena.webp",
          "name" : "Creatina Monohidratada Micronizada 300g",
          "price" : 28000,
-         "stock" : 10
+         "stock" : 2
       },
       {
          "brand" : "One Fit Nutrition",
@@ -29,7 +30,7 @@
          "image" : "img/creatina-onefit.webp",
          "name" : "Poweraded Creatine Micronized 200g",
          "price" : 16500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "One Fit Nutrition",
@@ -40,7 +41,7 @@
          "image" : "img/magnesio-onefit.webp",
          "name" : "Citrato de Magnesio en Polvo 150g",
          "price" : 11500,
-         "stock" : 10
+         "stock" : 5
       },
       {
          "brand" : "Star Nutrition",
@@ -50,19 +51,20 @@
          "image" : "img/magnesio-star.webp",
          "name" : "Citrato de Magnesio - 60 Cápsulas",
          "price" : 16500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
          "cat" : "salud",
          "desc" : "Colágeno hidrolizado con ácido hialurónico, coenzima Q10, vitamina C y 500mg de resveratrol. 10g de colágeno por porción, 20 servicios. Elegí tu sabor.",
          "flavors" : [ "Frutos Rojos", "Limón" ],
+         "flavorsOut" : [ "Frutos Rojos" ],
          "gallery" : [ "img/colageno-star-limon.webp", "img/colageno-star-frutosrojos-google.webp", "img/colageno-star-limon-google.webp" ],
          "id" : "colageno-star",
          "image" : "img/colageno-star-frutosrojos.webp",
          "name" : "Collagen Colágeno Hidrolizado 210g",
-         "price" : 22000,
-         "stock" : 10
+         "price" : 21700,
+         "stock" : 3
       },
       {
          "brand" : "Star Nutrition",
@@ -72,7 +74,7 @@
          "image" : "img/colageno-star-sport-naranja.webp",
          "name" : "Collagen Sport Sabor Naranja 360g",
          "price" : 24000,
-         "stock" : 10
+         "stock" : 1
       },
       {
          "brand" : "One Fit Nutrition",
@@ -83,7 +85,7 @@
          "image" : "img/omega3-onefit.webp",
          "name" : "Daily Omega 3 - 30 Cápsulas",
          "price" : 22900,
-         "stock" : 10
+         "stock" : 3
       },
       {
          "brand" : "Star Nutrition",
@@ -92,8 +94,8 @@
          "id" : "vitaminas-k2d3-star",
          "image" : "img/vitaminas-k2d3-star.webp",
          "name" : "Vitaminas K2 + D3 - 60 Cápsulas",
-         "price" : 27000,
-         "stock" : 10
+         "price" : 25000,
+         "stock" : 1
       },
       {
          "brand" : "Star Nutrition",
@@ -102,8 +104,8 @@
          "id" : "vitaminac-star",
          "image" : "img/vitaminac-star.webp",
          "name" : "Vitamina C - 60 Cápsulas",
-         "price" : 8900,
-         "stock" : 10
+         "price" : 9500,
+         "stock" : 2
       },
       {
          "brand" : "One Fit Nutrition",
@@ -113,7 +115,7 @@
          "image" : "img/proteina-onefit.webp",
          "name" : "Classic Whey Protein 907g - Frutilla",
          "price" : 39500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -123,7 +125,7 @@
          "image" : "img/proteina-star.webp",
          "name" : "Whey Protein 2lb - Chocolate Suizo",
          "price" : 62000,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Ena Sport",
@@ -135,7 +137,7 @@
          "image" : "img/proteina-ena.webp",
          "name" : "Truemade Whey Protein 930g",
          "price" : 85000,
-         "stock" : 10
+         "stock" : 3
       },
       {
          "brand" : "Star Nutrition",
@@ -145,7 +147,7 @@
          "image" : "img/pre-tnt-dynamite.webp",
          "name" : "TNT Dynamite Explosive Energy 240g - Citrus Slush",
          "price" : 24500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Wiki",
@@ -165,7 +167,7 @@
          "image" : "img/barrita-mervick.webp",
          "name" : "Whey Protein Bar 15g Proteína - Dark Chocolate",
          "price" : 2500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -175,7 +177,7 @@
          "image" : "img/vitamina-multi-star.webp",
          "name" : "All In One Multivitamin - 60 Comprimidos",
          "price" : 25000,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -195,7 +197,7 @@
          "image" : "img/creatina-star-fruitpunch.webp",
          "name" : "Creatina Monohidratada 300g - Sabor Fruit Punch",
          "price" : 25000,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -205,7 +207,7 @@
          "image" : "img/creatina-star-pote.webp",
          "name" : "Creatina Monohidratada Sin Sabor - Pote 300g",
          "price" : 28500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -215,7 +217,7 @@
          "image" : "img/creatina-star-500g.webp",
          "name" : "Creatina Monohidratada Sin Sabor 500g",
          "price" : 45000,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -226,7 +228,7 @@
          "image" : "img/creatina-star-1kg.webp",
          "name" : "Creatina Monohidratada Sin Sabor 1kg",
          "price" : 82000,
-         "stock" : 10
+         "stock" : 2
       },
       {
          "brand" : "Star Nutrition",
@@ -237,7 +239,7 @@
          "name" : "Combo 2 Colágenos 210g - Frutos Rojos + Limón",
          "offer" : true,
          "price" : 40000,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -247,7 +249,7 @@
          "image" : "img/omega3-star.webp",
          "name" : "Omega 3 - Cápsulas",
          "price" : 32000,
-         "stock" : 10
+         "stock" : 2
       },
       {
          "brand" : "Star Nutrition",
@@ -258,7 +260,7 @@
          "image" : "img/glutamina-star.webp",
          "name" : "L-Glutamine 300g",
          "price" : 29500,
-         "stock" : 10
+         "stock" : 1
       },
       {
          "brand" : "Star Nutrition",
@@ -269,7 +271,7 @@
          "image" : "img/bcaa-mtor.webp",
          "name" : "MTOR BCAA 270g - Fruit Punch",
          "price" : 29500,
-         "stock" : 10
+         "stock" : 1
       },
       {
          "brand" : "Pump V8",
@@ -279,7 +281,7 @@
          "image" : "img/pump-v8-watermelon.webp",
          "name" : "Pre-entreno Watermelon",
          "price" : 31000,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Star Nutrition",
@@ -289,7 +291,7 @@
          "image" : "img/cafeina-star.webp",
          "name" : "Cafeína - 30 Cápsulas",
          "price" : 10000,
-         "stock" : 10
+         "stock" : 1
       },
       {
          "brand" : "Entrenuts",
@@ -299,7 +301,7 @@
          "image" : "img/pasta-mani-entrenuts.webp",
          "name" : "Pasta de Maní Cookies and Cream",
          "price" : 3900,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Ena Sport",
@@ -309,7 +311,7 @@
          "image" : "img/shaker-ena-plus.webp",
          "name" : "Shaker Ena Plus con Compartimientos",
          "price" : 7500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Ena Sport",
@@ -319,7 +321,7 @@
          "image" : "img/shaker-ena-simple.webp",
          "name" : "Shaker Ena Sin Compartimientos",
          "price" : 6500,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Ena Sport",
@@ -330,7 +332,7 @@
          "name" : "Ultra Mass Weight Gainer 1500g - Double Rich Chocolate",
          "offer" : true,
          "price" : 45000,
-         "stock" : 10
+         "stock" : 0
       },
       {
          "brand" : "Ena Sport",
@@ -341,7 +343,7 @@
          "name" : "Ultra Mass Weight Gainer 1500g - Vanilla Ice Cream",
          "offer" : true,
          "price" : 45000,
-         "stock" : 10
+         "stock" : 0
       }
    ]
 }

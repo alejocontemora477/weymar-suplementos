@@ -336,6 +336,16 @@
   }
   .flavor-btn:hover{border-color:var(--celeste);}
   .flavor-btn.active{background:var(--celeste); color:#06131a; border-color:var(--celeste);}
+  /* Sabor agotado: se ve, pero no se puede elegir */
+  .flavor-btn:disabled{
+    cursor:not-allowed; color:var(--muted); border-style:dashed; opacity:0.6;
+  }
+  .flavor-btn:disabled:hover{border-color:var(--line);}
+  .flavor-btn .sin-stock-sabor{
+    display:block; font-size:0.66rem; font-weight:700; color:var(--rojo);
+    text-transform:uppercase; letter-spacing:0.04em; margin-top:2px;
+  }
+  .card-flavor-tag.agotado{text-decoration:line-through; opacity:0.55;}
   .card-flavors{
     display:flex; gap:6px; flex-wrap:wrap; margin-top:8px;
   }
@@ -686,6 +696,13 @@
     const extra = Array.isArray(p.gallery) ? p.gallery.filter(Boolean) : [];
     return [p.image, ...extra].filter(Boolean);
   }
+  // Sabores sin stock ("flavorsOut"): se muestran tachados y no se pueden pedir.
+  function flavorAgotado(p, flavor){
+    return Array.isArray(p.flavorsOut) && p.flavorsOut.includes(flavor);
+  }
+  function flavorsDisponibles(p){
+    return flavorsOf(p).filter(f => !flavorAgotado(p, f));
+  }
   function cartKey(id, flavor){
     return flavor ? id + "::" + flavor : id;
   }
@@ -721,7 +738,7 @@
         <div class="brand-tag">${p.brand}</div>
         <h3>${p.name}</h3>
         <p class="desc">${p.desc}</p>
-        ${flavorsOf(p).length ? `<div class="card-flavors">${flavorsOf(p).map(f => `<span class="card-flavor-tag">${f}</span>`).join("")}</div>` : ""}
+        ${flavorsOf(p).length ? `<div class="card-flavors">${flavorsOf(p).map(f => `<span class="card-flavor-tag${flavorAgotado(p, f) ? " agotado" : ""}"${flavorAgotado(p, f) ? ' title="Sin stock"' : ""}>${f}</span>`).join("")}</div>` : ""}
         <div class="card-foot">
           <div class="price">${formatPrice(p.price)}</div>
           ${sinStock(p)
@@ -759,11 +776,14 @@
     const flavors = flavorsOf(p);
     const wrap = document.getElementById("modal-flavors");
     wrap.classList.toggle("show", flavors.length > 0);
+    // Arranca elegido el primer sabor que tenga stock.
+    const primero = flavorsDisponibles(p)[0];
     wrap.innerHTML = flavors.length
       ? `<div class="flavor-label">Elegí el sabor</div>
-         <div class="flavor-options">${flavors.map((f, i) => `
-           <button type="button" class="flavor-btn${i === 0 ? " active" : ""}" onclick="pickFlavor(this)">${f}</button>
-         `).join("")}</div>`
+         <div class="flavor-options">${flavors.map(f => flavorAgotado(p, f)
+           ? `<button type="button" class="flavor-btn" disabled data-flavor="${f}">${f}<span class="sin-stock-sabor">Sin stock</span></button>`
+           : `<button type="button" class="flavor-btn${f === primero ? " active" : ""}" data-flavor="${f}" onclick="pickFlavor(this)">${f}</button>`
+         ).join("")}</div>`
       : "";
 
     const btn = document.getElementById("modal-add");
@@ -799,7 +819,7 @@
 
   function selectedFlavor(){
     const active = document.querySelector("#modal-flavors .flavor-btn.active");
-    return active ? active.textContent.trim() : "";
+    return active ? active.dataset.flavor : "";
   }
 
   function consultarProducto(p, flavor){
@@ -821,14 +841,21 @@
     renderGrid();
   }
 
-  function sinStock(p){ return Number(p.stock) === 0; }
+  // Tambien cuenta como sin stock si tiene sabores y estan todos agotados.
+  function sinStock(p){
+    if(Number(p.stock) === 0) return true;
+    return flavorsOf(p).length > 0 && flavorsDisponibles(p).length === 0;
+  }
 
   function addToCart(id, flavor){
     const prod = PRODUCTS.find(x => x.id === id);
     if(!prod || sinStock(prod)) return;
     const flavors = flavorsOf(prod);
-    // Si el producto tiene variantes y no llego ninguna, caemos en la primera.
-    const elegido = flavors.length ? (flavor || flavors[0]) : "";
+    // Si el producto tiene variantes y no llego ninguna, caemos en la primera
+    // con stock. Un sabor agotado nunca entra al carrito.
+    if(flavor && flavorAgotado(prod, flavor)) return;
+    const elegido = flavors.length ? (flavor || flavorsDisponibles(prod)[0]) : "";
+    if(flavors.length && !elegido) return;
     const key = cartKey(id, elegido);
     cart[key] = (cart[key] || 0) + 1;
     renderCart();

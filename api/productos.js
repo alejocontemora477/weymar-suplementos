@@ -91,9 +91,24 @@ function revisar(lista) {
       }
     }
 
+    // Sabores sin stock: tienen que ser sabores que el producto realmente tiene.
+    let flavorsOut = null;
+    if (p.flavorsOut != null) {
+      if (!Array.isArray(p.flavorsOut)) return { error: `Sabores sin stock invalidos en "${id}": debe ser una lista` };
+      flavorsOut = [];
+      for (const s of p.flavorsOut) {
+        const sabor = String(s == null ? "" : s).trim();
+        if (!flavors || !flavors.includes(sabor)) {
+          return { error: `En "${id}" se marco sin stock el sabor "${sabor}", que no esta en su lista de sabores` };
+        }
+        if (!flavorsOut.includes(sabor)) flavorsOut.push(sabor);
+      }
+    }
+
     const limpio = { id, cat, brand, name, desc, price: Math.round(price), stock, image };
     if (p.offer === true) limpio.offer = true;
     if (flavors && flavors.length) limpio.flavors = flavors;
+    if (flavorsOut && flavorsOut.length) limpio.flavorsOut = flavorsOut;
     if (gallery && gallery.length) limpio.gallery = gallery;
     limpios.push(limpio);
   }
