@@ -119,12 +119,15 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "proteinas",
-         "desc" : "Whey protein micro filtrado, 25g de proteína por porción. 30 servicios.",
+         "desc" : "Whey protein micro filtrado: 25g de proteína, 5.5g de BCAA y 12g de EAA por porción. 908g, 30 servicios. Libre de gluten. Elegí tu sabor.",
+         "flavors" : [ "Cookies and Cream", "Chocolate Suizo", "Vainilla", "Banana" ],
+         "flavorsOut" : [ "Chocolate Suizo", "Vainilla", "Banana" ],
+         "gallery" : [ "img/proteina-star-google.webp" ],
          "id" : "proteina-star",
          "image" : "img/proteina-star.webp",
-         "name" : "Whey Protein 2lb - Chocolate Suizo",
-         "price" : 62000,
-         "stock" : 0
+         "name" : "Whey Protein 2lb (908g)",
+         "price" : 78000,
+         "stock" : 2
       },
       {
          "brand" : "Ena Sport",
@@ -228,6 +231,19 @@
          "name" : "Creatina Monohidratada Sin Sabor 1kg",
          "price" : 82000,
          "stock" : 2
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "ofertas",
+         "comboOf" : "proteina-star",
+         "comboSize" : 2,
+         "desc" : "Llevate 2 Whey Protein Star de 908g del sabor que quieras: dos iguales o uno de cada uno. Comprándolas juntas pagás menos que llevándolas por separado.",
+         "id" : "combo-proteinas-star",
+         "image" : "img/combo-proteinas-star.webp",
+         "name" : "Combo 2 Whey Protein 908g a Elección",
+         "offer" : true,
+         "price" : 150000,
+         "stock" : 1
       },
       {
          "brand" : "Star Nutrition",
