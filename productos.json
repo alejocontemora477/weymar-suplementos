@@ -45,6 +45,16 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "salud",
+         "desc" : "Citrato de magnesio 100% puro en polvo. 3,5g por servicio, 142 servicios. Libre de gluten.",
+         "id" : "magnesio-star-polvo",
+         "image" : "img/magnesio-star-polvo.webp",
+         "name" : "Citrato de Magnesio en Polvo 500g",
+         "price" : 31000,
+         "stock" : 2
+      },
+      {
+         "brand" : "Star Nutrition",
+         "cat" : "salud",
          "desc" : "Suplemento dietario a base de magnesio en cápsulas. Libre de gluten, sin TACC.",
          "id" : "magnesio-star",
          "image" : "img/magnesio-star.webp",
@@ -68,7 +78,8 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "salud",
-         "desc" : "Colágeno hidrolizado con vitamina C, magnesio y cafeína, pensado para rendimiento deportivo. 30 servicios.",
+         "desc" : "Colágeno hidrolizado con vitamina C, magnesio y cafeína, pensado para rendimiento deportivo. 10g de colágeno por servicio. 360g, 30 servicios. Libre de gluten.",
+         "gallery" : [ "img/colageno-star-sport-naranja-google.webp" ],
          "id" : "colageno-star-sport-naranja",
          "image" : "img/colageno-star-sport-naranja.webp",
          "name" : "Collagen Sport Sabor Naranja 360g",
