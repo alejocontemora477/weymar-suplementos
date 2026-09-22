@@ -519,12 +519,12 @@
     .wa-float svg{width:26px; height:26px;}
   }
 
-  /* Mascota: un muñequito con el logo de Weymar que camina por la pagina.
-     No hace nada, solo pasea. Queda por debajo del boton de WhatsApp y no
-     recibe clicks, asi nunca molesta. */
+  /* Mascota: un personaje armado con la W y la pesa del logo, que camina por
+     la pagina. No hace nada mas: no recibe clicks y queda por debajo del
+     boton de WhatsApp, asi nunca molesta. */
   .mascota{
-    position:fixed; bottom:16px; left:0; z-index:24;
-    width:72px; height:88px;
+    position:fixed; bottom:12px; left:0; z-index:24;
+    width:96px; height:120px;
     pointer-events:none; will-change:transform;
   }
   .mascota-cuerpo{
@@ -532,61 +532,50 @@
     transform-origin:50% 100%;
     animation:mascota-bote .46s ease-in-out infinite alternate;
   }
-  .mascota-w{
-    position:absolute; top:6px; left:50%; transform:translateX(-50%);
-    font-family:'Barlow Condensed', sans-serif; font-weight:800;
-    font-size:54px; line-height:1; color:var(--celeste);
-    text-shadow:0 0 14px rgba(52,198,244,0.75), 0 0 30px rgba(52,198,244,0.35);
+  .mascota-cuerpo svg{
+    width:100%; height:100%; overflow:visible;
+    filter:drop-shadow(0 0 16px rgba(52,198,244,0.45));
   }
-  .mascota-ojo{
-    position:absolute; top:24px; width:10px; height:10px; border-radius:50%;
-    background:#06131a; border:2px solid #eef6fa;
-    animation:mascota-parpadeo 4.2s infinite;
+  /* Cada parte gira sobre si misma: hace falta fill-box en SVG */
+  .mascota-pata, .mascota-brazos, .mascota-cara, .mascota-ojos{
+    transform-box:fill-box;
   }
-  .mascota-ojo.izq{left:19px;}
-  .mascota-ojo.der{left:43px;}
-  .mascota-brazo, .mascota-pata{
-    position:absolute; border-radius:4px;
-    background:linear-gradient(180deg, var(--celeste), var(--celeste-deep));
-  }
-  .mascota-brazo{
-    top:40px; width:7px; height:24px; transform-origin:50% 0;
-    animation:mascota-brazo .46s ease-in-out infinite alternate;
-  }
-  .mascota-brazo.izq{left:4px;}
-  .mascota-brazo.der{right:4px; animation-direction:alternate-reverse;}
   .mascota-pata{
-    bottom:0; width:8px; height:24px; transform-origin:50% 0;
+    transform-origin:50% 8%;
     animation:mascota-pata .46s ease-in-out infinite alternate;
   }
-  .mascota-pata.izq{left:24px;}
-  .mascota-pata.der{left:41px; animation-direction:alternate-reverse;}
-  .mascota-sombra{
-    position:absolute; bottom:-6px; left:50%; transform:translateX(-50%);
-    width:46px; height:9px; border-radius:50%;
-    background:radial-gradient(ellipse, rgba(52,198,244,0.30), transparent 70%);
+  .mascota-pata.der{animation-direction:alternate-reverse;}
+  .mascota-brazos{
+    transform-origin:50% 20%;
+    animation:mascota-brazos .92s ease-in-out infinite alternate;
   }
-  /* Cuando esta quieta deja de mover patas y brazos, pero sigue respirando */
-  .mascota.quieta .mascota-brazo,
-  .mascota.quieta .mascota-pata{animation-play-state:paused;}
+  .mascota-cara{
+    transform-origin:50% 100%;
+    animation:mascota-cara 3.1s ease-in-out infinite;
+  }
+  .mascota-ojos{
+    transform-origin:50% 50%;
+    animation:mascota-parpadeo 4.6s infinite;
+  }
+  .mascota-sombra{animation:mascota-sombra .46s ease-in-out infinite alternate;}
+  /* Quieta: deja de caminar, pero sigue respirando y parpadeando */
+  .mascota.quieta .mascota-pata,
+  .mascota.quieta .mascota-sombra{animation-play-state:paused;}
   .mascota.quieta .mascota-cuerpo{animation-duration:1.9s;}
-  @keyframes mascota-bote{from{transform:translateY(0) rotate(-1.5deg);} to{transform:translateY(-5px) rotate(1.5deg);}}
-  @keyframes mascota-brazo{from{transform:rotate(28deg);} to{transform:rotate(-28deg);}}
-  @keyframes mascota-pata{from{transform:rotate(22deg);} to{transform:rotate(-22deg);}}
-  @keyframes mascota-parpadeo{0%,92%,100%{transform:scaleY(1);} 95%{transform:scaleY(0.1);}}
+  .mascota.quieta .mascota-brazos{animation-duration:2.4s;}
+  @keyframes mascota-bote{from{transform:translateY(0) rotate(-1.4deg);} to{transform:translateY(-5px) rotate(1.4deg);}}
+  @keyframes mascota-pata{from{transform:rotate(20deg);} to{transform:rotate(-20deg);}}
+  @keyframes mascota-brazos{from{transform:translateY(0) rotate(-3deg);} to{transform:translateY(-3px) rotate(3deg);}}
+  @keyframes mascota-cara{0%,100%{transform:translateY(0);} 50%{transform:translateY(1.5px);}}
+  @keyframes mascota-parpadeo{0%,93%,100%{transform:scaleY(1);} 96%{transform:scaleY(0.08);}}
+  @keyframes mascota-sombra{from{transform:scaleX(1); opacity:.85;} to{transform:scaleX(.82); opacity:.6;}}
   @media (max-width: 560px){
-    .mascota{width:54px; height:66px; bottom:12px;}
-    .mascota-w{font-size:40px;}
-    .mascota-ojo{top:18px; width:8px; height:8px;}
-    .mascota-ojo.izq{left:14px;} .mascota-ojo.der{left:32px;}
-    .mascota-brazo{top:30px; height:18px;}
-    .mascota-pata{height:18px;} .mascota-pata.izq{left:17px;} .mascota-pata.der{left:30px;}
+    .mascota{width:68px; height:86px; bottom:10px;}
   }
   /* Si el sistema pide menos animaciones, la mascota no aparece */
   @media (prefers-reduced-motion: reduce){
     .mascota{display:none;}
   }
-
   /* Footer */
   footer{border-top:1px solid var(--line); padding:48px 0;}
   .footer-inner{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;}
@@ -1260,14 +1249,84 @@
 
 <div class="mascota" id="mascota" aria-hidden="true">
   <div class="mascota-cuerpo">
-    <span class="mascota-brazo izq"></span>
-    <span class="mascota-brazo der"></span>
-    <span class="mascota-w">W</span>
-    <span class="mascota-ojo izq"></span>
-    <span class="mascota-ojo der"></span>
-    <span class="mascota-pata izq"></span>
-    <span class="mascota-pata der"></span>
-    <span class="mascota-sombra"></span>
+    <svg viewBox="0 0 100 124" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="m-cuerpo" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#bdf0ff"/>
+          <stop offset="38%" stop-color="#4fd2fb"/>
+          <stop offset="100%" stop-color="#0b6f96"/>
+        </linearGradient>
+        <linearGradient id="m-cara" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#eafaff"/>
+          <stop offset="100%" stop-color="#7fd9f7"/>
+        </linearGradient>
+        <linearGradient id="m-metal" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f2fbff"/>
+          <stop offset="50%" stop-color="#9fb8c6"/>
+          <stop offset="100%" stop-color="#4a6472"/>
+        </linearGradient>
+        <radialGradient id="m-sombra">
+          <stop offset="0%" stop-color="rgba(52,198,244,0.45)"/>
+          <stop offset="100%" stop-color="rgba(52,198,244,0)"/>
+        </radialGradient>
+      </defs>
+
+      <ellipse class="mascota-sombra" cx="50" cy="118" rx="30" ry="6" fill="url(#m-sombra)"/>
+
+      <!-- Patas, atras del cuerpo -->
+      <g class="mascota-pata izq">
+        <rect x="35" y="84" width="10" height="22" rx="5" fill="url(#m-cuerpo)"/>
+        <ellipse cx="40" cy="107" rx="9" ry="5.5" fill="#0b6f96"/>
+        <ellipse cx="39" cy="105.5" rx="7" ry="3.2" fill="#4fd2fb" opacity=".75"/>
+      </g>
+      <g class="mascota-pata der">
+        <rect x="55" y="84" width="10" height="22" rx="5" fill="url(#m-cuerpo)"/>
+        <ellipse cx="60" cy="107" rx="9" ry="5.5" fill="#0b6f96"/>
+        <ellipse cx="59" cy="105.5" rx="7" ry="3.2" fill="#4fd2fb" opacity=".75"/>
+      </g>
+
+      <!-- La W del logo, que es el cuerpo. La copia de atras le da volumen -->
+      <path d="M14,20 L34,84 L50,44 L66,84 L86,20" fill="none" stroke="#06455e"
+            stroke-width="19" stroke-linecap="round" stroke-linejoin="round" transform="translate(0,4)"/>
+      <path d="M14,20 L34,84 L50,44 L66,84 L86,20" fill="none" stroke="url(#m-cuerpo)"
+            stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M17,24 L33,76" fill="none" stroke="#ffffff" stroke-width="4.5"
+            stroke-linecap="round" opacity=".55"/>
+      <path d="M83,24 L70,66" fill="none" stroke="#ffffff" stroke-width="3.5"
+            stroke-linecap="round" opacity=".3"/>
+
+      <!-- Cara -->
+      <g class="mascota-cara">
+        <ellipse cx="50" cy="42" rx="21" ry="18" fill="url(#m-cara)"/>
+        <ellipse cx="50" cy="37" rx="17" ry="11" fill="#ffffff" opacity=".35"/>
+        <g class="mascota-ojos">
+          <ellipse cx="42" cy="41" rx="7" ry="8" fill="#ffffff"/>
+          <ellipse cx="58" cy="41" rx="7" ry="8" fill="#ffffff"/>
+          <circle cx="43.4" cy="42.4" r="4" fill="#06283a"/>
+          <circle cx="59.4" cy="42.4" r="4" fill="#06283a"/>
+          <circle cx="42" cy="40.4" r="1.6" fill="#ffffff"/>
+          <circle cx="58" cy="40.4" r="1.6" fill="#ffffff"/>
+        </g>
+        <path d="M35,32 Q42,28.5 48,31.5" fill="none" stroke="#06455e" stroke-width="2.3" stroke-linecap="round"/>
+        <path d="M65,32 Q58,28.5 52,31.5" fill="none" stroke="#06455e" stroke-width="2.3" stroke-linecap="round"/>
+        <path d="M44.5,52 Q50,56.5 55.5,52" fill="none" stroke="#06455e" stroke-width="2.5" stroke-linecap="round"/>
+        <ellipse cx="34" cy="48" rx="3.6" ry="2.4" fill="#ff8da1" opacity=".45"/>
+        <ellipse cx="66" cy="48" rx="3.6" ry="2.4" fill="#ff8da1" opacity=".45"/>
+      </g>
+
+      <!-- Brazos con la pesa del logo -->
+      <g class="mascota-brazos">
+        <rect x="16" y="50" width="9" height="20" rx="4.5" fill="url(#m-cuerpo)" transform="rotate(14 20 50)"/>
+        <rect x="75" y="50" width="9" height="20" rx="4.5" fill="url(#m-cuerpo)" transform="rotate(-14 80 50)"/>
+        <rect x="22" y="68" width="56" height="6" rx="3" fill="url(#m-metal)"/>
+        <rect x="14" y="60" width="10" height="22" rx="4" fill="url(#m-metal)"/>
+        <rect x="76" y="60" width="10" height="22" rx="4" fill="url(#m-metal)"/>
+        <rect x="8" y="64" width="8" height="14" rx="3.5" fill="url(#m-metal)"/>
+        <rect x="84" y="64" width="8" height="14" rx="3.5" fill="url(#m-metal)"/>
+        <circle cx="26" cy="71" r="5.5" fill="#4fd2fb" stroke="#06455e" stroke-width="1.5"/>
+        <circle cx="74" cy="71" r="5.5" fill="#4fd2fb" stroke="#06455e" stroke-width="1.5"/>
+      </g>
+    </svg>
   </div>
 </div>
 
