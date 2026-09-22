@@ -519,6 +519,74 @@
     .wa-float svg{width:26px; height:26px;}
   }
 
+  /* Mascota: un muñequito con el logo de Weymar que camina por la pagina.
+     No hace nada, solo pasea. Queda por debajo del boton de WhatsApp y no
+     recibe clicks, asi nunca molesta. */
+  .mascota{
+    position:fixed; bottom:16px; left:0; z-index:24;
+    width:72px; height:88px;
+    pointer-events:none; will-change:transform;
+  }
+  .mascota-cuerpo{
+    position:relative; width:100%; height:100%;
+    transform-origin:50% 100%;
+    animation:mascota-bote .46s ease-in-out infinite alternate;
+  }
+  .mascota-w{
+    position:absolute; top:6px; left:50%; transform:translateX(-50%);
+    font-family:'Barlow Condensed', sans-serif; font-weight:800;
+    font-size:54px; line-height:1; color:var(--celeste);
+    text-shadow:0 0 14px rgba(52,198,244,0.75), 0 0 30px rgba(52,198,244,0.35);
+  }
+  .mascota-ojo{
+    position:absolute; top:24px; width:10px; height:10px; border-radius:50%;
+    background:#06131a; border:2px solid #eef6fa;
+    animation:mascota-parpadeo 4.2s infinite;
+  }
+  .mascota-ojo.izq{left:19px;}
+  .mascota-ojo.der{left:43px;}
+  .mascota-brazo, .mascota-pata{
+    position:absolute; border-radius:4px;
+    background:linear-gradient(180deg, var(--celeste), var(--celeste-deep));
+  }
+  .mascota-brazo{
+    top:40px; width:7px; height:24px; transform-origin:50% 0;
+    animation:mascota-brazo .46s ease-in-out infinite alternate;
+  }
+  .mascota-brazo.izq{left:4px;}
+  .mascota-brazo.der{right:4px; animation-direction:alternate-reverse;}
+  .mascota-pata{
+    bottom:0; width:8px; height:24px; transform-origin:50% 0;
+    animation:mascota-pata .46s ease-in-out infinite alternate;
+  }
+  .mascota-pata.izq{left:24px;}
+  .mascota-pata.der{left:41px; animation-direction:alternate-reverse;}
+  .mascota-sombra{
+    position:absolute; bottom:-6px; left:50%; transform:translateX(-50%);
+    width:46px; height:9px; border-radius:50%;
+    background:radial-gradient(ellipse, rgba(52,198,244,0.30), transparent 70%);
+  }
+  /* Cuando esta quieta deja de mover patas y brazos, pero sigue respirando */
+  .mascota.quieta .mascota-brazo,
+  .mascota.quieta .mascota-pata{animation-play-state:paused;}
+  .mascota.quieta .mascota-cuerpo{animation-duration:1.9s;}
+  @keyframes mascota-bote{from{transform:translateY(0) rotate(-1.5deg);} to{transform:translateY(-5px) rotate(1.5deg);}}
+  @keyframes mascota-brazo{from{transform:rotate(28deg);} to{transform:rotate(-28deg);}}
+  @keyframes mascota-pata{from{transform:rotate(22deg);} to{transform:rotate(-22deg);}}
+  @keyframes mascota-parpadeo{0%,92%,100%{transform:scaleY(1);} 95%{transform:scaleY(0.1);}}
+  @media (max-width: 560px){
+    .mascota{width:54px; height:66px; bottom:12px;}
+    .mascota-w{font-size:40px;}
+    .mascota-ojo{top:18px; width:8px; height:8px;}
+    .mascota-ojo.izq{left:14px;} .mascota-ojo.der{left:32px;}
+    .mascota-brazo{top:30px; height:18px;}
+    .mascota-pata{height:18px;} .mascota-pata.izq{left:17px;} .mascota-pata.der{left:30px;}
+  }
+  /* Si el sistema pide menos animaciones, la mascota no aparece */
+  @media (prefers-reduced-motion: reduce){
+    .mascota{display:none;}
+  }
+
   /* Footer */
   footer{border-top:1px solid var(--line); padding:48px 0;}
   .footer-inner{display:flex; justify-content:space-between; flex-wrap:wrap; gap:24px;}
@@ -1116,6 +1184,60 @@
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   }
 
+  // La mascota pasea sola de un lado al otro, se para un rato cada tanto y
+  // a veces pega un saltito. No responde a clicks: es solo decoracion.
+  function pasearMascota(){
+    const yo = document.getElementById("mascota");
+    if(!yo) return;
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const cuerpo = yo.firstElementChild;
+    const MARGEN_DER = 92;   // deja libre el boton de WhatsApp
+    const MARGEN_IZQ = 8;
+    let x = 40, dir = 1, velocidad = 52;   // px por segundo
+    let caminaHasta = performance.now() + 5000;
+    let quietaHasta = 0;
+    let anterior = performance.now();
+
+    const limite = () => Math.max(MARGEN_IZQ + 10, window.innerWidth - yo.offsetWidth - MARGEN_DER);
+    const alAzar = (min, max) => min + Math.random() * (max - min);
+
+    function saltar(){
+      if(cuerpo.classList.contains("saltando")) return;
+      cuerpo.classList.add("saltando");
+      cuerpo.animate(
+        [{ transform:"translateY(0)" }, { transform:"translateY(-26px)" }, { transform:"translateY(0)" }],
+        { duration:520, easing:"cubic-bezier(.3,.8,.4,1)" }
+      ).onfinish = () => cuerpo.classList.remove("saltando");
+    }
+
+    function paso(ahora){
+      const delta = Math.min((ahora - anterior) / 1000, 0.05);
+      anterior = ahora;
+
+      if(ahora < quietaHasta){
+        yo.classList.add("quieta");
+      } else {
+        yo.classList.remove("quieta");
+        x += dir * velocidad * delta;
+        if(x >= limite()){ x = limite(); dir = -1; quietaHasta = ahora + alAzar(400, 900); }
+        if(x <= MARGEN_IZQ){ x = MARGEN_IZQ; dir = 1; quietaHasta = ahora + alAzar(400, 900); }
+        if(ahora > caminaHasta){
+          quietaHasta = ahora + alAzar(900, 2200);
+          caminaHasta = quietaHasta + alAzar(4000, 9000);
+          if(Math.random() < 0.45) saltar();
+        }
+      }
+
+      yo.style.transform = `translateX(${Math.round(x)}px)`;
+      // El volteo va en "scale" y no en "transform", asi no pelea con la
+      // animacion del cuerpo ni con el saltito.
+      cuerpo.style.scale = dir === 1 ? "1 1" : "-1 1";
+      requestAnimationFrame(paso);
+    }
+    requestAnimationFrame(paso);
+  }
+
   async function cargarCatalogo(){
     try{
       const r = await fetch("productos.json?v=" + Date.now(), { cache: "no-store" });
@@ -1133,7 +1255,21 @@
   }
 
   cargarCatalogo();
+  pasearMascota();
 </script>
+
+<div class="mascota" id="mascota" aria-hidden="true">
+  <div class="mascota-cuerpo">
+    <span class="mascota-brazo izq"></span>
+    <span class="mascota-brazo der"></span>
+    <span class="mascota-w">W</span>
+    <span class="mascota-ojo izq"></span>
+    <span class="mascota-ojo der"></span>
+    <span class="mascota-pata izq"></span>
+    <span class="mascota-pata der"></span>
+    <span class="mascota-sombra"></span>
+  </div>
+</div>
 
 <a href="https://wa.me/5492914411785?text=Hola!%20Vengo%20de%20la%20Web%20de%20Suplementos%20Weymar%20%F0%9F%99%8C" target="_blank" class="wa-float" aria-label="Escribinos por WhatsApp">
   <svg viewBox="0 0 32 32" fill="#fff" xmlns="http://www.w3.org/2000/svg">
