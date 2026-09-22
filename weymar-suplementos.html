@@ -536,6 +536,11 @@
     width:100%; height:100%; overflow:visible;
     filter:drop-shadow(0 0 16px rgba(52,198,244,0.45));
   }
+  /* Se puede tocar el muñeco para cambiarle la animacion, pero solo el dibujo
+     en si: el resto del recuadro sigue dejando pasar los clicks a la pagina. */
+  .mascota-cuerpo svg > *:not(defs):not(.mascota-sombra):not(.mascota-viento){
+    pointer-events:auto; cursor:pointer; touch-action:manipulation;
+  }
   /* Cada parte gira sobre si misma: hace falta fill-box en SVG */
   .mascota-pata, .mascota-brazos, .mascota-cara, .mascota-ojos,
   .mascota-boca, .mascota-cejas, .mascota-viento{
@@ -1262,6 +1267,7 @@
     let hastaCambioDeModo = 0;   // cuando toca volver a decidir
     let ocupadaHasta = 0;        // mientras dura una jugada no se mueve
     let decidiendo = false;      // hay una decision (o jugada) en curso
+    let pendienteDelClick = null; // toque recibido mientras estaba ocupada
     let anterior = performance.now();
 
     const limite = () => Math.max(MARGEN_IZQ + 10, window.innerWidth - yo.offsetWidth - MARGEN_DER);
@@ -1395,25 +1401,24 @@
 
     // Elige que hacer despues. Las jugadas necesitan espacio: si no entran,
     // sigue caminando y lo intenta mas adelante.
-    async function decidir(){
+    // Hace una animacion concreta. El proximo turno se agenda ACA, antes de
+    // hacer nada: si una jugada falla, la mascota igual sigue cambiando. Se
+    // cuenta desde que arranca, asi una jugada completa el resto del turno
+    // caminando y todas las tandas duran los mismos 5 segundos.
+    async function ejecutar(accion){
       if(decidiendo) return;           // nunca dos jugadas encimadas
       decidiendo = true;
-      // El proximo turno se agenda ACA, antes de hacer nada: si una jugada
-      // falla, la mascota igual sigue cambiando de animacion. Se cuenta desde
-      // que arranca, asi una jugada completa el resto del turno caminando y
-      // todas las tandas duran los mismos 5 segundos.
       hastaCambioDeModo = performance.now() + DURACION;
       try{
-        const sorteo = Math.random();
-        let jugada = false;
-        if(sorteo < 0.18) jugada = await patearAlArco();
-        else if(sorteo < 0.34) jugada = await tirarAlAro();
+        // Si la jugada no entra en pantalla, salta en el lugar y no se pierde
+        // el turno.
+        if(accion === "futbol" && !await patearAlArco()) accion = "saltar";
+        else if(accion === "basquet" && !await tirarAlAro()) accion = "saltar";
 
-        if(jugada){ modo = "caminar"; }
-        else if(sorteo < 0.46){ saltar(); modo = "caminar"; }
-        else if(sorteo < 0.68){ modo = "correr"; }
-        else if(sorteo < 0.82){ modo = "quieta"; }
-        else { modo = "caminar"; }
+        if(accion === "saltar") saltar();
+        modo = accion === "correr" ? "correr"
+             : accion === "quieta" ? "quieta"
+             : "caminar";
       } catch(e){
         // Si algo sale mal, guarda la escenografia y sigue caminando
         ocupadaHasta = 0;
@@ -1421,8 +1426,41 @@
         [arco, aro, pelotaFutbol, pelotaBasquet].forEach(el => el && el.classList.remove("visible", "gol"));
       } finally {
         decidiendo = false;
+        if(pendienteDelClick){
+          const anotada = pendienteDelClick;
+          pendienteDelClick = null;
+          ejecutar(anotada);
+        }
       }
     }
+
+    function decidir(){
+      const sorteo = Math.random();
+      const accion = sorteo < 0.18 ? "futbol"
+                   : sorteo < 0.34 ? "basquet"
+                   : sorteo < 0.46 ? "saltar"
+                   : sorteo < 0.68 ? "correr"
+                   : sorteo < 0.82 ? "quieta"
+                   : "caminar";
+      return ejecutar(accion);
+    }
+
+    // Cada click en el muñeco pasa a la animacion siguiente de la lista, asi
+    // tocando se pueden ver todas sin esperar el sorteo.
+    const ACCIONES = ["correr", "saltar", "futbol", "basquet", "caminar", "quieta"];
+    let proximaDelClick = 0;
+    yo.addEventListener("click", () => {
+      const accion = ACCIONES[proximaDelClick];
+      proximaDelClick = (proximaDelClick + 1) % ACCIONES.length;
+      // Un rebote para que se note que registro el toque
+      cuerpo.animate(
+        [{ transform:"scale(1)" }, { transform:"scale(1.18)" }, { transform:"scale(1)" }],
+        { duration:260, easing:"ease-out" }
+      );
+      // Si esta en medio de una jugada, el toque queda anotado para despues
+      if(decidiendo) pendienteDelClick = accion;
+      else ejecutar(accion);
+    });
 
     function paso(ahora){
       const delta = Math.min((ahora - anterior) / 1000, 0.05);
