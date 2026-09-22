@@ -1620,6 +1620,13 @@
     });
 
     function paso(ahora){
+      // El pedido del proximo cuadro va SIEMPRE primero: si un cuadro falla,
+      // la mascota se saltea ese y sigue, en vez de quedar congelada.
+      requestAnimationFrame(paso);
+      try{ dibujarCuadro(ahora); } catch(e){ /* un cuadro perdido no importa */ }
+    }
+
+    function dibujarCuadro(ahora){
       const delta = Math.min((ahora - anterior) / 1000, 0.05);
       anterior = ahora;
 
@@ -1646,7 +1653,6 @@
       // El volteo va en "scale" y no en "transform", asi no pelea con la
       // animacion del cuerpo ni con el saltito.
       cuerpo.style.scale = dir === 1 ? "1 1" : "-1 1";
-      requestAnimationFrame(paso);
     }
     // Recien ahora se muestra: si el script no llega hasta aca, la mascota no
     // aparece, en vez de quedar haciendo el pasito en el lugar para siempre.
