@@ -526,7 +526,9 @@
     position:fixed; bottom:12px; left:0; z-index:24;
     width:96px; height:120px;
     pointer-events:none; will-change:transform;
+    display:none;                     /* la muestra el script al arrancar */
   }
+  .mascota[data-activa="1"]{display:block;}
   .mascota-cuerpo{
     position:relative; width:100%; height:100%;
     transform-origin:50% 100%;
@@ -645,7 +647,7 @@
   }
   /* Si el sistema pide menos animaciones, no aparece nada de esto */
   @media (prefers-reduced-motion: reduce){
-    .mascota, .mascota-escena{display:none;}
+    .mascota[data-activa="1"], .mascota-escena{display:none;}
   }
   /* Footer */
   footer{border-top:1px solid var(--line); padding:48px 0;}
@@ -1483,12 +1485,17 @@
         if(ahora > hastaCambioDeModo && !decidiendo) decidir();
       }
 
+      // Por si achican la ventana mientras esta quieta: nunca fuera de vista
+      x = Math.min(Math.max(x, MARGEN_IZQ), limite());
       yo.style.transform = "translateX(" + Math.round(x) + "px)";
       // El volteo va en "scale" y no en "transform", asi no pelea con la
       // animacion del cuerpo ni con el saltito.
       cuerpo.style.scale = dir === 1 ? "1 1" : "-1 1";
       requestAnimationFrame(paso);
     }
+    // Recien ahora se muestra: si el script no llega hasta aca, la mascota no
+    // aparece, en vez de quedar haciendo el pasito en el lugar para siempre.
+    yo.dataset.activa = "1";
     requestAnimationFrame(paso);
   }
 
@@ -1509,7 +1516,15 @@
   }
 
   cargarCatalogo();
-  pasearMascota();
+
+  // La mascota vive mas abajo en el documento, asi que recien existe cuando
+  // termina de parsearse la pagina. Arrancarla antes no encontraba el
+  // elemento y la dejaba muerta: se veian solo las animaciones de CSS.
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", pasearMascota);
+  } else {
+    pasearMascota();
+  }
 </script>
 
 <!-- Escenografia de la mascota: aparece solo cuando hace una jugada -->
