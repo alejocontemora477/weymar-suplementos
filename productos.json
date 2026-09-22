@@ -344,7 +344,8 @@
       {
          "brand" : "Ena Sport",
          "cat" : "proteinas",
-         "desc" : "Vaso mezclador con compartimientos extra para llevar suplementos.",
+         "desc" : "Vaso mezclador Truemade con compartimiento para llevar suplemento. Tapa con traba y medidas impresas.",
+         "gallery" : [ "img/shaker-ena-plus-google.webp" ],
          "id" : "shaker-ena-plus",
          "image" : "img/shaker-ena-plus.webp",
          "name" : "Shaker Ena Plus con Compartimientos",

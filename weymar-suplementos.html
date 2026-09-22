@@ -537,9 +537,11 @@
     filter:drop-shadow(0 0 16px rgba(52,198,244,0.45));
   }
   /* Cada parte gira sobre si misma: hace falta fill-box en SVG */
-  .mascota-pata, .mascota-brazos, .mascota-cara, .mascota-ojos, .mascota-boca{
+  .mascota-pata, .mascota-brazos, .mascota-cara, .mascota-ojos,
+  .mascota-boca, .mascota-cejas, .mascota-viento{
     transform-box:fill-box;
   }
+  .mascota-boca, .mascota-cejas{transition:transform .2s ease;}
   .mascota-pata{
     transform-origin:50% 8%;
     animation:mascota-pata .46s ease-in-out infinite alternate;
@@ -576,8 +578,24 @@
   .mascota.tirando .mascota-cuerpo{animation:mascota-cuerpo-tira .8s ease-in-out;}
   .mascota.tirando .mascota-pata{animation:mascota-flexion .8s ease-in-out;}
 
-  /* Festejo despues de una jugada: boca mas abierta */
+  /* Festejo despues de una jugada: boca abierta, cejas arriba y brazos en alto */
   .mascota.festejando .mascota-boca{transform:scaleY(1.9) translateY(-1px); transform-origin:50% 0;}
+  .mascota.festejando .mascota-cejas{transform:translateY(-2.5px);}
+  .mascota.festejando .mascota-brazos{animation:mascota-festejo .9s ease-in-out;}
+  .mascota.festejando .mascota-cuerpo{animation:mascota-festejo-cuerpo .9s ease-in-out;}
+
+  /* Salto: la sombra se achica y las cejas se levantan */
+  .mascota.saltando .mascota-sombra{animation:mascota-sombra-salto .7s ease-in-out;}
+  .mascota.saltando .mascota-cejas{transform:translateY(-2px);}
+  .mascota.saltando .mascota-pata{animation:mascota-pata-salto .7s ease-in-out;}
+
+  /* Cara de concentracion al tirar al aro */
+  .mascota.tirando .mascota-boca{transform:scale(.5,1.3); transform-origin:50% 50%;}
+  .mascota.tirando .mascota-cejas{transform:translateY(1.5px);}
+
+  /* Lineas de velocidad: aparecen solo al correr */
+  .mascota-viento{opacity:0; transition:opacity .2s ease;}
+  .mascota.corriendo .mascota-viento{opacity:.75; animation:mascota-viento .28s linear infinite;}
 
   @keyframes mascota-bote{from{transform:translateY(0) rotate(-1.4deg);} to{transform:translateY(-5px) rotate(1.4deg);}}
   @keyframes mascota-pata{from{transform:rotate(20deg);} to{transform:rotate(-20deg);}}
@@ -592,6 +610,11 @@
   @keyframes mascota-tiro{0%{transform:translateY(6px) rotate(0deg);} 45%{transform:translateY(-16px) rotate(0deg);} 100%{transform:translateY(0) rotate(0deg);}}
   @keyframes mascota-cuerpo-tira{0%,100%{transform:translateY(0) scaleY(1);} 30%{transform:translateY(5px) scaleY(.9);} 55%{transform:translateY(-8px) scaleY(1.06);}}
   @keyframes mascota-flexion{0%,100%{transform:rotate(0deg);} 30%{transform:rotate(12deg);} 55%{transform:rotate(-6deg);}}
+  @keyframes mascota-festejo{0%,100%{transform:translateY(0) rotate(0deg);} 40%{transform:translateY(-20px) rotate(-6deg);} 70%{transform:translateY(-12px) rotate(6deg);}}
+  @keyframes mascota-festejo-cuerpo{0%,100%{transform:translateY(0);} 35%{transform:translateY(-9px);} 60%{transform:translateY(-3px);}}
+  @keyframes mascota-sombra-salto{0%,100%{transform:scaleX(1); opacity:.8;} 50%{transform:scaleX(.5); opacity:.25;}}
+  @keyframes mascota-pata-salto{0%,100%{transform:rotate(0deg);} 20%{transform:rotate(18deg);} 50%{transform:rotate(-14deg);}}
+  @keyframes mascota-viento{from{opacity:.75; transform:translateX(0);} to{opacity:.2; transform:translateX(-10px);}}
 
   /* Escenografia: arco, aro y pelotas. Aparecen solo durante la jugada */
   .mascota-escena{
@@ -1232,6 +1255,7 @@
     const MARGEN_DER = 92;   // deja libre el boton de WhatsApp
     const MARGEN_IZQ = 8;
     const PISO = 12;         // igual que el "bottom" de la mascota
+    const DURACION = 5000;   // cada animacion dura 5 segundos
 
     let x = 60, dir = 1;
     let modo = "caminar";        // caminar | correr | quieta
@@ -1240,7 +1264,6 @@
     let anterior = performance.now();
 
     const limite = () => Math.max(MARGEN_IZQ + 10, window.innerWidth - yo.offsetWidth - MARGEN_DER);
-    const alAzar = (min, max) => min + Math.random() * (max - min);
     const esperar = (ms) => new Promise(r => setTimeout(r, ms));
     const centroMascota = () => x + yo.offsetWidth / 2;
 
@@ -1257,6 +1280,7 @@
 
     function saltar(){
       ocupadaHasta = performance.now() + 700;
+      marcar("saltando", 700);
       cuerpo.animate([
         { transform:"translateY(0) scaleY(1)" },
         { transform:"translateY(4px) scaleY(.88)", offset:.15 },
@@ -1367,6 +1391,9 @@
     // Elige que hacer despues. Las jugadas necesitan espacio: si no entran,
     // sigue caminando y lo intenta mas adelante.
     async function decidir(){
+      // Se cuenta desde que arranca: una jugada dura lo suyo y el resto del
+      // turno lo completa caminando, asi cada tanda son 5 segundos parejos.
+      const inicio = performance.now();
       const sorteo = Math.random();
       let jugada = false;
       if(sorteo < 0.18) jugada = await patearAlArco();
@@ -1378,10 +1405,7 @@
       else if(sorteo < 0.82){ modo = "quieta"; }
       else { modo = "caminar"; }
 
-      const duracion = modo === "quieta" ? alAzar(1200, 2600)
-                     : modo === "correr" ? alAzar(2200, 4200)
-                     : alAzar(4000, 8000);
-      hastaCambioDeModo = performance.now() + duracion;
+      hastaCambioDeModo = inicio + DURACION;
     }
 
     function paso(ahora){
@@ -1504,6 +1528,13 @@
 
       <ellipse class="mascota-sombra" cx="50" cy="118" rx="31" ry="6" fill="url(#m-sombra)"/>
 
+      <!-- Lineas de velocidad: solo se ven cuando corre -->
+      <g class="mascota-viento" stroke="#8fe7ff" stroke-width="3" stroke-linecap="round" fill="none">
+        <path d="M-6,52 H10"/>
+        <path d="M-12,66 H4"/>
+        <path d="M-4,80 H12"/>
+      </g>
+
       <g class="mascota-pata izq">
         <rect x="35" y="82" width="11" height="22" rx="5.5" fill="url(#m-cuerpo)"/>
         <path d="M31,106 q0,-7 9,-7 q10,0 10,7 z" fill="url(#m-zapa)"/>
@@ -1537,8 +1568,10 @@
           <circle cx="45" cy="44.5" r="0.9" fill="#ffffff" opacity=".7"/>
           <circle cx="61" cy="44.5" r="0.9" fill="#ffffff" opacity=".7"/>
         </g>
-        <path d="M35,32 Q42,28 48,31" fill="none" stroke="#06455e" stroke-width="2.3" stroke-linecap="round"/>
-        <path d="M65,32 Q58,28 52,31" fill="none" stroke="#06455e" stroke-width="2.3" stroke-linecap="round"/>
+        <g class="mascota-cejas">
+          <path d="M35,32 Q42,28 48,31" fill="none" stroke="#06455e" stroke-width="2.3" stroke-linecap="round"/>
+          <path d="M65,32 Q58,28 52,31" fill="none" stroke="#06455e" stroke-width="2.3" stroke-linecap="round"/>
+        </g>
         <path class="mascota-boca" d="M44,52 Q50,57 56,52" fill="none" stroke="#06455e" stroke-width="2.5" stroke-linecap="round"/>
         <ellipse cx="34" cy="48" rx="3.8" ry="2.5" fill="#ff8da1" opacity=".5"/>
         <ellipse cx="66" cy="48" rx="3.8" ry="2.5" fill="#ff8da1" opacity=".5"/>
