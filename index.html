@@ -1261,6 +1261,7 @@
     let modo = "caminar";        // caminar | correr | quieta
     let hastaCambioDeModo = 0;   // cuando toca volver a decidir
     let ocupadaHasta = 0;        // mientras dura una jugada no se mueve
+    let decidiendo = false;      // hay una decision (o jugada) en curso
     let anterior = performance.now();
 
     const limite = () => Math.max(MARGEN_IZQ + 10, window.innerWidth - yo.offsetWidth - MARGEN_DER);
@@ -1293,18 +1294,22 @@
     // Devuelve donde ubicar la escenografia, o null si no hay lugar para que
     // la jugada se vea entera.
     function lugarParaJugada(anchoProp, distancia){
-      const destino = dir === 1
-        ? centroMascota() + distancia
-        : centroMascota() - distancia;
-      const izquierda = destino - anchoProp / 2;
-      if(izquierda < 4) return null;
-      if(izquierda + anchoProp > window.innerWidth - 8) return null;
-      return izquierda;
+      // Primero prueba hacia donde va; si de ese lado no entra, se da vuelta.
+      for(const sentido of [dir, -dir]){
+        const izquierda = centroMascota() + sentido * distancia - anchoProp / 2;
+        if(izquierda >= 4 && izquierda + anchoProp <= window.innerWidth - 8){
+          dir = sentido;
+          return izquierda;
+        }
+      }
+      return null;
     }
 
     async function patearAlArco(){
       const anchoArco = arco.clientWidth || 130;
-      const lugar = lugarParaJugada(anchoArco, 230);
+      // La distancia se adapta al ancho de pantalla: en un celular, 230px
+      // fijos dejaban el arco siempre afuera y la jugada nunca salia.
+      const lugar = lugarParaJugada(anchoArco, Math.min(230, window.innerWidth * 0.42));
       if(lugar === null) return false;
 
       ocupadaHasta = performance.now() + 2600;
@@ -1312,7 +1317,7 @@
       arco.style.bottom = PISO + "px";
       arco.classList.add("visible");
 
-      const desdeX = centroMascota() + dir * 26;
+      const desdeX = centroMascota() + dir * yo.offsetWidth * 0.27;   // a la altura del pie
       pelotaFutbol.style.left = desdeX + "px";
       pelotaFutbol.style.bottom = (PISO + 2) + "px";
       pelotaFutbol.style.transform = "translate(-50%,0)";
@@ -1344,17 +1349,17 @@
     async function tirarAlAro(){
       const anchoAro = aro.clientWidth || 110;
       const altoAro = aro.clientHeight || 96;
-      const lugar = lugarParaJugada(anchoAro, 200);
+      const lugar = lugarParaJugada(anchoAro, Math.min(200, window.innerWidth * 0.38));
       if(lugar === null) return false;
 
       ocupadaHasta = performance.now() + 2800;
-      const baseAro = PISO + 96;
+      const baseAro = PISO + yo.offsetHeight * 0.8;   // por encima de la cabeza
       aro.style.left = lugar + "px";
       aro.style.bottom = baseAro + "px";
       aro.classList.add("visible");
 
       const desdeX = centroMascota();
-      const desdeY = PISO + 70;
+      const desdeY = PISO + yo.offsetHeight * 0.43;   // a la altura de las manos
       pelotaBasquet.style.left = desdeX + "px";
       pelotaBasquet.style.bottom = desdeY + "px";
       pelotaBasquet.style.transform = "translate(-50%,0)";
@@ -1391,21 +1396,32 @@
     // Elige que hacer despues. Las jugadas necesitan espacio: si no entran,
     // sigue caminando y lo intenta mas adelante.
     async function decidir(){
-      // Se cuenta desde que arranca: una jugada dura lo suyo y el resto del
-      // turno lo completa caminando, asi cada tanda son 5 segundos parejos.
-      const inicio = performance.now();
-      const sorteo = Math.random();
-      let jugada = false;
-      if(sorteo < 0.18) jugada = await patearAlArco();
-      else if(sorteo < 0.34) jugada = await tirarAlAro();
+      if(decidiendo) return;           // nunca dos jugadas encimadas
+      decidiendo = true;
+      // El proximo turno se agenda ACA, antes de hacer nada: si una jugada
+      // falla, la mascota igual sigue cambiando de animacion. Se cuenta desde
+      // que arranca, asi una jugada completa el resto del turno caminando y
+      // todas las tandas duran los mismos 5 segundos.
+      hastaCambioDeModo = performance.now() + DURACION;
+      try{
+        const sorteo = Math.random();
+        let jugada = false;
+        if(sorteo < 0.18) jugada = await patearAlArco();
+        else if(sorteo < 0.34) jugada = await tirarAlAro();
 
-      if(jugada){ modo = "caminar"; }
-      else if(sorteo < 0.46){ saltar(); modo = "caminar"; }
-      else if(sorteo < 0.68){ modo = "correr"; }
-      else if(sorteo < 0.82){ modo = "quieta"; }
-      else { modo = "caminar"; }
-
-      hastaCambioDeModo = inicio + DURACION;
+        if(jugada){ modo = "caminar"; }
+        else if(sorteo < 0.46){ saltar(); modo = "caminar"; }
+        else if(sorteo < 0.68){ modo = "correr"; }
+        else if(sorteo < 0.82){ modo = "quieta"; }
+        else { modo = "caminar"; }
+      } catch(e){
+        // Si algo sale mal, guarda la escenografia y sigue caminando
+        ocupadaHasta = 0;
+        modo = "caminar";
+        [arco, aro, pelotaFutbol, pelotaBasquet].forEach(el => el && el.classList.remove("visible", "gol"));
+      } finally {
+        decidiendo = false;
+      }
     }
 
     function paso(ahora){
@@ -1418,13 +1434,15 @@
       } else {
         yo.classList.toggle("quieta", modo === "quieta");
         yo.classList.toggle("corriendo", modo === "correr");
-        x += dir * velocidad() * delta;
-        if(x >= limite()){ x = limite(); dir = -1; hastaCambioDeModo = 0; }
-        if(x <= MARGEN_IZQ){ x = MARGEN_IZQ; dir = 1; hastaCambioDeModo = 0; }
-        if(ahora > hastaCambioDeModo){
-          hastaCambioDeModo = ahora + 9e9;   // evita decidir dos veces seguidas
-          decidir();
+        // Los bordes solo se miran cuando de verdad se esta moviendo: si esta
+        // quieta justo en el borde, la condicion se cumpliria en cada cuadro.
+        const vel = velocidad();
+        if(vel > 0){
+          x += dir * vel * delta;
+          if(x >= limite()){ x = limite(); dir = -1; }
+          if(x <= MARGEN_IZQ){ x = MARGEN_IZQ; dir = 1; }
         }
+        if(ahora > hastaCambioDeModo && !decidiendo) decidir();
       }
 
       yo.style.transform = "translateX(" + Math.round(x) + "px)";
