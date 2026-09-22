@@ -188,6 +188,57 @@
     background:var(--celeste); color:#06131a; border-color:var(--celeste); font-weight:600;
   }
   /* 2 productos por fila: tarjetas grandes para que la foto luzca */
+  /* Buscador y filtros del catalogo */
+  .filtros{
+    display:flex; align-items:center; gap:16px; flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  .buscador{
+    position:relative; flex:1 1 320px; max-width:480px;
+    display:flex; align-items:center;
+  }
+  .buscador svg{
+    position:absolute; left:14px; width:18px; height:18px; color:var(--muted);
+    pointer-events:none;
+  }
+  .buscador input{
+    width:100%; background:var(--panel); color:var(--white);
+    border:1px solid var(--line); border-radius:999px;
+    padding:13px 40px 13px 42px;
+    font-family:inherit; font-size:0.95rem;
+  }
+  .buscador input::placeholder{color:#5c7080;}
+  .buscador input:focus{outline:none; border-color:var(--celeste);}
+  .buscador input::-webkit-search-cancel-button{display:none;}
+  .buscador-limpiar{
+    position:absolute; right:12px; display:none;
+    background:none; border:none; color:var(--muted);
+    font-size:1.3rem; line-height:1; cursor:pointer; padding:0 4px;
+  }
+  .buscador-limpiar.show{display:block;}
+  .buscador-limpiar:hover{color:var(--white);}
+  .switch-disponibles{
+    display:flex; align-items:center; gap:10px;
+    color:var(--muted); font-size:0.92rem; font-weight:500; cursor:pointer;
+    user-select:none;
+  }
+  .switch-disponibles input{position:absolute; opacity:0; width:0; height:0;}
+  .switch-pista{
+    width:42px; height:24px; border-radius:999px;
+    background:var(--panel); border:1px solid var(--line);
+    display:flex; align-items:center; padding:2px;
+    transition:background .18s ease, border-color .18s ease;
+  }
+  .switch-bolita{
+    width:18px; height:18px; border-radius:50%; background:var(--muted);
+    transition:transform .18s ease, background .18s ease;
+  }
+  .switch-disponibles input:checked + .switch-pista{background:rgba(52,198,244,0.22); border-color:var(--celeste);}
+  .switch-disponibles input:checked + .switch-pista .switch-bolita{transform:translateX(18px); background:var(--celeste);}
+  .switch-disponibles input:focus-visible + .switch-pista{outline:2px solid var(--celeste); outline-offset:2px;}
+  .conteo{color:var(--muted); font-size:0.88rem; margin-bottom:22px;}
+  .conteo b{color:var(--white); font-weight:600;}
+
   .grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
   .card{
     background:linear-gradient(180deg, #122029, var(--panel) 55%);
@@ -519,6 +570,42 @@
     .wa-float svg{width:26px; height:26px;}
   }
 
+  /* Volver arriba: el catalogo es largo, sobre todo en celular */
+  .subir{
+    position:fixed; right:22px; bottom:92px; z-index:44;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--panel); border:1px solid var(--line); color:var(--celeste);
+    display:flex; align-items:center; justify-content:center; cursor:pointer;
+    opacity:0; transform:translateY(10px); pointer-events:none;
+    transition:opacity .2s ease, transform .2s ease, border-color .15s ease;
+    box-shadow:0 4px 14px rgba(0,0,0,0.4);
+  }
+  .subir.show{opacity:1; transform:none; pointer-events:auto;}
+  .subir:hover{border-color:var(--celeste);}
+  .subir svg{width:20px; height:20px;}
+  @media (max-width: 560px){
+    .subir{right:16px; bottom:80px; width:42px; height:42px;}
+  }
+
+  /* Esqueleto mientras carga el catalogo */
+  .skeleton{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:16px 18px 20px; display:flex; flex-direction:column; gap:12px;
+  }
+  .skeleton span{
+    display:block; border-radius:8px;
+    background:linear-gradient(90deg, #142430 25%, #1b3242 50%, #142430 75%);
+    background-size:200% 100%;
+    animation:skeleton 1.2s ease-in-out infinite;
+  }
+  .skeleton .sk-foto{height:320px; border-radius:12px;}
+  .skeleton .sk-linea{height:14px;}
+  .skeleton .sk-linea.corta{width:40%;}
+  .skeleton .sk-linea.media{width:70%;}
+  @keyframes skeleton{from{background-position:200% 0;} to{background-position:-200% 0;}}
+  @media (max-width: 860px){ .skeleton .sk-foto{height:250px;} }
+  @media (max-width: 560px){ .skeleton .sk-foto{height:300px;} }
+
   /* Mascota: un personaje armado con la W y la pesa del logo. Camina, corre,
      salta, patea al arco y tira al aro. No recibe clicks y queda por debajo
      del boton de WhatsApp, asi nunca molesta. */
@@ -747,6 +834,23 @@
       <button class="tab" data-cat="barritas" onclick="showCategory('barritas', this)">Dulces Fit</button>
     </div>
 
+    <div class="filtros">
+      <div class="buscador">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/>
+        </svg>
+        <input id="buscador" type="search" placeholder="Buscar por producto, marca o sabor…"
+               autocomplete="off" oninput="buscar(this.value)" aria-label="Buscar productos">
+        <button type="button" class="buscador-limpiar" id="buscador-limpiar" onclick="limpiarBusqueda()" aria-label="Borrar búsqueda">&times;</button>
+      </div>
+      <label class="switch-disponibles">
+        <input type="checkbox" id="solo-disponibles" onchange="alternarDisponibles(this.checked)">
+        <span class="switch-pista"><span class="switch-bolita"></span></span>
+        Solo disponibles
+      </label>
+    </div>
+    <p class="conteo" id="conteo"></p>
+
     <div id="category-banner"></div>
     <div class="grid" id="product-grid"></div>
   </div>
@@ -854,6 +958,8 @@
 
   let cart = {}; // { productId: qty }
   let activeCategory = "todo";
+  let busqueda = "";
+  let soloDisponibles = false;
 
   function dumbbellIcon(){
     return '<svg viewBox="0 0 24 24" fill="none" stroke="#34c6f4" stroke-width="1.6" stroke-linecap="round"><path d="M2 12h3M19 12h3M5 8v8M19 8v8M8 12h8"/></svg>';
@@ -954,15 +1060,53 @@
       .map(x => x.p);
   }
 
+  // Busca en nombre, marca, descripcion y sabores, sin acentos ni mayusculas
+  function normalizar(texto){
+    return String(texto || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  }
+  function coincide(p, texto){
+    if(!texto) return true;
+    const donde = normalizar([p.name, p.brand, p.desc, flavorsOf(p).join(" ")].join(" "));
+    // Todas las palabras tienen que aparecer: "prote ena" encuentra la ENA
+    return normalizar(texto).split(/\s+/).filter(Boolean).every(palabra => donde.includes(palabra));
+  }
+
+  function buscar(texto){
+    busqueda = texto;
+    document.getElementById("buscador-limpiar").classList.toggle("show", !!texto);
+    renderGrid();
+  }
+  function limpiarBusqueda(){
+    document.getElementById("buscador").value = "";
+    buscar("");
+  }
+  function alternarDisponibles(valor){
+    soloDisponibles = valor;
+    renderGrid();
+  }
+
   function renderGrid(){
     const grid = document.getElementById("product-grid");
     const banner = document.getElementById("category-banner");
-    banner.innerHTML = activeCategory === "proteinas"
+    banner.innerHTML = activeCategory === "proteinas" && !busqueda
       ? `<div class="promo-banner"><div class="promo-banner-icon">🎁</div><p>Comprando una <strong>proteína o aumentador de masa Ena</strong>, te llevás un <strong>shaker Ena de regalo</strong>.</p></div>`
       : "";
-    const items = ordenarPorStock(productosDeCategoria(activeCategory));
+
+    const deLaCategoria = productosDeCategoria(activeCategory);
+    const items = ordenarPorStock(deLaCategoria.filter(p =>
+      coincide(p, busqueda) && (!soloDisponibles || !sinStock(p))
+    ));
+
+    const disponibles = items.filter(p => !sinStock(p)).length;
+    document.getElementById("conteo").innerHTML = items.length
+      ? `<b>${items.length}</b> producto${items.length === 1 ? "" : "s"}` +
+        (disponibles < items.length ? ` · <b>${disponibles}</b> con stock` : "")
+      : "";
+
     if(items.length === 0){
-      grid.innerHTML = `<div class="empty-panel"><b>${CATEGORY_LABELS[activeCategory]} próximamente</b>Estamos cargando esta categoría. Escribinos por WhatsApp si buscás algo puntual.</div>`;
+      grid.innerHTML = busqueda || soloDisponibles
+        ? `<div class="empty-panel"><b>No encontramos nada con eso</b>Probá con otra palabra, mirá otra categoría o escribinos por WhatsApp y lo buscamos.</div>`
+        : `<div class="empty-panel"><b>${CATEGORY_LABELS[activeCategory]} próximamente</b>Estamos cargando esta categoría. Escribinos por WhatsApp si buscás algo puntual.</div>`;
       return;
     }
     grid.innerHTML = items.map(p => `
@@ -1500,6 +1644,15 @@
   }
 
   async function cargarCatalogo(){
+    // Cuatro tarjetas fantasma mientras llega el catalogo, asi no se ve un
+    // hueco vacio y la pagina no pega un salto cuando aparecen los productos.
+    document.getElementById("product-grid").innerHTML = Array.from({ length: 4 }, () => `
+      <div class="skeleton" aria-hidden="true">
+        <span class="sk-foto"></span>
+        <span class="sk-linea corta"></span>
+        <span class="sk-linea media"></span>
+        <span class="sk-linea"></span>
+      </div>`).join("");
     try{
       const r = await fetch("productos.json?v=" + Date.now(), { cache: "no-store" });
       if(!r.ok) throw new Error("HTTP " + r.status);
@@ -1514,6 +1667,14 @@
     renderGrid();
     renderCart();
   }
+
+  // Boton de volver arriba: aparece cuando ya bajaste una pantalla
+  function actualizarBotonSubir(){
+    const boton = document.getElementById("subir");
+    if(boton) boton.classList.toggle("show", scrollY > 700);
+  }
+  addEventListener("scroll", actualizarBotonSubir, { passive: true });
+  addEventListener("load", actualizarBotonSubir);   // por si recarga a mitad de pagina
 
   cargarCatalogo();
 
@@ -1567,6 +1728,12 @@
     <path d="M4,4 Q12,12 4,20 M20,4 Q12,12 20,20" stroke="#8a3c10" stroke-width="1.3" fill="none"/>
   </svg>
 </div>
+
+<button class="subir" id="subir" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Volver arriba">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
 
 <div class="mascota" id="mascota" aria-hidden="true">
   <div class="mascota-cuerpo">
