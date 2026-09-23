@@ -217,25 +217,6 @@
   }
   .buscador-limpiar.show{display:block;}
   .buscador-limpiar:hover{color:var(--white);}
-  .switch-disponibles{
-    display:flex; align-items:center; gap:10px;
-    color:var(--muted); font-size:0.92rem; font-weight:500; cursor:pointer;
-    user-select:none;
-  }
-  .switch-disponibles input{position:absolute; opacity:0; width:0; height:0;}
-  .switch-pista{
-    width:42px; height:24px; border-radius:999px;
-    background:var(--panel); border:1px solid var(--line);
-    display:flex; align-items:center; padding:2px;
-    transition:background .18s ease, border-color .18s ease;
-  }
-  .switch-bolita{
-    width:18px; height:18px; border-radius:50%; background:var(--muted);
-    transition:transform .18s ease, background .18s ease;
-  }
-  .switch-disponibles input:checked + .switch-pista{background:rgba(52,198,244,0.22); border-color:var(--celeste);}
-  .switch-disponibles input:checked + .switch-pista .switch-bolita{transform:translateX(18px); background:var(--celeste);}
-  .switch-disponibles input:focus-visible + .switch-pista{outline:2px solid var(--celeste); outline-offset:2px;}
 
   .grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
   .card{
@@ -876,11 +857,6 @@
                autocomplete="off" oninput="buscar(this.value)" aria-label="Buscar productos">
         <button type="button" class="buscador-limpiar" id="buscador-limpiar" onclick="limpiarBusqueda()" aria-label="Borrar búsqueda">&times;</button>
       </div>
-      <label class="switch-disponibles">
-        <input type="checkbox" id="solo-disponibles" onchange="alternarDisponibles(this.checked)">
-        <span class="switch-pista"><span class="switch-bolita"></span></span>
-        Solo disponibles
-      </label>
     </div>
 
     <div id="category-banner"></div>
@@ -990,7 +966,6 @@
   let cart = {}; // { productId: qty }
   let activeCategory = "ofertas";
   let busqueda = "";
-  let soloDisponibles = false;
 
   function dumbbellIcon(){
     return '<svg viewBox="0 0 24 24" fill="none" stroke="#34c6f4" stroke-width="1.6" stroke-linecap="round"><path d="M2 12h3M19 12h3M5 8v8M19 8v8M8 12h8"/></svg>';
@@ -1141,10 +1116,6 @@
     document.getElementById("buscador").value = "";
     buscar("");
   }
-  function alternarDisponibles(valor){
-    soloDisponibles = valor;
-    renderGrid();
-  }
 
   function renderGrid(){
     const grid = document.getElementById("product-grid");
@@ -1158,14 +1129,14 @@
     const base = busqueda ? PRODUCTS : productosDeCategoria(activeCategory);
     const items = base
       .map(p => ({ p, punto: busqueda ? puntaje(p, busqueda) : 1 }))
-      .filter(x => x.punto > 0 && (!soloDisponibles || !sinStock(x.p)))
+      .filter(x => x.punto > 0)
       // Primero lo que se puede comprar, despues lo mas parecido a lo buscado.
       // El orden del catalogo se mantiene entre los empatados.
       .sort((a, b) => (sinStock(a.p) - sinStock(b.p)) || (b.punto - a.punto))
       .map(x => x.p);
 
     if(items.length === 0){
-      grid.innerHTML = busqueda || soloDisponibles
+      grid.innerHTML = busqueda
         ? `<div class="empty-panel"><b>No encontramos nada con eso</b>Probá con otra palabra, mirá otra categoría o escribinos por WhatsApp y lo buscamos.</div>`
         : `<div class="empty-panel"><b>${CATEGORY_LABELS[activeCategory]} próximamente</b>Estamos cargando esta categoría. Escribinos por WhatsApp si buscás algo puntual.</div>`;
       return;
