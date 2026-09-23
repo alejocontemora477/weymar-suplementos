@@ -78,6 +78,7 @@
       {
          "brand" : "Ena Sport",
          "cat" : "salud",
+         "catsExtra" : [ "proteinas" ],
          "desc" : "Blend de proteína y colágeno todo en uno: 10g de whey protein y 10g de colágeno por porción. 750g, 30 servicios. Libre de gluten.",
          "id" : "whey-collagen-ena",
          "image" : "img/whey-collagen-ena.webp",

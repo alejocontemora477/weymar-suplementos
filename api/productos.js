@@ -56,6 +56,20 @@ function revisar(lista) {
       return { error: `Imagen invalida en "${id}": debe ser un archivo dentro de img/` };
     }
 
+    // Categorias extra: el producto aparece tambien en estas, ademas de "cat".
+    let catsExtra = null;
+    if (p.catsExtra != null) {
+      if (!Array.isArray(p.catsExtra)) return { error: `Categorias extra invalidas en "${id}": debe ser una lista` };
+      catsExtra = [];
+      for (const c of p.catsExtra) {
+        const extra = String(c == null ? "" : c).trim();
+        if (!CATEGORIAS.includes(extra)) {
+          return { error: `Categoria extra invalida en "${id}": "${extra}"` };
+        }
+        if (extra !== cat && !catsExtra.includes(extra)) catsExtra.push(extra);
+      }
+    }
+
     // Fotos extra que se muestran como miniaturas en la ficha del producto.
     let gallery = null;
     if (p.gallery != null) {
@@ -126,6 +140,7 @@ function revisar(lista) {
     if (flavorsOut && flavorsOut.length) limpio.flavorsOut = flavorsOut;
     if (gallery && gallery.length) limpio.gallery = gallery;
     if (comboOf) { limpio.comboOf = comboOf; limpio.comboSize = comboSize; }
+    if (catsExtra && catsExtra.length) limpio.catsExtra = catsExtra;
     limpios.push(limpio);
   }
 

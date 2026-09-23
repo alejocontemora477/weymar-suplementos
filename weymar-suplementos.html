@@ -602,7 +602,10 @@
   .skeleton .sk-linea.media{width:70%;}
   @keyframes skeleton{from{background-position:200% 0;} to{background-position:-200% 0;}}
   @media (max-width: 860px){ .skeleton .sk-foto{height:250px;} }
-  @media (max-width: 560px){ .skeleton .sk-foto{height:300px;} }
+  @media (max-width: 560px){
+    .skeleton{padding:10px 11px 14px; border-radius:13px;}
+    .skeleton .sk-foto{height:152px; border-radius:10px;}
+  }
 
   /* Mascota: un personaje armado con la W y la pesa del logo. Camina, corre,
      salta, patea al arco y tira al aro. No recibe clicks y queda por debajo
@@ -764,8 +767,30 @@
     .hero-logo{width:180px; align-self:center;}
   }
   @media (max-width: 560px){
-    .grid{grid-template-columns:1fr;}
-    .card-thumb{height:300px;}
+    /* Dos productos por fila tambien en celular: con uno solo por fila habia
+       que scrollear el doble para recorrer el catalogo. Como la tarjeta queda
+       angosta, todo adentro se achica y el precio pasa arriba del boton. */
+    .grid{grid-template-columns:repeat(2, 1fr); gap:11px;}
+    .card{padding:10px 11px 14px; gap:8px; border-radius:13px;}
+    .card-thumb{height:152px; border-radius:10px;}
+    .card .brand-tag{font-size:0.68rem; letter-spacing:0.03em;}
+    .card h3{font-size:1.06rem; line-height:1.15;}
+    .card p.desc{
+      font-size:0.78rem; line-height:1.4;
+      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .card-flavors{gap:4px; margin-top:4px;}
+    .card-flavor-tag{font-size:0.62rem; padding:2px 7px;}
+    .card-foot{
+      flex-direction:column; align-items:stretch; gap:8px;
+      margin-top:4px; padding-top:10px;
+    }
+    .price{font-size:1.5rem;}
+    .add-btn{width:100%; padding:10px 8px; font-size:0.85rem;}
+    .sin-stock{width:100%; text-align:center; padding:8px; font-size:0.78rem;}
+    .offer-badge{font-size:0.7rem; padding:3px 10px; left:12px; top:-10px;}
+    .zoom-hint{width:22px; height:22px; font-size:0.7rem;}
     /* Las categorias pasan a una tira deslizable: en celular ocupaban
        cuatro filas y empujaban los productos fuera de la pantalla. */
     .tabs{
@@ -1051,9 +1076,14 @@
   // "Ofertas y Combos" junta los productos de esa categoria (los combos)
   // con cualquier producto marcado en oferta que tenga stock. Asi, marcar
   // una oferta desde el panel la hace aparecer aca sin tocar nada mas.
+  // Un producto puede vivir en mas de una categoria con "catsExtra": el whey
+  // collagen, por ejemplo, va en Proteinas y en Salud (los colagenos).
+  function esDeCategoria(p, cat){
+    return p.cat === cat || (Array.isArray(p.catsExtra) && p.catsExtra.includes(cat));
+  }
   function productosDeCategoria(cat){
-    if(cat === "ofertas") return PRODUCTS.filter(p => p.cat === "ofertas" || enOferta(p));
-    return PRODUCTS.filter(p => p.cat === cat);
+    if(cat === "ofertas") return PRODUCTS.filter(p => esDeCategoria(p, "ofertas") || enOferta(p));
+    return PRODUCTS.filter(p => esDeCategoria(p, cat));
   }
 
   // Los agotados van siempre al final. El orden entre los que tienen stock
@@ -1069,11 +1099,37 @@
   function normalizar(texto){
     return String(texto || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   }
-  function coincide(p, texto){
-    if(!texto) return true;
-    const donde = normalizar([p.name, p.brand, p.desc, flavorsOf(p).join(" ")].join(" "));
-    // Todas las palabras tienen que aparecer: "prote ena" encuentra la ENA
-    return normalizar(texto).split(/\s+/).filter(Boolean).every(palabra => donde.includes(palabra));
+  // El nombre, la marca y los sabores pesan mas que la descripcion o la
+  // categoria: buscar "prote ena" tiene que traer la proteina ENA primero, no
+  // un shaker que en su descripcion menciona batidos de proteina.
+  function camposDe(p){
+    const categorias = [p.cat].concat(p.catsExtra || []).map(c => CATEGORY_LABELS[c] || "");
+    return {
+      nombre: normalizar(p.name),
+      marca: normalizar([p.brand, flavorsOf(p).join(" ")].join(" ")),
+      resto: normalizar([p.desc, categorias.join(" ")].join(" "))
+    };
+  }
+  function contiene(donde, palabra){
+    if(donde.includes(palabra)) return true;
+    // En plural tambien encuentra: "proteinas" trae "proteina"
+    return palabra.length > 4 && palabra.endsWith("s") && donde.includes(palabra.slice(0, -1));
+  }
+  // 0 = no coincide. Todas las palabras tienen que aparecer en algun lado.
+  function puntaje(p, texto){
+    const palabras = normalizar(texto).split(/\s+/).filter(Boolean);
+    if(!palabras.length) return 1;
+    const { nombre, marca, resto } = camposDe(p);
+    let total = 0;
+    for(const palabra of palabras){
+      // El nombre pesa mas que el sabor: "crea" tiene que traer las creatinas
+      // antes que una proteina sabor "cookies and cream".
+      if(contiene(nombre, palabra)) total += 5;
+      else if(contiene(marca, palabra)) total += 3;
+      else if(contiene(resto, palabra)) total += 1;
+      else return 0;
+    }
+    return total;
   }
 
   function buscar(texto){
@@ -1100,9 +1156,13 @@
     // Al buscar se mira todo el catalogo, no solo la categoria abierta: si no,
     // habria que adivinar en cual esta el producto antes de poder buscarlo.
     const base = busqueda ? PRODUCTS : productosDeCategoria(activeCategory);
-    const items = ordenarPorStock(base.filter(p =>
-      coincide(p, busqueda) && (!soloDisponibles || !sinStock(p))
-    ));
+    const items = base
+      .map(p => ({ p, punto: busqueda ? puntaje(p, busqueda) : 1 }))
+      .filter(x => x.punto > 0 && (!soloDisponibles || !sinStock(x.p)))
+      // Primero lo que se puede comprar, despues lo mas parecido a lo buscado.
+      // El orden del catalogo se mantiene entre los empatados.
+      .sort((a, b) => (sinStock(a.p) - sinStock(b.p)) || (b.punto - a.punto))
+      .map(x => x.p);
 
     if(items.length === 0){
       grid.innerHTML = busqueda || soloDisponibles
