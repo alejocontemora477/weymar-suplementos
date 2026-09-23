@@ -236,8 +236,6 @@
   .switch-disponibles input:checked + .switch-pista{background:rgba(52,198,244,0.22); border-color:var(--celeste);}
   .switch-disponibles input:checked + .switch-pista .switch-bolita{transform:translateX(18px); background:var(--celeste);}
   .switch-disponibles input:focus-visible + .switch-pista{outline:2px solid var(--celeste); outline-offset:2px;}
-  .conteo{color:var(--muted); font-size:0.88rem; margin-bottom:22px;}
-  .conteo b{color:var(--white); font-weight:600;}
 
   .grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
   .card{
@@ -836,8 +834,7 @@
   <div class="wrap">
     <p class="catalog-headline">Elegí tus productos 💪</p>
     <div class="tabs">
-      <button class="tab active" data-cat="todo" onclick="showCategory('todo', this)">Ver todo</button>
-      <button class="tab" data-cat="ofertas" onclick="showCategory('ofertas', this)">Ofertas y Combos</button>
+      <button class="tab active" data-cat="ofertas" onclick="showCategory('ofertas', this)">Ofertas y Combos</button>
       <button class="tab" data-cat="creatina" onclick="showCategory('creatina', this)">Creatinas</button>
       <button class="tab" data-cat="proteinas" onclick="showCategory('proteinas', this)">Proteínas</button>
       <button class="tab" data-cat="pre" onclick="showCategory('pre', this)">Pre-entrenos</button>
@@ -860,7 +857,6 @@
         Solo disponibles
       </label>
     </div>
-    <p class="conteo" id="conteo"></p>
 
     <div id="category-banner"></div>
     <div class="grid" id="product-grid"></div>
@@ -958,7 +954,6 @@
   let PRODUCTS = [];
 
   const CATEGORY_LABELS = {
-    todo: "Todos los productos",
     creatina: "Creatinas",
     proteinas: "Proteínas",
     pre: "Pre-entrenos",
@@ -968,7 +963,7 @@
   };
 
   let cart = {}; // { productId: qty }
-  let activeCategory = "todo";
+  let activeCategory = "ofertas";
   let busqueda = "";
   let soloDisponibles = false;
 
@@ -1057,7 +1052,6 @@
   // con cualquier producto marcado en oferta que tenga stock. Asi, marcar
   // una oferta desde el panel la hace aparecer aca sin tocar nada mas.
   function productosDeCategoria(cat){
-    if(cat === "todo") return PRODUCTS;
     if(cat === "ofertas") return PRODUCTS.filter(p => p.cat === "ofertas" || enOferta(p));
     return PRODUCTS.filter(p => p.cat === cat);
   }
@@ -1103,16 +1097,12 @@
       ? `<div class="promo-banner"><div class="promo-banner-icon">🎁</div><p>Comprando una <strong>proteína o aumentador de masa Ena</strong>, te llevás un <strong>shaker Ena de regalo</strong>.</p></div>`
       : "";
 
-    const deLaCategoria = productosDeCategoria(activeCategory);
-    const items = ordenarPorStock(deLaCategoria.filter(p =>
+    // Al buscar se mira todo el catalogo, no solo la categoria abierta: si no,
+    // habria que adivinar en cual esta el producto antes de poder buscarlo.
+    const base = busqueda ? PRODUCTS : productosDeCategoria(activeCategory);
+    const items = ordenarPorStock(base.filter(p =>
       coincide(p, busqueda) && (!soloDisponibles || !sinStock(p))
     ));
-
-    const disponibles = items.filter(p => !sinStock(p)).length;
-    document.getElementById("conteo").innerHTML = items.length
-      ? `<b>${items.length}</b> producto${items.length === 1 ? "" : "s"}` +
-        (disponibles < items.length ? ` · <b>${disponibles}</b> con stock` : "")
-      : "";
 
     if(items.length === 0){
       grid.innerHTML = busqueda || soloDisponibles
