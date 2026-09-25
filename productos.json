@@ -25,6 +25,7 @@
          "brand" : "One Fit Nutrition",
          "cat" : "creatina",
          "desc" : "Monohidrato de creatina micronizado + vitamina C. 40 servicios de 5g. Formulado en USA.",
+         "gallery" : [ "img/creatina-onefit-google.webp" ],
          "id" : "creatina-onefit",
          "image" : "img/creatina-onefit.webp",
          "name" : "Poweraded Creatine Micronized 200g",
@@ -56,6 +57,7 @@
          "brand" : "Star Nutrition",
          "cat" : "salud",
          "desc" : "Suplemento dietario a base de magnesio en cápsulas. Libre de gluten, sin TACC.",
+         "gallery" : [ "img/magnesio-star-google.webp" ],
          "id" : "magnesio-star",
          "image" : "img/magnesio-star.webp",
          "name" : "Citrato de Magnesio - 60 Cápsulas",
@@ -164,12 +166,23 @@
          "stock" : 4
       },
       {
+         "brand" : "Star Nutrition",
+         "cat" : "proteinas",
+         "catsExtra" : [ "creatina" ],
+         "desc" : "Whey protein micro filtrado con creatina monohidrato: 25g de proteína y 5g de creatina por servicio. 910g, 26 servicios. Libre de gluten.",
+         "id" : "proteina-creatine-whey-star",
+         "image" : "img/proteina-creatine-whey-star.webp",
+         "name" : "Creatine Whey Protein 910g - Vanilla Ice Cream",
+         "price" : 85000,
+         "stock" : 0
+      },
+      {
          "brand" : "Pulver",
          "cat" : "proteinas",
-         "desc" : "Proteína de suero sabor chocolate y avellanas.",
+         "desc" : "Proteína de soja 100% aislada, sabor chocolate y avellanas. Libre de gluten.",
          "id" : "proteina-pulver-choco-avellanas",
-         "image" : "",
-         "name" : "Whey Protein - Chocolate y Avellanas",
+         "image" : "img/proteina-pulver-soy.webp",
+         "name" : "Soy Protein 100% Isolate - Chocolate y Avellanas",
          "price" : 45000,
          "stock" : 1
       },
@@ -178,6 +191,7 @@
          "cat" : "pre",
          "desc" : "Pre-entreno de alta intensidad para más energía y foco. 240g, 30 servicios. Elegí tu sabor.",
          "flavors" : [ "Citrus Slush", "Blue Razz" ],
+         "gallery" : [ "img/pre-tnt-citrus.webp", "img/pre-tnt-bluerazz.webp", "img/pre-tnt-dynamite-google.webp" ],
          "id" : "pre-tnt-dynamite",
          "image" : "img/pre-tnt-dynamite.webp",
          "name" : "TNT Dynamite Explosive Energy 240g",
@@ -220,7 +234,7 @@
          "cat" : "barritas",
          "desc" : "Premezcla para pancakes proteicos.",
          "id" : "pancakes-granger",
-         "image" : "",
+         "image" : "img/pancakes-granger.webp",
          "name" : "Pancakes Proteicos",
          "price" : 15500,
          "stock" : 2
@@ -250,6 +264,7 @@
          "cat" : "creatina",
          "desc" : "Creatina monohidratada con sabor, doypack 300g. Elegí tu sabor.",
          "flavors" : [ "Fruit Punch", "Uva", "Limón" ],
+         "gallery" : [ "img/creatina-star-uva.webp", "img/creatina-star-limon.webp" ],
          "id" : "creatina-star-fruitpunch",
          "image" : "img/creatina-star-fruitpunch.webp",
          "name" : "Creatina Monohidratada con Sabor - Doypack 300g",
@@ -346,12 +361,12 @@
          "stock" : 1
       },
       {
-         "brand" : "Pump V8",
+         "brand" : "Star Nutrition",
          "cat" : "pre",
-         "desc" : "Pre-entreno sabor sandía para más energía y bombeo muscular.",
-         "id" : "pump-v8-watermelon",
-         "image" : "img/pump-v8-watermelon.webp",
-         "name" : "Pre-entreno Watermelon",
+         "desc" : "Pre-entreno sabor uva para más energía y bombeo muscular. 285g, 30 servicios. Libre de gluten.",
+         "id" : "pump-v8-grape",
+         "image" : "img/pump-v8-grape.webp",
+         "name" : "Pump V8 Pre-entreno 285g - Grape Attack",
          "price" : 31000,
          "stock" : 2
       },
@@ -370,6 +385,7 @@
          "cat" : "barritas",
          "desc" : "Pasta de maní saborizada, ideal como snack proteico. Elegí tu sabor.",
          "flavors" : [ "Cookies and Cream", "Salted Caramel" ],
+         "gallery" : [ "img/pasta-mani-entrenuts-google.webp" ],
          "id" : "pasta-mani-entrenuts",
          "image" : "img/pasta-mani-entrenuts.webp",
          "name" : "Pasta de Maní Saborizada",
@@ -408,11 +424,11 @@
          "stock" : 3
       },
       {
-         "brand" : "Mutant",
+         "brand" : "Star Nutrition",
          "cat" : "proteinas",
-         "desc" : "Aumentador de masa muscular, 1,5kg, sabor vainilla.",
+         "desc" : "Ganador de peso con 23g de proteína por porción, ratio 3:1 carbohidratos/proteína, más fibras y vitaminas. 1530g.",
          "id" : "gainer-mutant-mass-van",
-         "image" : "",
+         "image" : "img/gainer-mutant-mass.webp",
          "name" : "Mutant Mass 1,5kg - Vainilla",
          "price" : 65000,
          "stock" : 1
