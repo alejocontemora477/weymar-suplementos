@@ -263,10 +263,11 @@
   .card-thumb svg{width:44px; height:44px; opacity:0.85;}
   .card h3{font-size:1.65rem; text-transform:none; font-weight:700; letter-spacing:0; line-height:1.1;}
   .card .brand-tag{color:var(--celeste); font-size:0.84rem; font-weight:600; text-transform:uppercase; letter-spacing:0.04em;}
-  .card p.desc{color:var(--muted); font-size:0.95rem; line-height:1.55; flex-grow:1;}
   .card-foot{
     display:flex; align-items:center; justify-content:space-between; gap:12px;
-    margin-top:6px; padding-top:14px; border-top:1px solid var(--line);
+    /* La descripcion no va en la tarjeta: se lee al abrir el producto.
+       El pie se empuja abajo para que precio y boton queden alineados. */
+    margin-top:auto; padding-top:14px; border-top:1px solid var(--line);
   }
   .price{font-family:'Barlow Condensed'; font-weight:800; font-size:2.2rem; line-height:1; color:var(--celeste);}
   .card.is-agotado .price{color:var(--muted);}
@@ -771,17 +772,11 @@
     .card:hover{transform:none;}
     .card .brand-tag{font-size:0.68rem; letter-spacing:0.03em;}
     .card h3{font-size:1.06rem; line-height:1.15;}
-    .card p.desc{
-      font-size:0.78rem; line-height:1.4;
-      display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
-      overflow:hidden;
-      flex-grow:0;                    /* si crece, asoman lineas debajo de los "..." */
-    }
     .card-flavors{gap:4px; margin-top:4px;}
     .card-flavor-tag{font-size:0.62rem; padding:2px 7px;}
     .card-foot{
       flex-direction:column; align-items:stretch; gap:8px;
-      margin-top:auto; padding-top:10px;   /* precio y boton alineados al pie */
+      padding-top:10px;
     }
     .price{font-size:1.5rem;}
     .add-btn{width:100%; padding:10px 8px; font-size:0.85rem;}
@@ -1190,7 +1185,6 @@
         <div class="card-thumb">${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" onload="ajustarFoto(this)">` : dumbbellIcon()}<span class="zoom-hint" aria-hidden="true">&#10530;</span></div>
         <div class="brand-tag">${p.brand}</div>
         <h3>${p.name}</h3>
-        <p class="desc">${p.desc}</p>
         ${flavorsOf(p).length ? `<div class="card-flavors">${flavorsOf(p).map(f => `<span class="card-flavor-tag${flavorAgotado(p, f) ? " agotado" : ""}"${flavorAgotado(p, f) ? ' title="Sin stock"' : ""}>${f}</span>`).join("")}</div>` : ""}
         <div class="card-foot">
           <div class="price">${formatPrice(p.price)}</div>
