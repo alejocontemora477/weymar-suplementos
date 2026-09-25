@@ -8,7 +8,7 @@
          "image" : "img/creatina-star.webp",
          "name" : "Creatina Monohidratada Sin Sabor - Doypack 300g",
          "price" : 24900,
-         "stock" : 0
+         "stock" : 42
       },
       {
          "brand" : "Ena Sport",
@@ -19,7 +19,7 @@
          "image" : "img/creatina-ena.webp",
          "name" : "Creatina Monohidratada Micronizada 300g",
          "price" : 26500,
-         "stock" : 3
+         "stock" : 9
       },
       {
          "brand" : "One Fit Nutrition",
@@ -29,7 +29,7 @@
          "image" : "img/creatina-onefit.webp",
          "name" : "Poweraded Creatine Micronized 200g",
          "price" : 16500,
-         "stock" : 0
+         "stock" : 15
       },
       {
          "brand" : "One Fit Nutrition",
@@ -60,20 +60,19 @@
          "image" : "img/magnesio-star.webp",
          "name" : "Citrato de Magnesio - 60 Cápsulas",
          "price" : 16500,
-         "stock" : 0
+         "stock" : 2
       },
       {
          "brand" : "Star Nutrition",
          "cat" : "salud",
          "desc" : "Colágeno hidrolizado con ácido hialurónico, coenzima Q10, vitamina C y 500mg de resveratrol. 10g de colágeno por porción, 20 servicios. Elegí tu sabor.",
          "flavors" : [ "Frutos Rojos", "Limón" ],
-         "flavorsOut" : [ "Frutos Rojos" ],
          "gallery" : [ "img/colageno-star-limon.webp", "img/colageno-star-frutosrojos-google.webp", "img/colageno-star-limon-google.webp" ],
          "id" : "colageno-star",
          "image" : "img/colageno-star-frutosrojos.webp",
          "name" : "Collagen Colágeno Hidrolizado 210g",
          "price" : 22000,
-         "stock" : 3
+         "stock" : 6
       },
       {
          "brand" : "Ena Sport",
@@ -115,7 +114,7 @@
          "id" : "vitaminas-k2d3-star",
          "image" : "img/vitaminas-k2d3-star.webp",
          "name" : "Vitaminas K2 + D3 - 60 Cápsulas",
-         "price" : 24800,
+         "price" : 24500,
          "stock" : 1
       },
       {
@@ -131,25 +130,26 @@
       {
          "brand" : "One Fit Nutrition",
          "cat" : "proteinas",
-         "desc" : "24g de proteína, 4.5g BCAA y 4g de glutamina por porción.",
+         "desc" : "24g de proteína, 4.5g BCAA y 4g de glutamina por porción. Elegí tu sabor.",
+         "flavors" : [ "Chocolate", "Vainilla", "Frutilla" ],
          "id" : "proteina-onefit",
          "image" : "img/proteina-onefit.webp",
-         "name" : "Classic Whey Protein 907g - Frutilla",
+         "name" : "Classic Whey Protein 907g",
          "price" : 43000,
-         "stock" : 0
+         "stock" : 13
       },
       {
          "brand" : "Star Nutrition",
          "cat" : "proteinas",
          "desc" : "Whey protein micro filtrado: 25g de proteína, 5.5g de BCAA y 12g de EAA por porción. 908g, 30 servicios. Libre de gluten. Elegí tu sabor.",
          "flavors" : [ "Cookies and Cream", "Chocolate Suizo", "Vainilla", "Banana" ],
-         "flavorsOut" : [ "Chocolate Suizo", "Vainilla", "Banana" ],
+         "flavorsOut" : [ "Vainilla" ],
          "gallery" : [ "img/proteina-star-google.webp" ],
          "id" : "proteina-star",
          "image" : "img/proteina-star.webp",
          "name" : "Whey Protein 2lb (908g)",
          "price" : 78000,
-         "stock" : 2
+         "stock" : 4
       },
       {
          "brand" : "Ena Sport",
@@ -164,14 +164,25 @@
          "stock" : 4
       },
       {
+         "brand" : "Pulver",
+         "cat" : "proteinas",
+         "desc" : "Proteína de suero sabor chocolate y avellanas.",
+         "id" : "proteina-pulver-choco-avellanas",
+         "image" : "",
+         "name" : "Whey Protein - Chocolate y Avellanas",
+         "price" : 45000,
+         "stock" : 1
+      },
+      {
          "brand" : "Star Nutrition",
          "cat" : "pre",
-         "desc" : "Pre-entreno de alta intensidad, sabor cítrico. 30 servicios.",
+         "desc" : "Pre-entreno de alta intensidad para más energía y foco. 240g, 30 servicios. Elegí tu sabor.",
+         "flavors" : [ "Citrus Slush", "Blue Razz" ],
          "id" : "pre-tnt-dynamite",
          "image" : "img/pre-tnt-dynamite.webp",
-         "name" : "TNT Dynamite Explosive Energy 240g - Citrus Slush",
+         "name" : "TNT Dynamite Explosive Energy 240g",
          "price" : 24500,
-         "stock" : 0
+         "stock" : 2
       },
       {
          "brand" : "Wiki",
@@ -186,12 +197,33 @@
       {
          "brand" : "Mervick",
          "cat" : "barritas",
-         "desc" : "Barrita de proteína sabor chocolate amargo, 40g.",
+         "desc" : "Barrita de proteína con 15g de proteína, 40g. Elegí tu sabor.",
+         "flavors" : [ "Dark Chocolate", "Frutos Rojos", "Banana" ],
          "id" : "barrita-mervick",
          "image" : "img/barrita-mervick.webp",
-         "name" : "Whey Protein Bar 15g Proteína - Dark Chocolate",
+         "name" : "Whey Protein Bar 15g Proteína",
          "price" : 2500,
+         "stock" : 82
+      },
+      {
+         "brand" : "Mole",
+         "cat" : "barritas",
+         "desc" : "Barrita con 12g de proteína, sabor coco y pasta de maní.",
+         "id" : "barrita-mole-coco-mani",
+         "image" : "",
+         "name" : "Barrita Proteica 12g - Coco y Pasta de Maní",
+         "price" : 2000,
          "stock" : 0
+      },
+      {
+         "brand" : "Granger",
+         "cat" : "barritas",
+         "desc" : "Premezcla para pancakes proteicos.",
+         "id" : "pancakes-granger",
+         "image" : "",
+         "name" : "Pancakes Proteicos",
+         "price" : 15500,
+         "stock" : 2
       },
       {
          "brand" : "Star Nutrition",
@@ -201,7 +233,7 @@
          "image" : "img/vitamina-multi-star.webp",
          "name" : "All In One Multivitamin - 60 Comprimidos",
          "price" : 23500,
-         "stock" : 0
+         "stock" : 2
       },
       {
          "brand" : "Star Nutrition",
@@ -216,12 +248,13 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "creatina",
-         "desc" : "Creatina monohidratada con sabor, doypack 300g.",
+         "desc" : "Creatina monohidratada con sabor, doypack 300g. Elegí tu sabor.",
+         "flavors" : [ "Fruit Punch", "Uva", "Limón" ],
          "id" : "creatina-star-fruitpunch",
          "image" : "img/creatina-star-fruitpunch.webp",
-         "name" : "Creatina Monohidratada 300g - Sabor Fruit Punch",
+         "name" : "Creatina Monohidratada con Sabor - Doypack 300g",
          "price" : 24900,
-         "stock" : 0
+         "stock" : 18
       },
       {
          "brand" : "Star Nutrition",
@@ -241,7 +274,7 @@
          "image" : "img/creatina-star-500g.webp",
          "name" : "Creatina Monohidratada Sin Sabor 500g",
          "price" : 45000,
-         "stock" : 0
+         "stock" : 2
       },
       {
          "brand" : "Star Nutrition",
@@ -279,6 +312,53 @@
          "offer" : true,
          "price" : 40000,
          "stock" : 1
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "ofertas",
+         "desc" : "Classic Whey Protein 907g del sabor que elijas + Poweraded Creatine 200g. Comprándolas juntas pagás menos que llevándolas por separado.",
+         "flavors" : [ "Chocolate", "Vainilla", "Frutilla" ],
+         "id" : "combo-onefit-prote-crea",
+         "image" : "",
+         "name" : "Combo Proteína 907g + Creatina 200g",
+         "offer" : true,
+         "price" : 49500,
+         "stock" : 13
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "ofertas",
+         "desc" : "Classic Whey Protein 907g del sabor que elijas + Poweraded Creatine 200g + Citrato de Magnesio 150g. Comprándolos juntos pagás menos que llevándolos por separado.",
+         "flavors" : [ "Chocolate", "Vainilla", "Frutilla" ],
+         "id" : "combo-onefit-prote-crea-magnesio",
+         "image" : "",
+         "name" : "Combo Proteína 907g + Creatina 200g + Magnesio 150g",
+         "offer" : true,
+         "price" : 55000,
+         "stock" : 5
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "ofertas",
+         "desc" : "Poweraded Creatine 200g + Citrato de Magnesio en Polvo 150g. Comprándolos juntos pagás menos que llevándolos por separado.",
+         "id" : "combo-onefit-crea-magnesio",
+         "image" : "",
+         "name" : "Combo Creatina 200g + Magnesio 150g",
+         "offer" : true,
+         "price" : 25000,
+         "stock" : 5
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "ofertas",
+         "desc" : "Truemade Whey Protein 930g del sabor que elijas + Shaker Ena Plus con compartimientos. Comprándolos juntos pagás menos que llevándolos por separado.",
+         "flavors" : [ "Chocolate", "Vainilla", "Frutilla", "Cookies and Cream" ],
+         "id" : "combo-ena-prote-shaker",
+         "image" : "",
+         "name" : "Combo Truemade Whey Protein 930g + Shaker",
+         "offer" : true,
+         "price" : 89500,
+         "stock" : 4
       },
       {
          "brand" : "Star Nutrition",
@@ -320,7 +400,7 @@
          "image" : "img/pump-v8-watermelon.webp",
          "name" : "Pre-entreno Watermelon",
          "price" : 31000,
-         "stock" : 0
+         "stock" : 2
       },
       {
          "brand" : "Star Nutrition",
@@ -330,17 +410,18 @@
          "image" : "img/cafeina-star.webp",
          "name" : "Cafeína - 30 Cápsulas",
          "price" : 9900,
-         "stock" : 1
+         "stock" : 4
       },
       {
          "brand" : "Entrenuts",
          "cat" : "barritas",
-         "desc" : "Pasta de maní saborizada, ideal como snack proteico.",
+         "desc" : "Pasta de maní saborizada, ideal como snack proteico. Elegí tu sabor.",
+         "flavors" : [ "Cookies and Cream", "Salted Caramel" ],
          "id" : "pasta-mani-entrenuts",
          "image" : "img/pasta-mani-entrenuts.webp",
-         "name" : "Pasta de Maní Cookies and Cream",
-         "price" : 3900,
-         "stock" : 0
+         "name" : "Pasta de Maní Saborizada",
+         "price" : 4500,
+         "stock" : 24
       },
       {
          "brand" : "Ena Sport",
@@ -362,6 +443,26 @@
          "name" : "Shaker Ena Sin Compartimientos",
          "price" : 6500,
          "stock" : 0
+      },
+      {
+         "brand" : "Ena Sport",
+         "cat" : "proteinas",
+         "desc" : "Aumentador de masa con proteína, vitaminas y minerales. Formato de 3kg, sabor vainilla.",
+         "id" : "gainer-ena-ultramass-3kg-van",
+         "image" : "",
+         "name" : "Ultra Mass Weight Gainer 3kg - Vanilla Ice Cream",
+         "price" : 88000,
+         "stock" : 3
+      },
+      {
+         "brand" : "Mutant",
+         "cat" : "proteinas",
+         "desc" : "Aumentador de masa muscular, 1,5kg, sabor vainilla.",
+         "id" : "gainer-mutant-mass-van",
+         "image" : "",
+         "name" : "Mutant Mass 1,5kg - Vainilla",
+         "price" : 65000,
+         "stock" : 1
       },
       {
          "brand" : "Ena Sport",
