@@ -218,9 +218,7 @@
   .buscador-limpiar.show{display:block;}
   .buscador-limpiar:hover{color:var(--white);}
 
-  /* Tres por fila en PC: con dos, la foto de borde a borde quedaba de mas
-     de 600px de alto y una sola fila ocupaba toda la pantalla. */
-  .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
+  .grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
   .card{
     background:linear-gradient(180deg, #122029, var(--panel) 55%);
     border:1px solid var(--line); border-radius:16px;
@@ -1715,9 +1713,9 @@
   }
 
   async function cargarCatalogo(){
-    // Seis tarjetas fantasma (dos filas de tres en PC) mientras llega el catalogo, asi no se ve un
+    // Cuatro tarjetas fantasma mientras llega el catalogo, asi no se ve un
     // hueco vacio y la pagina no pega un salto cuando aparecen los productos.
-    document.getElementById("product-grid").innerHTML = Array.from({ length: 6 }, () => `
+    document.getElementById("product-grid").innerHTML = Array.from({ length: 4 }, () => `
       <div class="skeleton" aria-hidden="true">
         <span class="sk-foto"></span>
         <span class="sk-linea corta"></span>
