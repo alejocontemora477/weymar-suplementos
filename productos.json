@@ -220,16 +220,6 @@
          "stock" : 82
       },
       {
-         "brand" : "Mole",
-         "cat" : "barritas",
-         "desc" : "Barrita con 12g de proteína, sabor coco y pasta de maní.",
-         "id" : "barrita-mole-coco-mani",
-         "image" : "",
-         "name" : "Barrita Proteica 12g - Coco y Pasta de Maní",
-         "price" : 2000,
-         "stock" : 0
-      },
-      {
          "brand" : "Granger",
          "cat" : "barritas",
          "desc" : "Premezcla para pancakes proteicos.",
@@ -416,9 +406,9 @@
       {
          "brand" : "Ena Sport",
          "cat" : "proteinas",
-         "desc" : "Aumentador de masa con proteína, vitaminas y minerales. Formato de 3kg, sabor vainilla.",
+         "desc" : "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, 399 kcal por porción. Formato de 3kg.",
          "id" : "gainer-ena-ultramass-3kg-van",
-         "image" : "",
+         "image" : "img/gainer-ena-ultramass-3kg-van.webp",
          "name" : "Ultra Mass Weight Gainer 3kg - Vanilla Ice Cream",
          "price" : 88000,
          "stock" : 3
