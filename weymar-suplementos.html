@@ -218,13 +218,16 @@
   .buscador-limpiar.show{display:block;}
   .buscador-limpiar:hover{color:var(--white);}
 
-  .grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
+  /* Tres por fila en PC: con dos, la foto de borde a borde quedaba de mas
+     de 600px de alto y una sola fila ocupaba toda la pantalla. */
+  .grid{display:grid; grid-template-columns:repeat(3, 1fr); gap:22px;}
   .card{
     background:linear-gradient(180deg, #122029, var(--panel) 55%);
     border:1px solid var(--line); border-radius:16px;
-    padding:16px 18px 20px; display:flex; flex-direction:column; gap:12px;
+    padding:0 0 20px; display:flex; flex-direction:column; gap:10px;
     position:relative;
   }
+  .card > :not(.card-thumb):not(.offer-badge){margin-left:18px; margin-right:18px;}
   .card.is-offer{
     border-color:var(--celeste);
     box-shadow:0 0 0 1px var(--celeste);
@@ -254,10 +257,13 @@
     margin:0; font-size:0.94rem; color:var(--white);
   }
   .promo-banner strong{color:var(--celeste);}
+  /* La foto va de borde a borde de la tarjeta y la llena: antes quedaba
+     chica dentro de un recuadro azul, con franjas vacias a los costados
+     porque casi todas las fotos son verticales. */
   .card-thumb{
-    height:320px; border-radius:12px;
-    background:radial-gradient(circle at 50% 45%, rgba(52,198,244,0.16), transparent 62%), linear-gradient(135deg, #0c1a22, #06131a);
-    border:1px solid var(--line);
+    aspect-ratio:4 / 5; margin-bottom:6px;
+    border-bottom:1px solid var(--line); border-radius:15px 15px 0 0;
+    background:#0c1a22;
     display:flex; align-items:center; justify-content:center;
   }
   .card-thumb svg{width:44px; height:44px; opacity:0.85;}
@@ -300,7 +306,9 @@
     border-color:var(--celeste); transform:translateY(-4px);
     box-shadow:0 14px 34px rgba(0,0,0,0.45), 0 0 0 1px rgba(52,198,244,0.25);
   }
-  .card-thumb img{width:100%; height:100%; object-fit:contain; padding:4px; transition:transform .35s ease;}
+  .card-thumb img{width:100%; height:100%; object-fit:cover; transition:transform .35s ease;}
+  /* Fotos de estudio (fondo liso): enteras, sobre su propio fondo. Ver ajustarFoto() */
+  .card-thumb img.entera{object-fit:contain; background:var(--fondo, #fff);}
   .card:hover .card-thumb img{transform:scale(1.05);}
   .card.is-agotado:hover .card-thumb img{transform:none;}
   .card:focus-visible{outline:2px solid var(--celeste); outline-offset:3px;}
@@ -571,7 +579,7 @@
   /* Esqueleto mientras carga el catalogo */
   .skeleton{
     background:var(--panel); border:1px solid var(--line); border-radius:16px;
-    padding:16px 18px 20px; display:flex; flex-direction:column; gap:12px;
+    padding:0 0 20px; overflow:hidden; display:flex; flex-direction:column; gap:12px;
   }
   .skeleton span{
     display:block; border-radius:8px;
@@ -579,15 +587,13 @@
     background-size:200% 100%;
     animation:skeleton 1.2s ease-in-out infinite;
   }
-  .skeleton .sk-foto{height:320px; border-radius:12px;}
-  .skeleton .sk-linea{height:14px;}
+  .skeleton .sk-foto{aspect-ratio:4 / 5; border-radius:0;}
+  .skeleton .sk-linea{height:14px; margin:0 18px;}
   .skeleton .sk-linea.corta{width:40%;}
   .skeleton .sk-linea.media{width:70%;}
   @keyframes skeleton{from{background-position:200% 0;} to{background-position:-200% 0;}}
-  @media (max-width: 860px){ .skeleton .sk-foto{height:250px;} }
   @media (max-width: 560px){
-    .skeleton{padding:0 0 12px; border-radius:14px; gap:10px; overflow:hidden;}
-    .skeleton .sk-foto{height:auto; aspect-ratio:4 / 5; border-radius:0;}
+    .skeleton{padding:0 0 12px; border-radius:14px; gap:10px;}
     .skeleton .sk-linea{margin:0 10px;}
   }
 
@@ -732,7 +738,7 @@
 
   @media (max-width: 860px){
     .grid{grid-template-columns:repeat(2, 1fr); gap:16px;}
-    .card-thumb{height:250px;}
+    .card > :not(.card-thumb):not(.offer-badge){margin-left:16px; margin-right:16px;}
     .card h3{font-size:1.4rem;}
     .price{font-size:1.9rem;}
     .card-foot{flex-wrap:wrap;}
@@ -756,19 +762,9 @@
        angosta, todo adentro se achica y el precio pasa arriba del boton. */
     .wrap{padding:0 16px;}
     .grid{grid-template-columns:repeat(2, 1fr); gap:10px; margin:0 -6px;}
-    /* La foto va de borde a borde de la tarjeta y la llena: antes quedaba
-       chica dentro de un recuadro azul, con franjas vacias a los costados
-       porque casi todas las fotos son verticales. */
     .card{padding:0 0 12px; gap:6px; border-radius:14px;}
     .card > :not(.card-thumb):not(.offer-badge){margin-left:10px; margin-right:10px;}
-    .card-thumb{
-      height:auto; aspect-ratio:4 / 5; margin-bottom:4px;
-      border:none; border-bottom:1px solid var(--line); border-radius:13px 13px 0 0;
-      background:#0c1a22;
-    }
-    .card-thumb img{object-fit:cover; padding:0;}
-    /* Fotos de estudio (fondo liso): enteras, sobre su propio fondo. Ver ajustarFoto() */
-    .card-thumb img.entera{object-fit:contain; background:var(--fondo, #fff);}
+    .card-thumb{margin-bottom:4px; border-radius:13px 13px 0 0;}
     .card:hover{transform:none;}
     .card .brand-tag{font-size:0.68rem; letter-spacing:0.03em;}
     .card h3{font-size:1.06rem; line-height:1.15;}
@@ -1719,9 +1715,9 @@
   }
 
   async function cargarCatalogo(){
-    // Cuatro tarjetas fantasma mientras llega el catalogo, asi no se ve un
+    // Seis tarjetas fantasma (dos filas de tres en PC) mientras llega el catalogo, asi no se ve un
     // hueco vacio y la pagina no pega un salto cuando aparecen los productos.
-    document.getElementById("product-grid").innerHTML = Array.from({ length: 4 }, () => `
+    document.getElementById("product-grid").innerHTML = Array.from({ length: 6 }, () => `
       <div class="skeleton" aria-hidden="true">
         <span class="sk-foto"></span>
         <span class="sk-linea corta"></span>
