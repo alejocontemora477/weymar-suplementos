@@ -599,7 +599,7 @@
   }
 
   /* Mascota: un personaje armado con la W y la pesa del logo. Camina, corre,
-     salta, patea al arco y tira al aro. No recibe clicks y queda por debajo
+     salta, patea al arco, tira al aro y saca una viñeta. No recibe clicks y queda por debajo
      del boton de WhatsApp, asi nunca molesta. */
   .mascota{
     position:fixed; bottom:12px; left:0; z-index:24;
@@ -717,8 +717,29 @@
   .escena-arco.gol .escena-red{animation:escena-red .5s ease-out;}
   .escena-aro.gol .escena-red-aro{animation:escena-red .5s ease-out;}
   @keyframes escena-red{0%{transform:translateY(0);} 35%{transform:translateY(5px) scaleY(1.12);} 100%{transform:translateY(0);}}
+  /* Viñeta de "Hacé tu pedido": sale de la cabeza de la mascota. La colita
+     apunta siempre a la mascota aunque la viñeta se corra para no salirse
+     de la pantalla (--cola). Tocarla lleva al catalogo. */
+  .escena-vineta{
+    position:absolute; left:0; bottom:0;
+    background:var(--celeste); color:#06131a; border:none; border-radius:14px;
+    padding:8px 15px; white-space:nowrap; cursor:pointer;
+    font-family:'Barlow Condensed', sans-serif; font-weight:800; font-size:1.2rem;
+    text-transform:uppercase; letter-spacing:0.03em; line-height:1;
+    box-shadow:0 8px 20px rgba(0,0,0,0.45), 0 0 18px rgba(52,198,244,0.45);
+    transform-origin:var(--cola, 50%) 100%;
+    opacity:0; transform:scale(.25) translateY(10px); pointer-events:none;
+    transition:opacity .2s ease, transform .4s cubic-bezier(.3,1.7,.5,1);
+  }
+  .escena-vineta::after{
+    content:""; position:absolute; top:calc(100% - 1px); left:var(--cola, 50%);
+    transform:translateX(-50%);
+    border:9px solid transparent; border-top-color:var(--celeste); border-bottom:0;
+  }
+  .escena-vineta.visible{opacity:1; transform:none; pointer-events:auto;}
 
   @media (max-width: 560px){
+    .escena-vineta{font-size:1rem; padding:7px 12px; border-radius:12px;}
     .mascota{width:68px; height:86px; bottom:10px;}
     .escena-arco{width:96px; height:64px;}
     .escena-aro{width:80px; height:70px;}
@@ -1455,8 +1476,8 @@
     const text = encodeURIComponent(lines.join("\n"));
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   }
-  // La mascota pasea sola: camina, corre, salta, patea al arco y tira al aro.
-  // No responde a clicks, es solo decoracion.
+  // La mascota pasea sola: camina, corre, salta, patea al arco, tira al aro
+  // y cada tanto se frena a decir "Hacé tu pedido" en una viñeta.
   function pasearMascota(){
     const yo = document.getElementById("mascota");
     const escena = document.getElementById("mascota-escena");
@@ -1468,6 +1489,7 @@
     const aro = document.getElementById("escena-aro");
     const pelotaFutbol = document.getElementById("escena-pelota-futbol");
     const pelotaBasquet = document.getElementById("escena-pelota-basquet");
+    const vineta = document.getElementById("escena-vineta");
 
     const MARGEN_DER = 92;   // deja libre el boton de WhatsApp
     const MARGEN_IZQ = 8;
@@ -1611,6 +1633,24 @@
       return true;
     }
 
+    // Se frena, festeja y le sale una viñeta que invita a hacer el pedido.
+    async function invitarAPedir(){
+      ocupadaHasta = performance.now() + 3000;
+      const ancho = vineta.offsetWidth;
+      const centro = centroMascota();
+      // Centrada sobre la cabeza, pero sin salirse de la pantalla
+      const izquierda = Math.min(Math.max(centro - ancho / 2, 8), window.innerWidth - ancho - 8);
+      vineta.style.left = izquierda + "px";
+      vineta.style.bottom = (PISO + yo.offsetHeight * 0.96) + "px";
+      vineta.style.setProperty("--cola", Math.min(Math.max(centro - izquierda, 18), ancho - 18) + "px");
+
+      marcar("festejando", 900);
+      vineta.classList.add("visible");
+      await esperar(2600);
+      vineta.classList.remove("visible");
+      await esperar(400);
+    }
+
     // Elige que hacer despues. Las jugadas necesitan espacio: si no entran,
     // sigue caminando y lo intenta mas adelante.
     // Hace una animacion concreta. El proximo turno se agenda ACA, antes de
@@ -1626,6 +1666,7 @@
         // el turno.
         if(accion === "futbol" && !await patearAlArco()) accion = "saltar";
         else if(accion === "basquet" && !await tirarAlAro()) accion = "saltar";
+        else if(accion === "pedido") await invitarAPedir();
 
         if(accion === "saltar") saltar();
         modo = accion === "correr" ? "correr"
@@ -1635,7 +1676,7 @@
         // Si algo sale mal, guarda la escenografia y sigue caminando
         ocupadaHasta = 0;
         modo = "caminar";
-        [arco, aro, pelotaFutbol, pelotaBasquet].forEach(el => el && el.classList.remove("visible", "gol"));
+        [arco, aro, pelotaFutbol, pelotaBasquet, vineta].forEach(el => el && el.classList.remove("visible", "gol"));
       } finally {
         decidiendo = false;
         if(pendienteDelClick){
@@ -1648,18 +1689,19 @@
 
     function decidir(){
       const sorteo = Math.random();
-      const accion = sorteo < 0.18 ? "futbol"
-                   : sorteo < 0.34 ? "basquet"
-                   : sorteo < 0.46 ? "saltar"
-                   : sorteo < 0.68 ? "correr"
-                   : sorteo < 0.82 ? "quieta"
+      const accion = sorteo < 0.16 ? "futbol"
+                   : sorteo < 0.30 ? "basquet"
+                   : sorteo < 0.44 ? "pedido"
+                   : sorteo < 0.54 ? "saltar"
+                   : sorteo < 0.72 ? "correr"
+                   : sorteo < 0.86 ? "quieta"
                    : "caminar";
       return ejecutar(accion);
     }
 
     // Cada click en el muñeco pasa a la animacion siguiente de la lista, asi
     // tocando se pueden ver todas sin esperar el sorteo.
-    const ACCIONES = ["correr", "saltar", "futbol", "basquet", "caminar", "quieta"];
+    const ACCIONES = ["correr", "saltar", "futbol", "pedido", "basquet", "caminar", "quieta"];
     let proximaDelClick = 0;
     yo.addEventListener("click", () => {
       const accion = ACCIONES[proximaDelClick];
@@ -1799,6 +1841,9 @@
     <path d="M12,1 V23 M1,12 H23" stroke="#8a3c10" stroke-width="1.3" fill="none"/>
     <path d="M4,4 Q12,12 4,20 M20,4 Q12,12 20,20" stroke="#8a3c10" stroke-width="1.3" fill="none"/>
   </svg>
+
+  <button class="escena-vineta" id="escena-vineta" type="button" tabindex="-1"
+    onclick="document.getElementById('catalogo').scrollIntoView({behavior:'smooth'})">¡Hacé tu pedido!</button>
 </div>
 
 <button class="subir" id="subir" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Volver arriba">
