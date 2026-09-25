@@ -236,6 +236,7 @@
     text-transform:uppercase; letter-spacing:0.04em;
     padding:4px 12px; border-radius:999px;
     box-shadow:0 2px 8px rgba(0,0,0,0.35);
+    z-index:2;                        /* por encima de la foto */
   }
   .promo-banner{
     display:flex; align-items:center; gap:14px;
@@ -298,7 +299,7 @@
     border-color:var(--celeste); transform:translateY(-4px);
     box-shadow:0 14px 34px rgba(0,0,0,0.45), 0 0 0 1px rgba(52,198,244,0.25);
   }
-  .card-thumb img{transition:transform .35s ease;}
+  .card-thumb img{width:100%; height:100%; object-fit:contain; padding:4px; transition:transform .35s ease;}
   .card:hover .card-thumb img{transform:scale(1.05);}
   .card.is-agotado:hover .card-thumb img{transform:none;}
   .card:focus-visible{outline:2px solid var(--celeste); outline-offset:3px;}
@@ -584,8 +585,9 @@
   @keyframes skeleton{from{background-position:200% 0;} to{background-position:-200% 0;}}
   @media (max-width: 860px){ .skeleton .sk-foto{height:250px;} }
   @media (max-width: 560px){
-    .skeleton{padding:10px 11px 14px; border-radius:13px;}
-    .skeleton .sk-foto{height:152px; border-radius:10px;}
+    .skeleton{padding:0 0 12px; border-radius:14px; gap:10px; overflow:hidden;}
+    .skeleton .sk-foto{height:auto; aspect-ratio:4 / 5; border-radius:0;}
+    .skeleton .sk-linea{margin:0 10px;}
   }
 
   /* Mascota: un personaje armado con la W y la pesa del logo. Camina, corre,
@@ -751,21 +753,35 @@
     /* Dos productos por fila tambien en celular: con uno solo por fila habia
        que scrollear el doble para recorrer el catalogo. Como la tarjeta queda
        angosta, todo adentro se achica y el precio pasa arriba del boton. */
-    .grid{grid-template-columns:repeat(2, 1fr); gap:11px;}
-    .card{padding:10px 11px 14px; gap:8px; border-radius:13px;}
-    .card-thumb{height:152px; border-radius:10px;}
+    .wrap{padding:0 16px;}
+    .grid{grid-template-columns:repeat(2, 1fr); gap:10px; margin:0 -6px;}
+    /* La foto va de borde a borde de la tarjeta y la llena: antes quedaba
+       chica dentro de un recuadro azul, con franjas vacias a los costados
+       porque casi todas las fotos son verticales. */
+    .card{padding:0 0 12px; gap:6px; border-radius:14px;}
+    .card > :not(.card-thumb):not(.offer-badge){margin-left:10px; margin-right:10px;}
+    .card-thumb{
+      height:auto; aspect-ratio:4 / 5; margin-bottom:4px;
+      border:none; border-bottom:1px solid var(--line); border-radius:13px 13px 0 0;
+      background:#0c1a22;
+    }
+    .card-thumb img{object-fit:cover; padding:0;}
+    /* Fotos de estudio (fondo liso): enteras, sobre su propio fondo. Ver ajustarFoto() */
+    .card-thumb img.entera{object-fit:contain; background:var(--fondo, #fff);}
+    .card:hover{transform:none;}
     .card .brand-tag{font-size:0.68rem; letter-spacing:0.03em;}
     .card h3{font-size:1.06rem; line-height:1.15;}
     .card p.desc{
       font-size:0.78rem; line-height:1.4;
       display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical;
       overflow:hidden;
+      flex-grow:0;                    /* si crece, asoman lineas debajo de los "..." */
     }
     .card-flavors{gap:4px; margin-top:4px;}
     .card-flavor-tag{font-size:0.62rem; padding:2px 7px;}
     .card-foot{
       flex-direction:column; align-items:stretch; gap:8px;
-      margin-top:4px; padding-top:10px;
+      margin-top:auto; padding-top:10px;   /* precio y boton alineados al pie */
     }
     .price{font-size:1.5rem;}
     .add-btn{width:100%; padding:10px 8px; font-size:0.85rem;}
@@ -971,6 +987,33 @@
     return '<svg viewBox="0 0 24 24" fill="none" stroke="#34c6f4" stroke-width="1.6" stroke-linecap="round"><path d="M2 12h3M19 12h3M5 8v8M19 8v8M8 12h8"/></svg>';
   }
 
+  // En celular las fotos llenan el cuadro de la tarjeta (se recortan un poco).
+  // Eso queda bien en las fotos sacadas con el celular, que tienen pared y
+  // mesa alrededor, pero corta el producto en las fotos de estudio, que vienen
+  // justas y con fondo liso. Estas se reconocen porque sus cuatro esquinas
+  // son del mismo color: se muestran enteras sobre ese mismo fondo.
+  const fondosDeFoto = {};
+  function ajustarFoto(img){
+    const src = img.getAttribute("src");
+    if(!(src in fondosDeFoto)){
+      fondosDeFoto[src] = null;
+      try{
+        const lienzo = document.createElement("canvas");
+        lienzo.width = lienzo.height = 24;
+        const ctx = lienzo.getContext("2d");
+        ctx.drawImage(img, 0, 0, 24, 24);
+        const esquinas = [[0,0],[23,0],[0,23],[23,23]].map(([x, y]) => ctx.getImageData(x, y, 1, 1).data);
+        const [r, g, b, a] = esquinas[0];
+        const lisa = esquinas.every(c => Math.abs(c[0]-r) + Math.abs(c[1]-g) + Math.abs(c[2]-b) + Math.abs(c[3]-a) < 24);
+        if(lisa) fondosDeFoto[src] = a < 20 ? "#fff" : `rgb(${r},${g},${b})`;
+      }catch(e){}
+    }
+    if(fondosDeFoto[src]){
+      img.classList.add("entera");
+      img.style.setProperty("--fondo", fondosDeFoto[src]);
+    }
+  }
+
   function formatPrice(n){
     if(n === 0) return "Consultar precio";
     return "$" + n.toLocaleString("es-AR");
@@ -1144,7 +1187,7 @@
     grid.innerHTML = items.map(p => `
       <div class="card${enOferta(p) ? ' is-offer' : ''}${sinStock(p) ? ' is-agotado' : ''}" role="button" tabindex="0" aria-label="Ver ${p.name}" onclick="openProduct('${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProduct('${p.id}')}">
         ${enOferta(p) ? '<div class="offer-badge">Súper oferta</div>' : ''}
-        <div class="card-thumb">${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:contain;padding:4px;">` : dumbbellIcon()}<span class="zoom-hint" aria-hidden="true">&#10530;</span></div>
+        <div class="card-thumb">${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" onload="ajustarFoto(this)">` : dumbbellIcon()}<span class="zoom-hint" aria-hidden="true">&#10530;</span></div>
         <div class="brand-tag">${p.brand}</div>
         <h3>${p.name}</h3>
         <p class="desc">${p.desc}</p>
