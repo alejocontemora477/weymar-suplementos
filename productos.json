@@ -314,53 +314,6 @@
          "stock" : 1
       },
       {
-         "brand" : "One Fit Nutrition",
-         "cat" : "ofertas",
-         "desc" : "Classic Whey Protein 907g del sabor que elijas + Poweraded Creatine 200g. Comprándolas juntas pagás menos que llevándolas por separado.",
-         "flavors" : [ "Chocolate", "Vainilla", "Frutilla" ],
-         "id" : "combo-onefit-prote-crea",
-         "image" : "",
-         "name" : "Combo Proteína 907g + Creatina 200g",
-         "offer" : true,
-         "price" : 49500,
-         "stock" : 13
-      },
-      {
-         "brand" : "One Fit Nutrition",
-         "cat" : "ofertas",
-         "desc" : "Classic Whey Protein 907g del sabor que elijas + Poweraded Creatine 200g + Citrato de Magnesio 150g. Comprándolos juntos pagás menos que llevándolos por separado.",
-         "flavors" : [ "Chocolate", "Vainilla", "Frutilla" ],
-         "id" : "combo-onefit-prote-crea-magnesio",
-         "image" : "",
-         "name" : "Combo Proteína 907g + Creatina 200g + Magnesio 150g",
-         "offer" : true,
-         "price" : 55000,
-         "stock" : 5
-      },
-      {
-         "brand" : "One Fit Nutrition",
-         "cat" : "ofertas",
-         "desc" : "Poweraded Creatine 200g + Citrato de Magnesio en Polvo 150g. Comprándolos juntos pagás menos que llevándolos por separado.",
-         "id" : "combo-onefit-crea-magnesio",
-         "image" : "",
-         "name" : "Combo Creatina 200g + Magnesio 150g",
-         "offer" : true,
-         "price" : 25000,
-         "stock" : 5
-      },
-      {
-         "brand" : "Ena Sport",
-         "cat" : "ofertas",
-         "desc" : "Truemade Whey Protein 930g del sabor que elijas + Shaker Ena Plus con compartimientos. Comprándolos juntos pagás menos que llevándolos por separado.",
-         "flavors" : [ "Chocolate", "Vainilla", "Frutilla", "Cookies and Cream" ],
-         "id" : "combo-ena-prote-shaker",
-         "image" : "",
-         "name" : "Combo Truemade Whey Protein 930g + Shaker",
-         "offer" : true,
-         "price" : 89500,
-         "stock" : 4
-      },
-      {
          "brand" : "Star Nutrition",
          "cat" : "salud",
          "desc" : "Suplemento de ácidos grasos Omega 3.",
