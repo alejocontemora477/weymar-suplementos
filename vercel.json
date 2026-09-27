@@ -1,4 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "weymar-suplementos.vercel.app" }],
+      "destination": "https://www.suplementosweymar.com.ar/:path*",
+      "permanent": true
+    }
+  ]
 }
