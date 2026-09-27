@@ -3,6 +3,12 @@
   "cleanUrls": true,
   "redirects": [
     {
+      "source": "/",
+      "has": [{ "type": "host", "value": "weymar-suplementos.vercel.app" }],
+      "destination": "https://www.suplementosweymar.com.ar/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "weymar-suplementos.vercel.app" }],
       "destination": "https://www.suplementosweymar.com.ar/:path*",
