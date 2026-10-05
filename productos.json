@@ -233,13 +233,38 @@
       {
          "brand" : "Granger",
          "cat" : "barritas",
-         "desc" : "Premezcla para pancakes proteicos.",
-         "gallery" : [ "img/pancakes-granger.webp" ],
+         "desc" : "Premezcla para pancakes proteicos hechos con avena y clara de huevo. Elegí tu sabor: vainilla, chocolate o salados de queso.",
+         "flavors" : [ "Vainilla", "Chocolate", "Queso" ],
+         "gallery" : [ "img/pancakes-granger-chocolate-google.webp", "img/pancakes-granger-queso-google.webp", "img/pancakes-granger.webp" ],
          "id" : "pancakes-granger",
          "image" : "img/pancakes-granger-google.webp",
          "name" : "Pancakes Proteicos",
          "price" : 15500,
          "stock" : 2
+      },
+      {
+         "brand" : "Entrenuts",
+         "cat" : "barritas",
+         "desc" : "Premezcla para pancakes proteicos, 400g. 15g de proteína por porción. Elegí tu sabor: vainilla, chocolate o queso.",
+         "flavors" : [ "Vainilla", "Chocolate", "Queso" ],
+         "gallery" : [ "img/pancakes-entrenuts-chocolate-google.webp", "img/pancakes-entrenuts-queso-google.webp" ],
+         "id" : "pancakes-entrenuts",
+         "image" : "img/pancakes-entrenuts-vainilla-google.webp",
+         "name" : "Pancakes Protein 400g",
+         "price" : 12800,
+         "stock" : 10
+      },
+      {
+         "brand" : "Molé",
+         "cat" : "barritas",
+         "desc" : "Pasta de maní proteica, 345g. Elegí tu sabor: choco crispy, frutos rojos o vainilla y coco.",
+         "flavors" : [ "Choco Crispy", "Frutos Rojos", "Vainilla y Coco" ],
+         "gallery" : [ "img/pasta-mole-frutosrojos-google.webp", "img/pasta-mole-vainillacoco-google.webp" ],
+         "id" : "pasta-mole",
+         "image" : "img/pasta-mole-chococrispy-google.webp",
+         "name" : "Pasta de Maní Proteica 345g",
+         "price" : 6700,
+         "stock" : 10
       },
       {
          "brand" : "Star Nutrition",
