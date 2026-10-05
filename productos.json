@@ -165,7 +165,7 @@
          "cat" : "proteinas",
          "desc" : "Blend de isolate y concentrado: 25g de proteína y 6g de BCAA por porción. 30 servicios. Elegí tu sabor.",
          "flavors" : [ "Chocolate", "Vainilla", "Frutilla", "Cookies and Cream" ],
-         "gallery" : [ "img/proteina-ena-vainilla-google.webp", "img/proteina-ena.webp", "img/proteina-ena-2.webp" ],
+         "gallery" : [ "img/proteina-ena-vainilla-google.webp", "img/proteina-ena.webp" ],
          "id" : "proteina-ena",
          "image" : "img/proteina-ena-google.webp",
          "name" : "Truemade Whey Protein 930g",
@@ -212,7 +212,8 @@
          "cat" : "barritas",
          "desc" : "Golosina saludable sin azúcar agregada, sin gluten, apta vegana y sin lactosa. 57 calorías.",
          "id" : "barrita-wiki",
-         "image" : "img/barrita-wiki.webp",
+         "gallery" : [ "img/barrita-wiki.webp" ],
+         "image" : "img/barrita-wiki-google.webp",
          "name" : "Wiki Taste - Barra de Quinoa Inflada y Chocolate",
          "price" : 1500,
          "stock" : 10
@@ -316,6 +317,7 @@
          "name" : "Combo 2 Whey Protein 908g a Elección",
          "offer" : true,
          "price" : 150000,
+         "priceBefore" : 156000,
          "stock" : 1
       },
       {
@@ -330,6 +332,7 @@
          "name" : "Combo 2 Colágenos 210g a Elección",
          "offer" : true,
          "price" : 40000,
+         "priceBefore" : 44000,
          "stock" : 1
       },
       {
@@ -346,6 +349,7 @@
          "name" : "Combo Creatina 300g + 2 Pastas de Maní",
          "offer" : true,
          "price" : 30000,
+         "priceBefore" : 35900,
          "stock" : 10
       },
       {
@@ -414,6 +418,7 @@
          "name" : "Pasta de Maní Saborizada",
          "offer" : true,
          "price" : 4500,
+         "priceBefore" : 5500,
          "stock" : 24
       },
       {

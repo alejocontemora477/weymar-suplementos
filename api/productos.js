@@ -136,6 +136,11 @@ function revisar(lista) {
 
     const limpio = { id, cat, brand, name, desc, price: Math.round(price), stock, image };
     if (p.offer === true) limpio.offer = true;
+    // Precio original de una promo: se muestra tachado. Solo si es mayor al actual.
+    const priceBefore = Number(p.priceBefore);
+    if (Number.isFinite(priceBefore) && priceBefore > limpio.price && priceBefore <= 100000000) {
+      limpio.priceBefore = Math.round(priceBefore);
+    }
     if (flavors && flavors.length) limpio.flavors = flavors;
     if (flavorsOut && flavorsOut.length) limpio.flavorsOut = flavorsOut;
     // Nombre de las variantes propias de un combo (p. ej. "Creatina").

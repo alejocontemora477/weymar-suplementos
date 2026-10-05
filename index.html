@@ -278,6 +278,10 @@
   }
   .price{font-family:'Barlow Condensed'; font-weight:800; font-size:2.2rem; line-height:1; color:var(--celeste);}
   .card.is-agotado .price{color:var(--muted);}
+  .price-before{
+    display:block; font-family:'Work Sans', sans-serif; font-size:0.42em; font-weight:600;
+    color:var(--muted); text-decoration:line-through; margin-bottom:3px;
+  }
   .price em{font-style:normal; color:var(--muted); font-size:0.7rem; display:block; text-transform:none; font-family:'Work Sans';}
   .add-btn{
     background:var(--celeste); border:1px solid var(--celeste); color:#06131a;
@@ -997,7 +1001,7 @@
     <button class="modal-close" onclick="cerrarPromo()" aria-label="Cerrar">&times;</button>
     <span class="offer-badge">Promo</span>
     <h3 id="promo-pop-titulo">Pastas de maní Entrenuts</h3>
-    <p class="promo-pop-linea">Cada una a <b>$4.500</b> · Cookies and Cream o Salted Caramel</p>
+    <p class="promo-pop-linea">Cada una a <s>$5.500</s> <b>$4.500</b> · Cookies and Cream o Salted Caramel</p>
     <div class="promo-pop-fotos">
       <img src="img/creatina-star-google.webp" alt="Creatina Star doypack 300g">
       <span>+</span>
@@ -1006,7 +1010,7 @@
     </div>
     <p class="promo-pop-linea"><b>Creatina Star 300g doypack + 2 pastas de maní</b></p>
     <p class="promo-pop-linea">Creatina sin sabor, fruit punch, uva o limón</p>
-    <div class="promo-pop-precio">$30.000</div>
+    <div class="promo-pop-precio"><span class="price-before">$35.900</span>$30.000</div>
     <button class="modal-add" onclick="agregarPromo()">Agregar al carrito</button>
     <button class="promo-pop-cerrar" onclick="cerrarPromo()">Seguir viendo</button>
   </div>
@@ -1094,6 +1098,12 @@
     if(n === 0) return "Consultar precio";
     return "$" + n.toLocaleString("es-AR");
   }
+  // En las promos, el precio original ("priceBefore") va tachado arriba.
+  function precioHtml(p){
+    const antes = Number(p.priceBefore) > p.price && p.price > 0
+      ? `<span class="price-before">${formatPrice(Number(p.priceBefore))}</span>` : "";
+    return antes + formatPrice(p.price);
+  }
 
   // Variantes de sabor: el carrito guarda una linea por sabor, con la clave
   // "id::sabor". Los productos sin variantes siguen usando solo el id.
@@ -1118,7 +1128,11 @@
     return [p.image, ...extra].filter(Boolean);
   }
   // Sabores sin stock ("flavorsOut"): se muestran tachados y no se pueden pedir.
+  // El negocio decidio mostrar todo como disponible: se ignora el stock
+  // cargado (stock 0 y sabores en "flavorsOut"). Poner en false para volver.
+  const IGNORAR_STOCK = true;
   function flavorAgotado(p, flavor){
+    if(IGNORAR_STOCK) return false;
     const src = baseDe(p) || p;
     return Array.isArray(src.flavorsOut) && src.flavorsOut.includes(flavor);
   }
@@ -1140,6 +1154,7 @@
     return p.comboOf && Array.isArray(p.flavors) && p.flavors.length ? p.flavors : [];
   }
   function extraAgotado(p, flavor){
+    if(IGNORAR_STOCK) return false;
     return Array.isArray(p.flavorsOut) && p.flavorsOut.includes(flavor);
   }
   function extrasDisponibles(p){
@@ -1299,7 +1314,7 @@
         <h3>${p.name}</h3>
         ${flavorsOf(p).length ? `<div class="card-flavors">${flavorsOf(p).map(f => `<span class="card-flavor-tag${flavorAgotado(p, f) ? " agotado" : ""}"${flavorAgotado(p, f) ? ' title="Sin stock"' : ""}>${f}</span>`).join("")}</div>` : ""}
         <div class="card-foot">
-          <div class="price">${formatPrice(p.price)}</div>
+          <div class="price">${precioHtml(p)}</div>
           ${sinStock(p)
             ? '<span class="sin-stock">Sin stock</span>'
             : (flavorsOf(p).length
@@ -1330,7 +1345,7 @@
     document.getElementById("modal-brand").textContent = p.brand;
     document.getElementById("modal-name").textContent = p.name;
     document.getElementById("modal-desc").textContent = p.desc;
-    document.getElementById("modal-price").textContent = formatPrice(p.price);
+    document.getElementById("modal-price").innerHTML = precioHtml(p);
 
     const flavors = flavorsOf(p);
     const wrap = document.getElementById("modal-flavors");
@@ -1453,6 +1468,7 @@
 
   // Tambien cuenta como sin stock si tiene sabores y estan todos agotados.
   function sinStock(p){
+    if(IGNORAR_STOCK) return false;
     if(Number(p.stock) === 0) return true;
     // Un combo necesita al menos N unidades del producto base.
     const base = baseDe(p);
