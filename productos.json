@@ -408,7 +408,7 @@
          "cat" : "barritas",
          "desc" : "Pasta de maní saborizada, ideal como snack proteico. Elegí tu sabor.",
          "flavors" : [ "Cookies and Cream", "Salted Caramel" ],
-         "gallery" : [ "img/pasta-mani-entrenuts.webp" ],
+         "gallery" : [ "img/pasta-mani-entrenuts-salted-google.webp", "img/pasta-mani-entrenuts.webp" ],
          "id" : "pasta-mani-entrenuts",
          "image" : "img/pasta-mani-entrenuts-google.webp",
          "name" : "Pasta de Maní Saborizada",
