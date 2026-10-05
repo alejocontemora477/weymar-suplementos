@@ -470,7 +470,6 @@
          "id" : "gainer-ena-ultramass-choc",
          "image" : "img/gainer-ena-ultramass-choc-google.webp",
          "name" : "Ultra Mass Weight Gainer 1500g - Double Rich Chocolate",
-         "offer" : true,
          "price" : 45000,
          "stock" : 0
       },
@@ -481,7 +480,6 @@
          "id" : "gainer-ena-ultramass-van",
          "image" : "img/gainer-ena-ultramass-van-google.webp",
          "name" : "Ultra Mass Weight Gainer 1500g - Vanilla Ice Cream",
-         "offer" : true,
          "price" : 45000,
          "stock" : 0
       }
