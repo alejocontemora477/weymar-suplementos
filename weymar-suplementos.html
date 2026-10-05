@@ -451,6 +451,38 @@
     .modal-add{margin-top:24px;}
   }
 
+  /* Cartel de promo al entrar (ver abrirPromo) */
+  .promo-pop{z-index:70;}
+  .promo-pop-panel{
+    background:var(--bg-alt); border:1px solid var(--celeste); border-radius:14px;
+    width:100%; max-width:440px; max-height:92vh; overflow-y:auto; position:relative;
+    padding:30px 26px 24px; text-align:center;
+    box-shadow:0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(52,198,244,0.15);
+    transform:translateY(12px) scale(0.97); transition:transform .25s ease;
+  }
+  .promo-pop.open .promo-pop-panel{transform:none;}
+  .promo-pop-panel .offer-badge{position:static; display:inline-block; box-shadow:none;}
+  .promo-pop-panel h3{font-size:2rem; margin:14px 0 6px;}
+  .promo-pop-fotos{display:flex; justify-content:center; align-items:center; gap:6px; margin:16px 0;}
+  .promo-pop-fotos img{width:96px; height:120px; object-fit:contain; padding:6px; background:#fff; border-radius:8px; border:1px solid var(--line);}
+  .promo-pop-fotos span{color:var(--celeste); font-family:'Barlow Condensed'; font-weight:800; font-size:1.6rem;}
+  .promo-pop-linea{color:var(--muted); font-size:0.95rem; margin:0;}
+  .promo-pop-linea b{color:var(--white);}
+  .promo-pop-precio{
+    font-family:'Barlow Condensed'; font-weight:800; font-size:2.6rem; color:var(--celeste);
+    line-height:1; margin:8px 0 20px;
+  }
+  .promo-pop-panel .modal-add{margin-top:0;}
+  .promo-pop-cerrar{
+    margin-top:10px; background:none; border:none; color:var(--muted);
+    font-size:0.9rem; cursor:pointer; padding:8px; text-decoration:underline;
+  }
+  @media (max-width: 720px){
+    .promo-pop{padding:16px;}
+    .promo-pop-panel h3{font-size:1.7rem;}
+    .promo-pop-fotos img{width:80px; height:100px;}
+  }
+
   /* Cart drawer */
   .overlay{
     position:fixed; inset:0; background:rgba(2,5,7,0.6);
@@ -949,6 +981,26 @@
   </div>
 </div>
 
+<div class="modal promo-pop" id="promo-pop" onclick="if(event.target === this) cerrarPromo()">
+  <div class="promo-pop-panel" role="dialog" aria-modal="true" aria-labelledby="promo-pop-titulo">
+    <button class="modal-close" onclick="cerrarPromo()" aria-label="Cerrar">&times;</button>
+    <span class="offer-badge">Promo</span>
+    <h3 id="promo-pop-titulo">Pastas de maní Entrenuts</h3>
+    <p class="promo-pop-linea">Cada una a <b>$4.500</b> · Cookies and Cream o Salted Caramel</p>
+    <div class="promo-pop-fotos">
+      <img src="img/creatina-star-google.webp" alt="Creatina Star doypack 300g">
+      <span>+</span>
+      <img src="img/pasta-mani-entrenuts-google.webp" alt="Pasta de maní Entrenuts">
+      <img src="img/pasta-mani-entrenuts-google.webp" alt="Pasta de maní Entrenuts">
+    </div>
+    <p class="promo-pop-linea"><b>Creatina Star 300g doypack + 2 pastas de maní</b></p>
+    <p class="promo-pop-linea">Creatina sin sabor, fruit punch, uva o limón</p>
+    <div class="promo-pop-precio">$30.000</div>
+    <button class="modal-add" onclick="agregarPromo()">Agregar al carrito</button>
+    <button class="promo-pop-cerrar" onclick="cerrarPromo()">Seguir viendo</button>
+  </div>
+</div>
+
 <div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
 <div class="drawer" id="drawer">
   <div class="drawer-head">
@@ -1067,22 +1119,49 @@
   // Se ordena segun la lista de sabores, asi "A + B" y "B + A" son la misma
   // linea del carrito.
   const SEP_COMBO = " + ";
+
+  // Un combo puede sumar un producto fijo que tambien tiene variantes (p. ej.
+  // creatina + 2 pastas de mani): esas variantes van en "flavors" del propio
+  // combo, con su stock en "flavorsOut" y su nombre en "flavorsLabel". El
+  // sabor guardado queda "Uva / Cookies and Cream + Salted Caramel".
+  const SEP_EXTRA = " / ";
+  function extrasOf(p){
+    return p.comboOf && Array.isArray(p.flavors) && p.flavors.length ? p.flavors : [];
+  }
+  function extraAgotado(p, flavor){
+    return Array.isArray(p.flavorsOut) && p.flavorsOut.includes(flavor);
+  }
+  function extrasDisponibles(p){
+    return extrasOf(p).filter(f => !extraAgotado(p, f));
+  }
+  function partirExtra(p, flavor){
+    const i = extrasOf(p).length ? flavor.indexOf(SEP_EXTRA) : -1;
+    return i === -1 ? { extra: "", resto: flavor } : { extra: flavor.slice(0, i), resto: flavor.slice(i + SEP_EXTRA.length) };
+  }
+
   function normalizarSabor(p, flavor){
     if(unidadesCombo(p) === 1) return flavor;
+    const { extra, resto } = partirExtra(p, flavor);
     const orden = flavorsOf(p);
-    return flavor.split(SEP_COMBO)
+    const combinacion = resto.split(SEP_COMBO)
       .sort((a, b) => orden.indexOf(a) - orden.indexOf(b))
       .join(SEP_COMBO);
+    return extra ? extra + SEP_EXTRA + combinacion : combinacion;
   }
   function saborValido(p, flavor){
-    const partes = flavor.split(SEP_COMBO);
+    const { extra, resto } = partirExtra(p, flavor);
+    if(extrasOf(p).length && (!extrasOf(p).includes(extra) || extraAgotado(p, extra))) return false;
+    const partes = resto.split(SEP_COMBO);
     if(partes.length !== unidadesCombo(p)) return false;
     return partes.every(s => flavorsOf(p).includes(s) && !flavorAgotado(p, s));
   }
   function saborPorDefecto(p){
     const primero = flavorsDisponibles(p)[0];
     if(!primero) return "";
-    return Array(unidadesCombo(p)).fill(primero).join(SEP_COMBO);
+    const combinacion = Array(unidadesCombo(p)).fill(primero).join(SEP_COMBO);
+    if(!extrasOf(p).length) return combinacion;
+    const extra = extrasDisponibles(p)[0];
+    return extra ? extra + SEP_EXTRA + combinacion : "";
   }
   function cartKey(id, flavor){
     return flavor ? id + "::" + flavor : id;
@@ -1094,12 +1173,16 @@
   // "Sin sabor" ya se explica solo: evita que quede "Sabor: Sin sabor".
   function esSinSabor(flavor){ return /^sin sabor/i.test(flavor); }
   function esCombinacion(flavor){ return flavor.includes(SEP_COMBO); }
-  function flavorTag(flavor){
+  function flavorTag(flavor, p){
+    const { extra, resto } = p ? partirExtra(p, flavor) : { extra: "", resto: flavor };
+    if(extra) return `${p.flavorsLabel || "Variante"}: ${extra} · Sabores: ${resto}`;
     if(esCombinacion(flavor)) return "Sabores: " + flavor;
     return esSinSabor(flavor) ? "Sin sabor" : "Sabor: " + flavor;
   }
-  function flavorSuffix(flavor){
+  function flavorSuffix(flavor, p){
     if(!flavor) return "";
+    const { extra, resto } = p ? partirExtra(p, flavor) : { extra: "", resto: flavor };
+    if(extra) return ` - ${(p.flavorsLabel || "variante").toLowerCase()} ${extra.toLowerCase()}, sabores ${resto}`;
     if(esCombinacion(flavor)) return " - sabores " + flavor;
     return esSinSabor(flavor) ? " - sin sabor" : " - sabor " + flavor;
   }
@@ -1249,12 +1332,24 @@
       ? `<button type="button" class="flavor-btn" disabled data-flavor="${f}">${f}<span class="sin-stock-sabor">Sin stock</span></button>`
       : `<button type="button" class="flavor-btn${f === primero ? " active" : ""}" data-flavor="${f}" onclick="pickFlavor(this)">${f}</button>`
     ).join("")}</div>`;
+    // Variantes del producto fijo del combo (ver extrasOf): van primero.
+    const extras = extrasOf(p);
+    const primerExtra = extrasDisponibles(p)[0];
+    const filaExtra = extras.length
+      ? `<div class="flavor-label">Elegí el sabor${p.flavorsLabel ? " de " + p.flavorsLabel.toLowerCase() : ""}</div>` +
+        `<div class="flavor-options" data-extra="1">${extras.map(f => extraAgotado(p, f)
+          ? `<button type="button" class="flavor-btn" disabled data-flavor="${f}">${f}<span class="sin-stock-sabor">Sin stock</span></button>`
+          : `<button type="button" class="flavor-btn${f === primerExtra ? " active" : ""}" data-flavor="${f}" onclick="pickFlavor(this)">${f}</button>`
+        ).join("")}</div>`
+      : "";
+    const deQue = extras.length && baseDe(p) ? " de " + baseDe(p).name.toLowerCase() : "";
     if(!flavors.length){
       wrap.innerHTML = "";
     } else if(unidades === 1){
       wrap.innerHTML = `<div class="flavor-label">Elegí el sabor</div>${filaSabores()}`;
     } else {
-      wrap.innerHTML = `<div class="flavor-label">Elegí los ${unidades} sabores <span class="flavor-hint">(podés repetir)</span></div>` +
+      wrap.innerHTML = filaExtra +
+        `<div class="flavor-label">Elegí los ${unidades} sabores${deQue} <span class="flavor-hint">(podés repetir)</span></div>` +
         Array.from({ length: unidades }, (_, i) =>
           `<div class="flavor-row"><span class="flavor-row-num">${i + 1}</span>${filaSabores()}</div>`
         ).join("");
@@ -1294,23 +1389,47 @@
   // Un sabor por fila; en un combo se unen con " + ". Si falta elegir en
   // alguna fila, devuelve vacio y addToCart no agrega nada.
   function selectedFlavor(){
-    const filas = [...document.querySelectorAll("#modal-flavors .flavor-options")];
+    const filas = [...document.querySelectorAll("#modal-flavors .flavor-options:not([data-extra])")];
     const elegidos = filas
       .map(f => f.querySelector(".flavor-btn.active"))
       .filter(Boolean)
       .map(b => b.dataset.flavor);
-    return elegidos.length === filas.length ? elegidos.join(SEP_COMBO) : "";
+    if(elegidos.length !== filas.length) return "";
+    const filaExtra = document.querySelector("#modal-flavors .flavor-options[data-extra]");
+    if(!filaExtra) return elegidos.join(SEP_COMBO);
+    const extra = filaExtra.querySelector(".flavor-btn.active");
+    return extra ? extra.dataset.flavor + SEP_EXTRA + elegidos.join(SEP_COMBO) : "";
   }
 
   function consultarProducto(p, flavor){
-    const sabor = flavor ? ` (${flavorTag(flavor).toLowerCase()})` : "";
+    const sabor = flavor ? ` (${flavorTag(flavor, p).toLowerCase()})` : "";
     const text = encodeURIComponent(`Hola! Quería consultar el precio de: ${p.brand} ${p.name}${sabor}`);
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   }
 
+  // Cartel de promo: aparece cuando termina de cargar el catalogo, una vez
+  // por visita (no en cada recarga).
+  function abrirPromo(){
+    try{ if(sessionStorage.getItem("promoVista")) return; sessionStorage.setItem("promoVista", "1"); }catch(e){}
+    document.getElementById("promo-pop").classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+  function cerrarPromo(){
+    document.getElementById("promo-pop").classList.remove("open");
+    document.body.style.overflow = "";
+  }
+  // Abre el combo del catalogo para que elijan los sabores de las 2 pastas
+  // y lo sumen al carrito desde ahi.
+  function agregarPromo(){
+    cerrarPromo();
+    openProduct("combo-creatina-mani");
+  }
+
+
   document.addEventListener("keydown", e => {
     if(e.key !== "Escape") return;
-    if(document.getElementById("product-modal").classList.contains("open")) closeProduct();
+    if(document.getElementById("promo-pop").classList.contains("open")) cerrarPromo();
+    else if(document.getElementById("product-modal").classList.contains("open")) closeProduct();
     else toggleCart(false);
   });
 
@@ -1327,6 +1446,7 @@
     // Un combo necesita al menos N unidades del producto base.
     const base = baseDe(p);
     if(base && Number(base.stock) < unidadesCombo(p)) return true;
+    if(extrasOf(p).length && !extrasDisponibles(p).length) return true;
     return flavorsOf(p).length > 0 && flavorsDisponibles(p).length === 0;
   }
 
@@ -1388,7 +1508,7 @@
           <div>
             <div class="drawer-item-brand">${p.brand}</div>
             <div class="drawer-item-name">${p.name}</div>
-            ${flavor ? `<div class="drawer-item-flavor">${flavorTag(flavor)}</div>` : ""}
+            ${flavor ? `<div class="drawer-item-flavor">${flavorTag(flavor, p)}</div>` : ""}
           </div>
           <div class="qty-controls">
             <button onclick="changeQty('${key}', -1)">−</button>
@@ -1462,7 +1582,7 @@
       const { id, flavor } = splitKey(key);
       const p = PRODUCTS.find(x => x.id === id);
       const qty = cart[key];
-      const sabor = flavorSuffix(flavor);
+      const sabor = flavorSuffix(flavor, p);
       if(p.price > 0){
         total += p.price * qty;
         lines.push(`- ${qty}x ${p.brand} ${p.name}${sabor} (${formatPrice(p.price)} c/u)`);
@@ -1780,6 +1900,7 @@
     }
     renderGrid();
     renderCart();
+    abrirPromo();
   }
 
   // Boton de volver arriba: aparece cuando ya bajaste una pantalla

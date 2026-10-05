@@ -319,6 +319,22 @@
          "stock" : 1
       },
       {
+         "brand" : "Star Nutrition + Entrenuts",
+         "cat" : "ofertas",
+         "comboOf" : "pasta-mani-entrenuts",
+         "comboSize" : 2,
+         "desc" : "Creatina Monohidratada Star Nutrition doypack 300g (sin sabor, fruit punch, uva o limón) + 2 pastas de maní Entrenuts del sabor que quieras: dos iguales o una de cada una.",
+         "flavors" : [ "Sin sabor", "Fruit Punch", "Uva", "Limón" ],
+         "flavorsLabel" : "Creatina",
+         "gallery" : [ "img/creatina-star-google.webp", "img/pasta-mani-entrenuts-google.webp" ],
+         "id" : "combo-creatina-mani",
+         "image" : "img/combo-creatina-mani.webp",
+         "name" : "Combo Creatina 300g + 2 Pastas de Maní",
+         "offer" : true,
+         "price" : 30000,
+         "stock" : 10
+      },
+      {
          "brand" : "Star Nutrition",
          "cat" : "salud",
          "desc" : "Suplemento de ácidos grasos Omega 3.",

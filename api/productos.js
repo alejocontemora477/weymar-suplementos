@@ -138,6 +138,9 @@ function revisar(lista) {
     if (p.offer === true) limpio.offer = true;
     if (flavors && flavors.length) limpio.flavors = flavors;
     if (flavorsOut && flavorsOut.length) limpio.flavorsOut = flavorsOut;
+    // Nombre de las variantes propias de un combo (p. ej. "Creatina").
+    const flavorsLabel = p.flavorsLabel == null ? "" : String(p.flavorsLabel).trim().slice(0, 40);
+    if (flavorsLabel && limpio.flavors) limpio.flavorsLabel = flavorsLabel;
     if (gallery && gallery.length) limpio.gallery = gallery;
     if (comboOf) { limpio.comboOf = comboOf; limpio.comboSize = comboSize; }
     if (catsExtra && catsExtra.length) limpio.catsExtra = catsExtra;
