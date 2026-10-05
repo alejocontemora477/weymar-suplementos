@@ -233,12 +233,12 @@
       {
          "brand" : "Granger",
          "cat" : "barritas",
-         "desc" : "Premezcla para pancakes proteicos hechos con avena y clara de huevo. Elegí tu sabor: vainilla, chocolate o salados de queso.",
+         "desc" : "Premezcla para pancakes proteicos hechos con avena y clara de huevo, 400g. Elegí tu sabor: vainilla, chocolate o salados de queso.",
          "flavors" : [ "Vainilla", "Chocolate", "Queso" ],
          "gallery" : [ "img/pancakes-granger-chocolate-google.webp", "img/pancakes-granger-queso-google.webp", "img/pancakes-granger.webp" ],
          "id" : "pancakes-granger",
          "image" : "img/pancakes-granger-google.webp",
-         "name" : "Pancakes Proteicos",
+         "name" : "Pancakes Proteicos 400g",
          "price" : 15500,
          "stock" : 2
       },
