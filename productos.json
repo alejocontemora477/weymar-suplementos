@@ -373,7 +373,7 @@
          "name" : "Combo Creatina 300g + 2 Pastas de Maní",
          "offer" : true,
          "price" : 30000,
-         "priceBefore" : 35900,
+         "priceBefore" : 36700,
          "stock" : 10
       },
       {
@@ -454,9 +454,7 @@
          "id" : "pasta-mani-entrenuts",
          "image" : "img/pasta-mani-entrenuts-google.webp",
          "name" : "Pasta de Maní Saborizada",
-         "offer" : true,
-         "price" : 4500,
-         "priceBefore" : 5500,
+         "price" : 5900,
          "stock" : 24
       },
       {
