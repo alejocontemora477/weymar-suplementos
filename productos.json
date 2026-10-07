@@ -3,13 +3,14 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "creatina",
-         "desc" : "Creatina monohidratada ultramicronizada, 100% pura, sin TACC. 60 servicios de 5g.",
-         "gallery" : [ "img/creatina-star.webp" ],
+         "desc" : "Creatina monohidratada ultramicronizada, sin TACC. 60 servicios de 5g. Elegí tu sabor: sin sabor, fruit punch, uva o limón.",
+         "flavors" : [ "Sin sabor", "Fruit Punch", "Uva", "Limón" ],
+         "gallery" : [ "img/creatina-star-fruitpunch-google.webp", "img/creatina-star-uva-google.webp", "img/creatina-star-limon-google.webp", "img/creatina-star.webp", "img/creatina-star-fruitpunch.webp", "img/creatina-star-uva.webp" ],
          "id" : "creatina-star",
          "image" : "img/creatina-star-google.webp",
-         "name" : "Creatina Monohidratada Sin Sabor - Doypack 300g",
+         "name" : "Creatina Monohidratada - Doypack 300g",
          "price" : 24900,
-         "stock" : 42
+         "stock" : 39
       },
       {
          "brand" : "Ena Sport",
@@ -66,6 +67,16 @@
          "name" : "Citrato de Magnesio - 60 Cápsulas",
          "price" : 16500,
          "stock" : 2
+      },
+      {
+         "brand" : "Labs Nutrition",
+         "cat" : "salud",
+         "desc" : "Extracto orgánico de raíz de Ashwagandha concentrado 5:1 con vitamina B6. Adaptógeno que ayuda a reducir el estrés, la ansiedad y el insomnio. 2 cápsulas por día, 60 cápsulas (30 días).",
+         "id" : "ashwagandha-labs",
+         "image" : "img/ashwagandha-labs-google.webp",
+         "name" : "Ashwagandha - 60 Cápsulas",
+         "price" : 25000,
+         "stock" : 1
       },
       {
          "brand" : "Star Nutrition",
@@ -144,7 +155,7 @@
          "id" : "proteina-onefit",
          "image" : "img/proteina-onefit-google.webp",
          "name" : "Classic Whey Protein 907g",
-         "price" : 43000,
+         "price" : 45000,
          "stock" : 13
       },
       {
@@ -157,7 +168,7 @@
          "id" : "proteina-star",
          "image" : "img/proteina-star-google.webp",
          "name" : "Whey Protein 2lb (908g)",
-         "price" : 78000,
+         "price" : 82000,
          "stock" : 4
       },
       {
@@ -169,7 +180,7 @@
          "id" : "proteina-ena",
          "image" : "img/proteina-ena-google.webp",
          "name" : "Truemade Whey Protein 930g",
-         "price" : 83000,
+         "price" : 78500,
          "stock" : 4
       },
       {
@@ -290,18 +301,6 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "creatina",
-         "desc" : "Creatina monohidratada con sabor, doypack 300g. Elegí tu sabor.",
-         "flavors" : [ "Fruit Punch", "Uva", "Limón" ],
-         "gallery" : [ "img/creatina-star-uva-google.webp", "img/creatina-star-limon-google.webp", "img/creatina-star-fruitpunch.webp", "img/creatina-star-uva.webp", "img/creatina-star-limon.webp" ],
-         "id" : "creatina-star-fruitpunch",
-         "image" : "img/creatina-star-fruitpunch-google.webp",
-         "name" : "Creatina Monohidratada con Sabor - Doypack 300g",
-         "price" : 24900,
-         "stock" : 18
-      },
-      {
-         "brand" : "Star Nutrition",
-         "cat" : "creatina",
          "desc" : "Creatina monohidratada pura en pote, 300g.",
          "id" : "creatina-star-pote",
          "image" : "img/creatina-star-pote-google.webp",
@@ -342,7 +341,7 @@
          "name" : "Combo 2 Whey Protein 908g a Elección",
          "offer" : true,
          "price" : 150000,
-         "priceBefore" : 156000,
+         "priceBefore" : 164000,
          "stock" : 1
       },
       {
@@ -376,6 +375,20 @@
          "price" : 30000,
          "priceBefore" : 35900,
          "stock" : 10
+      },
+      {
+         "brand" : "One Fit Nutrition",
+         "cat" : "ofertas",
+         "desc" : "Classic Whey Protein 907g del sabor que quieras (chocolate, vainilla o frutilla) + Poweraded Creatine Micronized 200g + Citrato de Magnesio en polvo 150g. Comprándolos juntos pagás menos que llevándolos por separado.",
+         "flavors" : [ "Chocolate", "Vainilla", "Frutilla" ],
+         "gallery" : [ "img/proteina-onefit-google.webp", "img/creatina-onefit-google.webp", "img/magnesio-onefit-google.webp" ],
+         "id" : "combo-onefit",
+         "image" : "img/combo-onefit-google.webp",
+         "name" : "Combo One Fit: Proteína + Creatina 200g + Magnesio 150g",
+         "offer" : true,
+         "price" : 63000,
+         "priceBefore" : 72400,
+         "stock" : 4
       },
       {
          "brand" : "Star Nutrition",
