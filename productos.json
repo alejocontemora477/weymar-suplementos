@@ -278,6 +278,18 @@
          "stock" : 10
       },
       {
+         "brand" : "Molé",
+         "cat" : "barritas",
+         "desc" : "Granola proteica con whey protein, 400g. 13-15g de proteína por porción, sin TACC y sin azúcares agregados. Rinde 10 porciones. Elegí tu sabor: chocolate o frutos rojos.",
+         "flavors" : [ "Chocolate", "Frutos Rojos" ],
+         "gallery" : [ "img/granola-mole-frutosrojos-google.webp" ],
+         "id" : "granola-mole",
+         "image" : "img/granola-mole-chocolate-google.webp",
+         "name" : "Granola Proteica 400g",
+         "price" : 12000,
+         "stock" : 10
+      },
+      {
          "brand" : "Star Nutrition",
          "cat" : "salud",
          "desc" : "23 vitaminas y minerales por servicio. Libre de gluten, sin TACC. 60 servicios.",
@@ -491,11 +503,12 @@
       {
          "brand" : "Star Nutrition",
          "cat" : "proteinas",
-         "desc" : "Ganador de peso con 23g de proteína por porción, ratio 3:1 carbohidratos/proteína, más fibras y vitaminas. 1530g.",
-         "gallery" : [ "img/gainer-mutant-mass.webp" ],
+         "desc" : "Ganador de peso con 23g de proteína por porción, ratio 3:1 carbohidratos/proteína, más fibras y vitaminas. 1530g. Elegí tu sabor.",
+         "flavors" : [ "Vainilla", "Cookies and Cream" ],
+         "gallery" : [ "img/gainer-mutant-mass-cookies-google.webp", "img/gainer-mutant-mass.webp" ],
          "id" : "gainer-mutant-mass-van",
          "image" : "img/gainer-mutant-mass-google.webp",
-         "name" : "Mutant Mass 1,5kg - Vainilla",
+         "name" : "Mutant Mass 1,5kg",
          "price" : 65000,
          "stock" : 1
       },
