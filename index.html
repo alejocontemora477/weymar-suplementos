@@ -455,49 +455,6 @@
     .modal-add{margin-top:24px;}
   }
 
-  /* Cartel de promo al entrar (ver abrirPromo) */
-  .promo-pop{z-index:70;}
-  .promo-pop-panel{
-    background:var(--bg-alt); border:1px solid var(--celeste); border-radius:14px;
-    width:100%; max-width:440px; max-height:92vh; overflow-y:auto; position:relative;
-    padding:30px 26px 24px; text-align:center;
-    box-shadow:0 24px 60px rgba(0,0,0,0.6), 0 0 40px rgba(52,198,244,0.15);
-    transform:translateY(12px) scale(0.97); transition:transform .25s ease;
-  }
-  .promo-pop.open .promo-pop-panel{transform:none;}
-  .promo-pop-panel .offer-badge{position:static; display:inline-block; box-shadow:none;}
-  .promo-pop-panel h3{font-size:2rem; margin:14px 0 6px;}
-  .promo-pop-fotos{display:flex; justify-content:center; align-items:center; gap:6px; margin:16px 0;}
-  .promo-pop-fotos img{width:96px; height:120px; object-fit:cover; background:#4fa3e0; border-radius:8px; border:1px solid var(--line);}
-  .promo-pop-fotos span{color:var(--celeste); font-family:'Barlow Condensed'; font-weight:800; font-size:1.6rem;}
-  .promo-pop-linea{color:var(--muted); font-size:0.95rem; margin:0;}
-  .promo-pop-linea b{color:var(--white);}
-  .promo-pop-precio{
-    font-family:'Barlow Condensed'; font-weight:800; font-size:2.6rem; color:var(--celeste);
-    line-height:1; margin:8px 0 20px;
-  }
-  .promo-pop-panel .modal-add{margin-top:0;}
-  .promo-pop-cerrar{
-    margin-top:10px; background:none; border:none; color:var(--muted);
-    font-size:0.9rem; cursor:pointer; padding:8px; text-decoration:underline;
-  }
-  @media (max-width: 720px){
-    .promo-pop{padding:16px;}
-    .promo-pop-panel h3{font-size:1.7rem;}
-    .promo-pop-fotos img{width:80px; height:100px;}
-  }
-  /* Celulares chicos: que entre entero, botones incluidos, sin tener que bajar */
-  @media (max-height: 700px){
-    .promo-pop-panel{padding:22px 18px 14px;}
-    .promo-pop-panel h3{font-size:1.5rem; margin:10px 0 4px;}
-    .promo-pop-linea{font-size:0.86rem;}
-    .promo-pop-fotos{margin:10px 0;}
-    .promo-pop-fotos img{width:66px; height:82px;}
-    .promo-pop-precio{font-size:2.1rem; margin:6px 0 12px;}
-    .promo-pop-panel .modal-add{padding:12px;}
-    .promo-pop-cerrar{margin-top:4px;}
-  }
-
   /* Cart drawer */
   .overlay{
     position:fixed; inset:0; background:rgba(2,5,7,0.6);
@@ -996,26 +953,6 @@
   </div>
 </div>
 
-<div class="modal promo-pop" id="promo-pop" onclick="if(event.target === this) cerrarPromo()">
-  <div class="promo-pop-panel" role="dialog" aria-modal="true" aria-labelledby="promo-pop-titulo">
-    <button class="modal-close" onclick="cerrarPromo()" aria-label="Cerrar">&times;</button>
-    <span class="offer-badge">Promo</span>
-    <h3 id="promo-pop-titulo">Creatina + pastas de maní</h3>
-    <p class="promo-pop-linea">Pastas Entrenuts Cookies and Cream o Salted Caramel</p>
-    <div class="promo-pop-fotos">
-      <img src="img/creatina-star-google.webp" alt="Creatina Star doypack 300g">
-      <span>+</span>
-      <img src="img/pasta-mani-entrenuts-google.webp" alt="Pasta de maní Entrenuts">
-      <img src="img/pasta-mani-entrenuts-salted-google.webp" alt="Pasta de maní Entrenuts Salted Caramel">
-    </div>
-    <p class="promo-pop-linea"><b>Creatina Star 300g doypack + 2 pastas de maní</b></p>
-    <p class="promo-pop-linea">Creatina sin sabor, fruit punch, uva o limón</p>
-    <div class="promo-pop-precio"><span class="price-before">$36.700</span>$30.000</div>
-    <button class="modal-add" onclick="agregarPromo()">Agregar al carrito</button>
-    <button class="promo-pop-cerrar" onclick="cerrarPromo()">Seguir viendo</button>
-  </div>
-</div>
-
 <div class="overlay" id="overlay" onclick="toggleCart(false)"></div>
 <div class="drawer" id="drawer">
   <div class="drawer-head">
@@ -1433,29 +1370,9 @@
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, "_blank");
   }
 
-  // Cartel de promo: aparece cuando termina de cargar el catalogo, una vez
-  // por visita (no en cada recarga).
-  function abrirPromo(){
-    try{ if(sessionStorage.getItem("promoVista")) return; sessionStorage.setItem("promoVista", "1"); }catch(e){}
-    document.getElementById("promo-pop").classList.add("open");
-    document.body.style.overflow = "hidden";
-  }
-  function cerrarPromo(){
-    document.getElementById("promo-pop").classList.remove("open");
-    document.body.style.overflow = "";
-  }
-  // Abre el combo del catalogo para que elijan los sabores de las 2 pastas
-  // y lo sumen al carrito desde ahi.
-  function agregarPromo(){
-    cerrarPromo();
-    openProduct("combo-creatina-mani");
-  }
-
-
   document.addEventListener("keydown", e => {
     if(e.key !== "Escape") return;
-    if(document.getElementById("promo-pop").classList.contains("open")) cerrarPromo();
-    else if(document.getElementById("product-modal").classList.contains("open")) closeProduct();
+    if(document.getElementById("product-modal").classList.contains("open")) closeProduct();
     else toggleCart(false);
   });
 
@@ -1927,7 +1844,6 @@
     }
     renderGrid();
     renderCart();
-    abrirPromo();
   }
 
   // Boton de volver arriba: aparece cuando ya bajaste una pantalla
