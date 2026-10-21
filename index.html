@@ -1221,10 +1221,7 @@
 
   function renderGrid(){
     const grid = document.getElementById("product-grid");
-    const banner = document.getElementById("category-banner");
-    banner.innerHTML = activeCategory === "proteinas" && !busqueda
-      ? `<div class="promo-banner"><div class="promo-banner-icon">🎁</div><p>Comprando una <strong>proteína o aumentador de masa Ena</strong>, te llevás un <strong>shaker Ena de regalo</strong>.</p></div>`
-      : "";
+    document.getElementById("category-banner").innerHTML = "";
 
     // Al buscar se mira todo el catalogo, no solo la categoria abierta: si no,
     // habria que adivinar en cual esta el producto antes de poder buscarlo.

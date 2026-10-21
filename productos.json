@@ -498,20 +498,12 @@
       {
          "brand" : "Ena Sport",
          "cat" : "proteinas",
-         "desc" : "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, 393 kcal por porción.",
-         "id" : "gainer-ena-ultramass-choc",
-         "image" : "img/gainer-ena-ultramass-choc-google.webp",
-         "name" : "Ultra Mass Weight Gainer 1500g - Double Rich Chocolate",
-         "price" : 45000,
-         "stock" : 0
-      },
-      {
-         "brand" : "Ena Sport",
-         "cat" : "proteinas",
-         "desc" : "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, 399 kcal por porción.",
+         "desc" : "Aumentador de masa con 25g de proteína, 19 vitaminas y minerales, cerca de 400 kcal por porción. Formato de 1500g. Elegí tu sabor.",
+         "flavors" : [ "Vanilla Ice Cream", "Double Rich Chocolate" ],
+         "gallery" : [ "img/gainer-ena-ultramass-choc-google.webp", "img/gainer-ena-ultramass-van.webp", "img/gainer-ena-ultramass-choc.webp" ],
          "id" : "gainer-ena-ultramass-van",
          "image" : "img/gainer-ena-ultramass-van-google.webp",
-         "name" : "Ultra Mass Weight Gainer 1500g - Vanilla Ice Cream",
+         "name" : "Ultra Mass Weight Gainer 1500g",
          "price" : 45000,
          "stock" : 0
       }
