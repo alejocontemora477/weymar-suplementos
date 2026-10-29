@@ -9,7 +9,9 @@
          "id" : "creatina-star",
          "image" : "img/creatina-star-google.webp",
          "name" : "Creatina Monohidratada - Doypack 300g",
-         "price" : 24900,
+         "offer" : true,
+         "price" : 23500,
+         "priceBefore" : 26500,
          "stock" : 39
       },
       {
@@ -21,7 +23,9 @@
          "id" : "creatina-ena",
          "image" : "img/creatina-ena-google.webp",
          "name" : "Creatina Monohidratada Micronizada 300g",
-         "price" : 26500,
+         "offer" : true,
+         "price" : 23500,
+         "priceBefore" : 26500,
          "stock" : 9
       },
       {
@@ -32,7 +36,9 @@
          "id" : "creatina-onefit",
          "image" : "img/creatina-onefit-google.webp",
          "name" : "Poweraded Creatine Micronized 200g",
-         "price" : 16500,
+         "offer" : true,
+         "price" : 12900,
+         "priceBefore" : 16500,
          "stock" : 15
       },
       {
@@ -43,7 +49,9 @@
          "id" : "magnesio-onefit",
          "image" : "img/magnesio-onefit-google.webp",
          "name" : "Citrato de Magnesio en Polvo 150g",
-         "price" : 10900,
+         "offer" : true,
+         "price" : 9700,
+         "priceBefore" : 11500,
          "stock" : 5
       },
       {
@@ -54,7 +62,9 @@
          "id" : "magnesio-star-polvo",
          "image" : "img/magnesio-star-polvo-google.webp",
          "name" : "Citrato de Magnesio en Polvo 500g",
-         "price" : 31500,
+         "offer" : true,
+         "price" : 27500,
+         "priceBefore" : 33000,
          "stock" : 2
       },
       {
@@ -65,7 +75,9 @@
          "id" : "magnesio-star",
          "image" : "img/magnesio-star-google.webp",
          "name" : "Citrato de Magnesio - 60 Cápsulas",
-         "price" : 16500,
+         "offer" : true,
+         "price" : 13000,
+         "priceBefore" : 16500,
          "stock" : 2
       },
       {
@@ -99,7 +111,9 @@
          "id" : "whey-collagen-ena",
          "image" : "img/whey-collagen-ena-google.webp",
          "name" : "Truemade Whey Collagen 750g - Double Chocolate",
-         "price" : 59000,
+         "offer" : true,
+         "price" : 48000,
+         "priceBefore" : 59000,
          "stock" : 2
       },
       {
@@ -121,7 +135,9 @@
          "id" : "omega3-onefit",
          "image" : "img/omega3-onefit-google.webp",
          "name" : "Daily Omega 3 - 30 Cápsulas",
-         "price" : 22900,
+         "offer" : true,
+         "price" : 20000,
+         "priceBefore" : 23900,
          "stock" : 3
       },
       {
@@ -155,7 +171,9 @@
          "id" : "proteina-onefit",
          "image" : "img/proteina-onefit-google.webp",
          "name" : "Classic Whey Protein 907g",
-         "price" : 45000,
+         "offer" : true,
+         "price" : 44500,
+         "priceBefore" : 52000,
          "stock" : 13
       },
       {
@@ -168,7 +186,9 @@
          "id" : "proteina-star",
          "image" : "img/proteina-star-google.webp",
          "name" : "Whey Protein 2lb (908g)",
-         "price" : 82000,
+         "offer" : true,
+         "price" : 76500,
+         "priceBefore" : 85000,
          "stock" : 4
       },
       {
@@ -180,7 +200,9 @@
          "id" : "proteina-ena",
          "image" : "img/proteina-ena-google.webp",
          "name" : "Truemade Whey Protein 930g",
-         "price" : 78500,
+         "offer" : true,
+         "price" : 74500,
+         "priceBefore" : 88000,
          "stock" : 4
       },
       {
@@ -192,7 +214,7 @@
          "id" : "proteina-creatine-whey-star",
          "image" : "img/proteina-creatine-whey-star-google.webp",
          "name" : "Creatine Whey Protein 910g - Vanilla Ice Cream",
-         "price" : 85000,
+         "price" : 81000,
          "stock" : 0
       },
       {
@@ -203,7 +225,7 @@
          "id" : "proteina-pulver-choco-avellanas",
          "image" : "img/proteina-pulver-soy-google.webp",
          "name" : "Soy Protein 100% Isolate - Chocolate y Avellanas",
-         "price" : 45000,
+         "price" : 46000,
          "stock" : 1
       },
       {
@@ -297,7 +319,7 @@
          "id" : "vitamina-multi-star",
          "image" : "img/vitamina-multi-star-google.webp",
          "name" : "All In One Multivitamin - 60 Comprimidos",
-         "price" : 23500,
+         "price" : 24500,
          "stock" : 2
       },
       {
@@ -317,7 +339,7 @@
          "id" : "creatina-star-pote",
          "image" : "img/creatina-star-pote-google.webp",
          "name" : "Creatina Monohidratada Sin Sabor - Pote 300g",
-         "price" : 28500,
+         "price" : 29000,
          "stock" : 0
       },
       {
@@ -327,7 +349,7 @@
          "id" : "creatina-star-500g",
          "image" : "img/creatina-star-500g-google.webp",
          "name" : "Creatina Monohidratada Sin Sabor 500g",
-         "price" : 45000,
+         "price" : 46500,
          "stock" : 2
       },
       {
@@ -338,7 +360,9 @@
          "id" : "creatina-star-1kg",
          "image" : "img/creatina-star-1kg-google.webp",
          "name" : "Creatina Monohidratada Sin Sabor 1kg",
-         "price" : 79000,
+         "offer" : true,
+         "price" : 71000,
+         "priceBefore" : 83500,
          "stock" : 2
       },
       {
@@ -352,8 +376,8 @@
          "image" : "img/combo-proteinas-star-google.webp",
          "name" : "Combo 2 Whey Protein 908g a Elección",
          "offer" : true,
-         "price" : 155000,
-         "priceBefore" : 164000,
+         "price" : 149500,
+         "priceBefore" : 170000,
          "stock" : 1
       },
       {
@@ -379,7 +403,9 @@
          "id" : "omega3-star",
          "image" : "img/omega3-star-google.webp",
          "name" : "Omega 3 - Cápsulas",
-         "price" : 32000,
+         "offer" : true,
+         "price" : 29500,
+         "priceBefore" : 33000,
          "stock" : 2
       },
       {
@@ -490,7 +516,7 @@
          "id" : "gainer-ena-ultramass-van",
          "image" : "img/gainer-ena-ultramass-van-google.webp",
          "name" : "Ultra Mass Weight Gainer 1500g",
-         "price" : 45000,
+         "price" : 48500,
          "stock" : 0
       }
    ]

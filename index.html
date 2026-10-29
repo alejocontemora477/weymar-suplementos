@@ -279,9 +279,18 @@
   .price{font-family:'Barlow Condensed'; font-weight:800; font-size:2.2rem; line-height:1; color:var(--celeste);}
   .card.is-agotado .price{color:var(--muted);}
   .price-before{
-    display:block; font-family:'Work Sans', sans-serif; font-size:0.42em; font-weight:600;
-    color:var(--muted); text-decoration:line-through; margin-bottom:3px;
+    display:flex; align-items:center; gap:7px; flex-wrap:wrap;
+    font-family:'Barlow Condensed', sans-serif; font-size:0.75em; font-weight:700;
+    color:#ff6b6b; margin-bottom:4px;
   }
+  .price-before s{text-decoration-thickness:3px; text-decoration-color:#ff3b3b;}
+  .price-off{
+    background:#ff3b3b; color:#fff; font-size:0.8em; font-weight:800;
+    padding:2px 7px; border-radius:6px; letter-spacing:0.02em;
+    text-decoration:none;
+  }
+  .card.is-offer{border-color:#ff3b3b; box-shadow:0 0 0 1px #ff3b3b, 0 6px 22px rgba(255,59,59,0.18);}
+  .card.is-offer .offer-badge{background:#ff3b3b; color:#fff;}
   .price em{font-style:normal; color:var(--muted); font-size:0.7rem; display:block; text-transform:none; font-family:'Work Sans';}
   .add-btn{
     background:var(--celeste); border:1px solid var(--celeste); color:#06131a;
@@ -1035,10 +1044,16 @@
     if(n === 0) return "Consultar precio";
     return "$" + n.toLocaleString("es-AR");
   }
-  // En las promos, el precio original ("priceBefore") va tachado arriba.
+  // En las promos, el precio original ("priceBefore") va tachado arriba, grande
+  // y en rojo, con el porcentaje de descuento al lado para que se note la rebaja.
+  function descuento(p){
+    const antes = Number(p.priceBefore);
+    return antes > p.price && p.price > 0 ? Math.round((1 - p.price / antes) * 100) : 0;
+  }
   function precioHtml(p){
-    const antes = Number(p.priceBefore) > p.price && p.price > 0
-      ? `<span class="price-before">${formatPrice(Number(p.priceBefore))}</span>` : "";
+    const off = descuento(p);
+    const antes = off
+      ? `<span class="price-before"><s>${formatPrice(Number(p.priceBefore))}</s><span class="price-off">-${off}%</span></span>` : "";
     return antes + formatPrice(p.price);
   }
 
