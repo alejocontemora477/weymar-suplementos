@@ -372,20 +372,6 @@
          "stock" : 1
       },
       {
-         "brand" : "One Fit Nutrition",
-         "cat" : "ofertas",
-         "desc" : "Classic Whey Protein 907g del sabor que quieras (chocolate, vainilla o frutilla) + Poweraded Creatine Micronized 200g + Citrato de Magnesio en polvo 150g. Comprándolos juntos pagás menos que llevándolos por separado.",
-         "flavors" : [ "Chocolate", "Vainilla", "Frutilla" ],
-         "gallery" : [ "img/proteina-onefit-google.webp", "img/creatina-onefit-google.webp", "img/magnesio-onefit-google.webp" ],
-         "id" : "combo-onefit",
-         "image" : "img/combo-onefit-google.webp",
-         "name" : "Combo One Fit: Proteína + Creatina 200g + Magnesio 150g",
-         "offer" : true,
-         "price" : 63000,
-         "priceBefore" : 72400,
-         "stock" : 4
-      },
-      {
          "brand" : "Star Nutrition",
          "cat" : "salud",
          "desc" : "Suplemento de ácidos grasos Omega 3.",
