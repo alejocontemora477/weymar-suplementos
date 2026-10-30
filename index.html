@@ -181,14 +181,29 @@
     color:var(--celeste); text-transform:none; letter-spacing:0.01em;
     max-width:640px; margin-bottom:36px; line-height:1.15;
   }
-  .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:40px;}
+  .tabs{display:flex; gap:12px; flex-wrap:wrap; margin-bottom:40px;}
   .tab{
-    background:var(--panel); border:1px solid var(--line);
-    color:var(--muted); padding:10px 18px; border-radius:999px;
-    font-size:0.88rem; cursor:pointer; font-family:'Work Sans'; font-weight:500;
+    background:var(--panel); border:2px solid #24414f;
+    color:var(--white); padding:13px 26px; border-radius:999px;
+    font-family:'Barlow Condensed', sans-serif; font-weight:800;
+    font-size:1.3rem; text-transform:uppercase; letter-spacing:0.04em; line-height:1;
+    cursor:pointer; transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
   }
+  .tab:hover{border-color:var(--celeste); transform:translateY(-2px);}
   .tab.active{
-    background:var(--celeste); color:#06131a; border-color:var(--celeste); font-weight:600;
+    background:var(--celeste); color:#06131a; border-color:var(--celeste);
+    box-shadow:0 0 18px rgba(52,198,244,0.45);
+  }
+  /* Ofertas y Combos va siempre en rojo, como los carteles de oferta. */
+  .tab[data-cat="ofertas"]{
+    font-family:'Bungee', 'Barlow Condensed', sans-serif; font-weight:400;
+    background:linear-gradient(135deg, #ff3b3b, #c4122f); color:#fff;
+    border-color:#ff6b6b; box-shadow:0 0 16px rgba(255,59,59,0.45);
+    text-shadow:0 1px 0 rgba(0,0,0,0.3);
+  }
+  .tab[data-cat="ofertas"]:hover{border-color:#fff;}
+  .tab[data-cat="ofertas"].active{
+    border-color:#fff; box-shadow:0 0 0 3px rgba(255,59,59,0.35), 0 0 26px rgba(255,59,59,0.75);
   }
   /* 2 productos por fila: tarjetas grandes para que la foto luzca */
   /* Buscador y filtros del catalogo */
@@ -855,7 +870,7 @@
       -webkit-overflow-scrolling:touch;
     }
     .tabs::-webkit-scrollbar{display:none;}
-    .tab{flex:0 0 auto;}
+    .tab{flex:0 0 auto; font-size:1.1rem; padding:11px 18px;}
     .filtros{gap:12px;}
     .buscador{flex:1 1 100%;}
     .header-inner{padding:12px 16px;}
@@ -920,7 +935,7 @@
   <div class="wrap">
     <p class="catalog-headline">Elegí tus productos 💪</p>
     <div class="tabs">
-      <button class="tab active" data-cat="ofertas" onclick="showCategory('ofertas', this)">Ofertas y Combos</button>
+      <button class="tab active" data-cat="ofertas" onclick="showCategory('ofertas', this)">🔥 Ofertas y Combos</button>
       <button class="tab" data-cat="creatina" onclick="showCategory('creatina', this)">Creatinas</button>
       <button class="tab" data-cat="proteinas" onclick="showCategory('proteinas', this)">Proteínas</button>
       <button class="tab" data-cat="pre" onclick="showCategory('pre', this)">Pre-entrenos</button>
