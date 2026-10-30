@@ -467,12 +467,12 @@
       {
          "brand" : "Weymar",
          "cat" : "proteinas",
-         "desc" : "Nuestro shaker personalizado con el logo de Weymar. Tapa con pico rebatible, ideal para tus batidos de proteína. Elegilo en azul o negro.",
+         "desc" : "Nuestro shaker personalizado con el logo de Weymar. Capacidad de 600 ml y tapa con pico rebatible, ideal para tus batidos de proteína. Elegilo en azul o negro.",
          "flavors" : [ "Azul", "Negro" ],
          "gallery" : [ "img/shaker-weymar-azul.webp", "img/shaker-weymar-negro.webp" ],
          "id" : "shaker-weymar-premium",
          "image" : "img/shaker-weymar-google.webp",
-         "name" : "Shaker Weymar Premium",
+         "name" : "Shaker Weymar Premium 600ml",
          "price" : 9500,
          "stock" : 1,
          "variantLabel" : "Color"
