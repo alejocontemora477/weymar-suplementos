@@ -465,6 +465,19 @@
          "stock" : 24
       },
       {
+         "brand" : "Weymar",
+         "cat" : "proteinas",
+         "desc" : "Nuestro shaker personalizado con el logo de Weymar. Tapa con pico rebatible, ideal para tus batidos de proteína. Elegilo en azul o negro.",
+         "flavors" : [ "Azul", "Negro" ],
+         "gallery" : [ "img/shaker-weymar-azul.webp", "img/shaker-weymar-negro.webp" ],
+         "id" : "shaker-weymar-premium",
+         "image" : "img/shaker-weymar-google.webp",
+         "name" : "Shaker Weymar Premium",
+         "price" : 9500,
+         "stock" : 1,
+         "variantLabel" : "Color"
+      },
+      {
          "brand" : "Ena Sport",
          "cat" : "proteinas",
          "desc" : "Vaso mezclador Truemade con compartimiento para llevar suplemento. Tapa con traba y medidas impresas.",

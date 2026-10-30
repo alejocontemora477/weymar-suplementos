@@ -1204,10 +1204,14 @@
   // "Sin sabor" ya se explica solo: evita que quede "Sabor: Sin sabor".
   function esSinSabor(flavor){ return /^sin sabor/i.test(flavor); }
   function esCombinacion(flavor){ return flavor.includes(SEP_COMBO); }
+  // Las variantes son sabores salvo que el producto diga otra cosa en
+  // "variantLabel" (p. ej. "Color" en los shakers).
+  function varianteDe(p){ return ((p && p.variantLabel) || "sabor").toLowerCase(); }
   function flavorTag(flavor, p){
     const { extra, resto } = p ? partirExtra(p, flavor) : { extra: "", resto: flavor };
     if(extra) return `${p.flavorsLabel || "Variante"}: ${extra} · Sabores: ${resto}`;
     if(esCombinacion(flavor)) return "Sabores: " + flavor;
+    if(p && p.variantLabel) return `${p.variantLabel}: ${flavor}`;
     return esSinSabor(flavor) ? "Sin sabor" : "Sabor: " + flavor;
   }
   function flavorSuffix(flavor, p){
@@ -1215,6 +1219,7 @@
     const { extra, resto } = p ? partirExtra(p, flavor) : { extra: "", resto: flavor };
     if(extra) return ` - ${(p.flavorsLabel || "variante").toLowerCase()} ${extra.toLowerCase()}, sabores ${resto}`;
     if(esCombinacion(flavor)) return " - sabores " + flavor;
+    if(p && p.variantLabel) return ` - ${varianteDe(p)} ${flavor}`;
     return esSinSabor(flavor) ? " - sin sabor" : " - sabor " + flavor;
   }
 
@@ -1320,7 +1325,7 @@
           ${sinStock(p)
             ? '<span class="sin-stock">Sin stock</span>'
             : (flavorsOf(p).length
-                ? `<button class="add-btn" onclick="event.stopPropagation(); openProduct('${p.id}')">${unidadesCombo(p) > 1 ? "Elegir sabores" : "Elegir sabor"}</button>`
+                ? `<button class="add-btn" onclick="event.stopPropagation(); openProduct('${p.id}')">${unidadesCombo(p) > 1 ? "Elegir sabores" : "Elegir " + varianteDe(p)}</button>`
                 : `<button class="add-btn" onclick="event.stopPropagation(); addToCart('${p.id}')">${p.price > 0 ? 'Agregar' : 'Consultar'}</button>`)}
         </div>
       </div>
@@ -1374,7 +1379,7 @@
     if(!flavors.length){
       wrap.innerHTML = "";
     } else if(unidades === 1){
-      wrap.innerHTML = `<div class="flavor-label">Elegí el sabor</div>${filaSabores()}`;
+      wrap.innerHTML = `<div class="flavor-label">Elegí el ${varianteDe(p)}</div>${filaSabores()}`;
     } else {
       wrap.innerHTML = filaExtra +
         `<div class="flavor-label">Elegí los ${unidades} sabores${deQue} <span class="flavor-hint">(podés repetir)</span></div>` +

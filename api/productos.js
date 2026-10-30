@@ -146,6 +146,9 @@ function revisar(lista) {
     // Nombre de las variantes propias de un combo (p. ej. "Creatina").
     const flavorsLabel = p.flavorsLabel == null ? "" : String(p.flavorsLabel).trim().slice(0, 40);
     if (flavorsLabel && limpio.flavors) limpio.flavorsLabel = flavorsLabel;
+    // Que son las variantes si no son sabores (p. ej. "Color" en los shakers).
+    const variantLabel = p.variantLabel == null ? "" : String(p.variantLabel).trim().slice(0, 40);
+    if (variantLabel && limpio.flavors) limpio.variantLabel = variantLabel;
     if (gallery && gallery.length) limpio.gallery = gallery;
     if (comboOf) { limpio.comboOf = comboOf; limpio.comboSize = comboSize; }
     if (catsExtra && catsExtra.length) limpio.catsExtra = catsExtra;
