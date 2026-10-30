@@ -22,7 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Bungee&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg: #070b0f;
@@ -242,6 +242,32 @@
     box-shadow:0 2px 8px rgba(0,0,0,0.35);
     z-index:2;                        /* por encima de la foto */
   }
+  /* Cartel luminoso de Cyber Monday, arriba de todo. */
+  .cyber{
+    display:flex; flex-direction:column; align-items:center; gap:6px;
+    padding:26px 16px 22px; text-align:center; text-decoration:none;
+    background:radial-gradient(ellipse at center, rgba(255,43,214,0.22), transparent 70%), #05070b;
+    border-top:2px solid #ff2bd6; border-bottom:2px solid #34c6f4;
+    box-shadow:inset 0 0 40px rgba(255,43,214,0.25), 0 0 30px rgba(52,198,244,0.25);
+  }
+  .cyber-titulo{
+    font-family:'Bungee', 'Barlow Condensed', sans-serif;
+    font-size:clamp(2.2rem, 8vw, 5rem); line-height:1; text-transform:uppercase;
+    color:#fff0fc; letter-spacing:0.04em;
+    text-shadow:0 0 6px #fff, 0 0 14px #ff2bd6, 0 0 28px #ff2bd6, 0 0 52px #ff2bd6, 0 0 80px #ff2bd6;
+    animation:neon 3s infinite;
+  }
+  .cyber-sub{
+    font-family:'Barlow Condensed', sans-serif; font-weight:800;
+    font-size:clamp(1.15rem, 3.4vw, 1.9rem); text-transform:uppercase; letter-spacing:0.06em;
+    color:#e6fbff;
+    text-shadow:0 0 6px #34c6f4, 0 0 16px #34c6f4, 0 0 32px #34c6f4;
+  }
+  @keyframes neon{
+    0%, 18%, 22%, 25%, 53%, 57%, 100%{opacity:1;}
+    20%, 24%, 55%{opacity:0.45; text-shadow:none;}
+  }
+  @media (prefers-reduced-motion: reduce){ .cyber-titulo{animation:none;} }
   .promo-banner{
     display:flex; align-items:center; gap:14px;
     background:linear-gradient(135deg, rgba(52,198,244,0.14), rgba(52,198,244,0.04));
@@ -290,7 +316,13 @@
     text-decoration:none;
   }
   .card.is-offer{border-color:#ff3b3b; box-shadow:0 0 0 1px #ff3b3b, 0 6px 22px rgba(255,59,59,0.18);}
-  .card.is-offer .offer-badge{background:#ff3b3b; color:#fff;}
+  .card.is-offer .offer-badge{
+    background:#ff3b3b; color:#fff;
+    font-family:'Bungee', 'Barlow Condensed', sans-serif; font-weight:400;
+    font-size:1.05rem; letter-spacing:0.03em; padding:6px 16px; top:-15px;
+    box-shadow:0 0 0 2px #fff3, 0 0 16px rgba(255,59,59,0.75);
+    text-shadow:0 1px 0 rgba(0,0,0,0.3);
+  }
   .price em{font-style:normal; color:var(--muted); font-size:0.7rem; display:block; text-transform:none; font-family:'Work Sans';}
   .add-btn{
     background:var(--celeste); border:1px solid var(--celeste); color:#06131a;
@@ -813,6 +845,7 @@
     .add-btn{width:100%; padding:10px 8px; font-size:0.85rem;}
     .sin-stock{width:100%; text-align:center; padding:8px; font-size:0.78rem;}
     .offer-badge{font-size:0.7rem; padding:3px 10px; left:12px; top:-10px;}
+    .card.is-offer .offer-badge{font-size:0.82rem; padding:4px 11px; top:-12px;}
     .zoom-hint{width:22px; height:22px; font-size:0.7rem;}
     /* Las categorias pasan a una tira deslizable: en celular ocupaban
        cuatro filas y empujaban los productos fuera de la pantalla. */
@@ -856,6 +889,11 @@
     </button>
   </div>
 </header>
+
+<a href="#catalogo" class="cyber" onclick="showCategory('ofertas', document.querySelector('.tab[data-cat=ofertas]'))">
+  <span class="cyber-titulo">Cyber Monday</span>
+  <span class="cyber-sub">¡Aprovechá los mejores descuentos!</span>
+</a>
 
 <section class="hero">
   <div class="wrap hero-inner">
