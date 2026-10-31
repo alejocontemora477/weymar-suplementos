@@ -103,7 +103,7 @@
 
   /* Hero */
   .hero{
-    padding:88px 0 64px;
+    padding:88px 0 64px; border-top:1px solid var(--line);
     border-bottom:1px solid var(--line);
     position:relative;
     overflow:hidden;
@@ -168,7 +168,7 @@
   }
 
   /* Catalog */
-  .catalog{padding:72px 0 100px;}
+  .catalog{padding:28px 0 64px;}
   /* Mas angosto que el resto de la pagina: con el ancho completo, dos fotos
      de borde a borde por fila quedaban gigantes (525x655) en PC. */
   .catalog .wrap{max-width:920px;}
@@ -983,27 +983,6 @@
   <p>Superando los <b>$45.000</b> <span class="regalo-fin">te llevás un <b>regalo</b></span></p>
 </div>
 
-<section class="hero">
-  <div class="wrap hero-inner">
-    <div class="hero-copy">
-      <div class="kicker">Bahía Blanca</div>
-      <h1>Suplementos<br><span>Weymar</span></h1>
-      <p>Todos los suplementos que estás buscando, de las mejores marcas. Atención personalizada y contestamos rápido. Envíos a toda Argentina.</p>
-      <div class="hero-actions">
-        <a href="#catalogo" class="btn-primary">Ver catálogo</a>
-        <a href="https://wa.me/5492914411785" target="_blank" class="btn-ghost">Escribinos directo</a>      </div>
-      <div class="stat-stack">
-        <div class="stat-row"><b>+1000</b><span>clientes ya confiaron en nosotros</span></div>
-        <div class="stat-row"><b>100%</b><span>atención personalizada por WhatsApp</span></div>
-      </div>
-    </div>
-    <div class="hero-logo">
-      <img src="img/logo-hero.webp" alt="Weymar Suplementos" width="600" height="600" fetchpriority="high">
-      <p class="hero-tagline">Menos vueltas.<br><span>Más resultados.</span></p>
-    </div>
-  </div>
-</section>
-
 <section class="catalog" id="catalogo">
   <div class="wrap">
     <p class="catalog-headline">Elegí tus productos 💪</p>
@@ -1029,6 +1008,27 @@
 
     <div id="category-banner"></div>
     <div class="grid" id="product-grid"></div>
+  </div>
+</section>
+
+<section class="hero">
+  <div class="wrap hero-inner">
+    <div class="hero-copy">
+      <div class="kicker">Bahía Blanca</div>
+      <h1>Suplementos<br><span>Weymar</span></h1>
+      <p>Todos los suplementos que estás buscando, de las mejores marcas. Atención personalizada y contestamos rápido. Envíos a toda Argentina.</p>
+      <div class="hero-actions">
+        <a href="#catalogo" class="btn-primary">Ver catálogo</a>
+        <a href="https://wa.me/5492914411785" target="_blank" class="btn-ghost">Escribinos directo</a>      </div>
+      <div class="stat-stack">
+        <div class="stat-row"><b>+1000</b><span>clientes ya confiaron en nosotros</span></div>
+        <div class="stat-row"><b>100%</b><span>atención personalizada por WhatsApp</span></div>
+      </div>
+    </div>
+    <div class="hero-logo">
+      <img src="img/logo-hero.webp" alt="Weymar Suplementos" width="600" height="600" loading="lazy">
+      <p class="hero-tagline">Menos vueltas.<br><span>Más resultados.</span></p>
+    </div>
   </div>
 </section>
 
