@@ -29,6 +29,35 @@
          "stock" : 9
       },
       {
+         "brand" : "Weymar",
+         "cat" : "proteinas",
+         "desc" : "Nuestro shaker personalizado con el logo de Weymar. Capacidad de 600 ml y tapa con pico rebatible, ideal para tus batidos de proteína. Elegilo en azul o negro.",
+         "flavors" : [ "Azul", "Negro" ],
+         "gallery" : [ "img/shaker-weymar-azul.webp", "img/shaker-weymar-negro.webp" ],
+         "id" : "shaker-weymar-premium",
+         "image" : "img/shaker-weymar-google.webp",
+         "name" : "Shaker Weymar Premium 600ml",
+         "offer" : true,
+         "price" : 8000,
+         "priceBefore" : 12000,
+         "stock" : 1,
+         "variantLabel" : "Color"
+      },
+      {
+         "brand" : "Mrs Taste",
+         "cat" : "barritas",
+         "desc" : "Salsa para postres sin azúcar agregada, baja en calorías y sin TACC. Ideal para panqueques, yogur, frutas o tu avena. Frasco de 335g. Elegí tu sabor: chocolate, chocolate con avellanas o dulce de leche.",
+         "flavors" : [ "Chocolate", "Chocolate con avellanas", "Dulce de leche" ],
+         "gallery" : [ "img/salsa-mrs-taste-avellanas-google.webp", "img/salsa-mrs-taste-ddl-google.webp" ],
+         "id" : "salsa-mrs-taste",
+         "image" : "img/salsa-mrs-taste-chocolate-google.webp",
+         "name" : "Salsa Mrs Taste Zero Azúcar 335g",
+         "offer" : true,
+         "price" : 11900,
+         "priceBefore" : 15000,
+         "stock" : 3
+      },
+      {
          "brand" : "One Fit Nutrition",
          "cat" : "creatina",
          "desc" : "Monohidrato de creatina micronizado + vitamina C. 40 servicios de 5g. Formulado en USA.",
@@ -463,35 +492,6 @@
          "name" : "Pasta de Maní Saborizada",
          "price" : 5900,
          "stock" : 24
-      },
-      {
-         "brand" : "Mrs Taste",
-         "cat" : "barritas",
-         "desc" : "Salsa para postres sin azúcar agregada, baja en calorías y sin TACC. Ideal para panqueques, yogur, frutas o tu avena. Frasco de 335g. Elegí tu sabor: chocolate, chocolate con avellanas o dulce de leche.",
-         "flavors" : [ "Chocolate", "Chocolate con avellanas", "Dulce de leche" ],
-         "gallery" : [ "img/salsa-mrs-taste-avellanas-google.webp", "img/salsa-mrs-taste-ddl-google.webp" ],
-         "id" : "salsa-mrs-taste",
-         "image" : "img/salsa-mrs-taste-chocolate-google.webp",
-         "name" : "Salsa Mrs Taste Zero Azúcar 335g",
-         "offer" : true,
-         "price" : 11900,
-         "priceBefore" : 15000,
-         "stock" : 3
-      },
-      {
-         "brand" : "Weymar",
-         "cat" : "proteinas",
-         "desc" : "Nuestro shaker personalizado con el logo de Weymar. Capacidad de 600 ml y tapa con pico rebatible, ideal para tus batidos de proteína. Elegilo en azul o negro.",
-         "flavors" : [ "Azul", "Negro" ],
-         "gallery" : [ "img/shaker-weymar-azul.webp", "img/shaker-weymar-negro.webp" ],
-         "id" : "shaker-weymar-premium",
-         "image" : "img/shaker-weymar-google.webp",
-         "name" : "Shaker Weymar Premium 600ml",
-         "offer" : true,
-         "price" : 8000,
-         "priceBefore" : 12000,
-         "stock" : 1,
-         "variantLabel" : "Color"
       },
       {
          "brand" : "Ena Sport",
