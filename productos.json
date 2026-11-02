@@ -545,8 +545,10 @@
          "id" : "gainer-ena-ultramass-van",
          "image" : "img/gainer-ena-ultramass-van-google.webp",
          "name" : "Ultra Mass Weight Gainer 1500g",
-         "price" : 48500,
-         "stock" : 0
+         "offer" : true,
+         "price" : 45000,
+         "priceBefore" : 53000,
+         "stock" : 2
       }
    ]
 }

@@ -877,6 +877,24 @@
   .footer-links a{color:var(--muted); text-decoration:none; font-size:0.9rem;}
   .footer-links a:hover{color:var(--celeste);}
 
+  /* En PC van cuatro productos por fila y la foto es cuadrada: con dos por
+     fila cada foto ocupaba casi toda la pantalla y habia que bajar mucho para
+     ver el precio. Asi la tarjeta entera (foto + precio) entra en una notebook.
+     La tarjeta queda angosta, asi que el precio pasa arriba del boton. */
+  @media (min-width: 861px){
+    .catalog .wrap{max-width:1120px;}
+    .grid{grid-template-columns:repeat(4, 1fr); gap:16px;}
+    .card-thumb, .skeleton .sk-foto{aspect-ratio:1 / 1;}
+    .card{padding-bottom:14px; gap:6px;}
+    .card > :not(.card-thumb):not(.offer-badge){margin-left:12px; margin-right:12px;}
+    .card h3{font-size:1.2rem;}
+    .card .brand-tag{font-size:0.72rem;}
+    .card-flavor-tag{font-size:0.7rem; padding:2px 8px;}
+    .card-foot{flex-direction:column; align-items:stretch; gap:8px; padding-top:10px;}
+    .price{font-size:1.7rem;}
+    .add-btn{width:100%;}
+    .sin-stock{width:100%; text-align:center;}
+  }
   @media (max-width: 860px){
     .grid{grid-template-columns:repeat(2, 1fr); gap:16px;}
     .card > :not(.card-thumb):not(.offer-badge){margin-left:16px; margin-right:16px;}
