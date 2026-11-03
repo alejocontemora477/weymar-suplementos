@@ -464,6 +464,18 @@
          "stock" : 1
       },
       {
+         "brand" : "Ena Sport",
+         "cat" : "pre",
+         "desc" : "Combina L-arginina, L-lisina y L-ornitina (600mg de cada una), aminoácidos que favorecen la recuperación y el crecimiento muscular después de entrenar. 90 tabletas, libre de gluten.",
+         "id" : "muscle-max-ena",
+         "image" : "img/muscle-max-ena-google.webp",
+         "name" : "Muscle Max Post Work - 90 Tabletas",
+         "offer" : true,
+         "price" : 12200,
+         "priceBefore" : 14000,
+         "stock" : 2
+      },
+      {
          "brand" : "Star Nutrition",
          "cat" : "pre",
          "desc" : "Pre-entreno sabor uva para más energía y bombeo muscular. 285g, 30 servicios. Libre de gluten.",
