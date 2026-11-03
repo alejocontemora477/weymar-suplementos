@@ -11,7 +11,7 @@
          "name" : "Creatina Monohidratada - Doypack 300g",
          "offer" : true,
          "price" : 23500,
-         "priceBefore" : 26500,
+         "priceBefore" : 28000,
          "stock" : 39
       },
       {
@@ -25,7 +25,7 @@
          "name" : "Creatina Monohidratada Micronizada 300g",
          "offer" : true,
          "price" : 23500,
-         "priceBefore" : 26500,
+         "priceBefore" : 28000,
          "stock" : 9
       },
       {
@@ -79,7 +79,7 @@
          "image" : "img/magnesio-onefit-google.webp",
          "name" : "Citrato de Magnesio en Polvo 150g",
          "offer" : true,
-         "price" : 9700,
+         "price" : 8950,
          "priceBefore" : 11500,
          "stock" : 5
       },
@@ -92,7 +92,7 @@
          "image" : "img/magnesio-star-polvo-google.webp",
          "name" : "Citrato de Magnesio en Polvo 500g",
          "offer" : true,
-         "price" : 27500,
+         "price" : 25500,
          "priceBefore" : 33000,
          "stock" : 2
       },
@@ -141,7 +141,7 @@
          "image" : "img/whey-collagen-ena-google.webp",
          "name" : "Truemade Whey Collagen 750g - Double Chocolate",
          "offer" : true,
-         "price" : 48000,
+         "price" : 45200,
          "priceBefore" : 59000,
          "stock" : 2
       },
@@ -153,7 +153,7 @@
          "id" : "colageno-star-sport-naranja",
          "image" : "img/colageno-star-sport-naranja-google.webp",
          "name" : "Collagen Sport Sabor Naranja 360g",
-         "price" : 25000,
+         "price" : 24500,
          "stock" : 1
       },
       {
@@ -202,7 +202,7 @@
          "name" : "Classic Whey Protein 907g",
          "offer" : true,
          "price" : 44500,
-         "priceBefore" : 52000,
+         "priceBefore" : 61500,
          "stock" : 13
       },
       {
@@ -217,7 +217,7 @@
          "name" : "Whey Protein 2lb (908g)",
          "offer" : true,
          "price" : 76500,
-         "priceBefore" : 85000,
+         "priceBefore" : 92000,
          "stock" : 4
       },
       {
@@ -230,8 +230,8 @@
          "image" : "img/proteina-ena-google.webp",
          "name" : "Truemade Whey Protein 930g",
          "offer" : true,
-         "price" : 74500,
-         "priceBefore" : 88000,
+         "price" : 72500,
+         "priceBefore" : 90000,
          "stock" : 4
       },
       {
@@ -289,7 +289,9 @@
          "id" : "barrita-mervick",
          "image" : "img/barrita-mervick-google.webp",
          "name" : "Whey Protein Bar 15g Proteína",
-         "price" : 2500,
+         "offer" : true,
+         "price" : 1900,
+         "priceBefore" : 2500,
          "stock" : 82
       },
       {
@@ -325,7 +327,9 @@
          "id" : "pasta-mole",
          "image" : "img/pasta-mole-chococrispy-google.webp",
          "name" : "Pasta de Maní Proteica 345g",
-         "price" : 6700,
+         "offer" : true,
+         "price" : 5500,
+         "priceBefore" : 6900,
          "stock" : 10
       },
       {
@@ -390,8 +394,8 @@
          "image" : "img/creatina-star-1kg-google.webp",
          "name" : "Creatina Monohidratada Sin Sabor 1kg",
          "offer" : true,
-         "price" : 71000,
-         "priceBefore" : 83500,
+         "price" : 66400,
+         "priceBefore" : 85000,
          "stock" : 2
       },
       {
@@ -434,7 +438,7 @@
          "name" : "Omega 3 - Cápsulas",
          "offer" : true,
          "price" : 29500,
-         "priceBefore" : 33000,
+         "priceBefore" : 35000,
          "stock" : 2
       },
       {
