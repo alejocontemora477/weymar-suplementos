@@ -9,9 +9,7 @@
          "id" : "proteina-ena",
          "image" : "img/proteina-ena-google.webp",
          "name" : "Truemade Whey Protein 930g",
-         "offer" : true,
-         "price" : 72500,
-         "priceBefore" : 90000,
+         "price" : 79000,
          "stock" : 4
       },
       {
@@ -24,9 +22,7 @@
          "id" : "proteina-star",
          "image" : "img/proteina-star-google.webp",
          "name" : "Whey Protein 2lb (908g)",
-         "offer" : true,
-         "price" : 76500,
-         "priceBefore" : 92000,
+         "price" : 83000,
          "stock" : 4
       },
       {
@@ -41,7 +37,7 @@
          "name" : "Combo 2 Whey Protein 908g a Elección",
          "offer" : true,
          "price" : 149500,
-         "priceBefore" : 170000,
+         "priceBefore" : 166000,
          "stock" : 1
       },
       {
@@ -53,9 +49,7 @@
          "id" : "proteina-onefit",
          "image" : "img/proteina-onefit-google.webp",
          "name" : "Classic Whey Protein 907g",
-         "offer" : true,
-         "price" : 44500,
-         "priceBefore" : 61500,
+         "price" : 48000,
          "stock" : 13
       },
       {
@@ -68,8 +62,8 @@
          "image" : "img/creatina-star-google.webp",
          "name" : "Creatina Monohidratada - Doypack 300g",
          "offer" : true,
-         "price" : 23500,
-         "priceBefore" : 28000,
+         "price" : 26500,
+         "priceBefore" : 29000,
          "stock" : 39
       },
       {
@@ -82,8 +76,8 @@
          "image" : "img/creatina-ena-google.webp",
          "name" : "Creatina Monohidratada Micronizada 300g",
          "offer" : true,
-         "price" : 23500,
-         "priceBefore" : 28000,
+         "price" : 24500,
+         "priceBefore" : 29000,
          "stock" : 9
       },
       {
@@ -96,7 +90,7 @@
          "image" : "img/shaker-weymar-google.webp",
          "name" : "Shaker Weymar Premium 600ml",
          "offer" : true,
-         "price" : 8000,
+         "price" : 12000,
          "priceBefore" : 16000,
          "stock" : 1,
          "variantLabel" : "Color"
@@ -110,9 +104,7 @@
          "id" : "salsa-mrs-taste",
          "image" : "img/salsa-mrs-taste-chocolate-google.webp",
          "name" : "Salsa Mrs Taste Zero Azúcar 335g",
-         "offer" : true,
-         "price" : 11900,
-         "priceBefore" : 15000,
+         "price" : 15500,
          "stock" : 3
       },
       {
@@ -123,9 +115,7 @@
          "id" : "creatina-onefit",
          "image" : "img/creatina-onefit-google.webp",
          "name" : "Poweraded Creatine Micronized 200g",
-         "offer" : true,
-         "price" : 12900,
-         "priceBefore" : 16500,
+         "price" : 16500,
          "stock" : 15
       },
       {
@@ -136,9 +126,7 @@
          "id" : "magnesio-onefit",
          "image" : "img/magnesio-onefit-google.webp",
          "name" : "Citrato de Magnesio en Polvo 150g",
-         "offer" : true,
-         "price" : 8950,
-         "priceBefore" : 11500,
+         "price" : 11500,
          "stock" : 5
       },
       {
@@ -149,9 +137,7 @@
          "id" : "magnesio-star-polvo",
          "image" : "img/magnesio-star-polvo-google.webp",
          "name" : "Citrato de Magnesio en Polvo 500g",
-         "offer" : true,
-         "price" : 25500,
-         "priceBefore" : 33000,
+         "price" : 33000,
          "stock" : 2
       },
       {
@@ -162,9 +148,7 @@
          "id" : "magnesio-star",
          "image" : "img/magnesio-star-google.webp",
          "name" : "Citrato de Magnesio - 60 Cápsulas",
-         "offer" : true,
-         "price" : 13000,
-         "priceBefore" : 16500,
+         "price" : 13500,
          "stock" : 2
       },
       {
@@ -198,9 +182,7 @@
          "id" : "whey-collagen-ena",
          "image" : "img/whey-collagen-ena-google.webp",
          "name" : "Truemade Whey Collagen 750g - Double Chocolate",
-         "offer" : true,
-         "price" : 45200,
-         "priceBefore" : 59000,
+         "price" : 55000,
          "stock" : 2
       },
       {
@@ -223,8 +205,8 @@
          "image" : "img/omega3-onefit-google.webp",
          "name" : "Daily Omega 3 - 30 Cápsulas",
          "offer" : true,
-         "price" : 20000,
-         "priceBefore" : 23900,
+         "price" : 22000,
+         "priceBefore" : 28500,
          "stock" : 3
       },
       {
@@ -318,7 +300,9 @@
          "id" : "pancakes-granger",
          "image" : "img/pancakes-granger-google.webp",
          "name" : "Pancakes Proteicos 400g",
-         "price" : 15500,
+         "offer" : true,
+         "price" : 14500,
+         "priceBefore" : 17000,
          "stock" : 2
       },
       {
@@ -387,7 +371,7 @@
          "id" : "creatina-star-pote",
          "image" : "img/creatina-star-pote-google.webp",
          "name" : "Creatina Monohidratada Sin Sabor - Pote 300g",
-         "price" : 29000,
+         "price" : 31000,
          "stock" : 0
       },
       {
@@ -408,9 +392,7 @@
          "id" : "creatina-star-1kg",
          "image" : "img/creatina-star-1kg-google.webp",
          "name" : "Creatina Monohidratada Sin Sabor 1kg",
-         "offer" : true,
-         "price" : 66400,
-         "priceBefore" : 85000,
+         "price" : 85000,
          "stock" : 2
       },
       {
@@ -436,9 +418,7 @@
          "id" : "omega3-star",
          "image" : "img/omega3-star-google.webp",
          "name" : "Omega 3 - Cápsulas",
-         "offer" : true,
-         "price" : 29500,
-         "priceBefore" : 35000,
+         "price" : 32000,
          "stock" : 2
       },
       {
@@ -470,9 +450,7 @@
          "id" : "muscle-max-ena",
          "image" : "img/muscle-max-ena-google.webp",
          "name" : "Muscle Max Post Work - 90 Tabletas",
-         "offer" : true,
-         "price" : 12200,
-         "priceBefore" : 14000,
+         "price" : 15000,
          "stock" : 2
       },
       {
@@ -506,7 +484,9 @@
          "id" : "pasta-mani-entrenuts",
          "image" : "img/pasta-mani-entrenuts-google.webp",
          "name" : "Pasta de Maní Saborizada",
-         "price" : 5900,
+         "offer" : true,
+         "price" : 4500,
+         "priceBefore" : 5900,
          "stock" : 24
       },
       {
@@ -561,9 +541,7 @@
          "id" : "gainer-ena-ultramass-van",
          "image" : "img/gainer-ena-ultramass-van-google.webp",
          "name" : "Ultra Mass Weight Gainer 1500g",
-         "offer" : true,
-         "price" : 45000,
-         "priceBefore" : 53000,
+         "price" : 52000,
          "stock" : 2
       }
    ]

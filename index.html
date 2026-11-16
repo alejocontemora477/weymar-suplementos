@@ -982,20 +982,6 @@
   </div>
 </header>
 
-<a href="#catalogo" class="cyber" onclick="showCategory('ofertas', document.querySelector('.tab[data-cat=ofertas]'))">
-  <span class="cyber-titulo">Cyber Monday</span>
-  <span class="cyber-sub">¡Aprovechá los mejores descuentos!</span>
-  <span class="cuenta" id="cuenta" hidden>
-    <span class="cuenta-label">Termina en</span>
-    <span class="cuenta-cajas">
-      <span class="cuenta-caja"><b id="cuenta-d">0</b><small>días</small></span>
-      <span class="cuenta-caja"><b id="cuenta-h">00</b><small>horas</small></span>
-      <span class="cuenta-caja"><b id="cuenta-m">00</b><small>min</small></span>
-      <span class="cuenta-caja"><b id="cuenta-s">00</b><small>seg</small></span>
-    </span>
-  </span>
-</a>
-
 <div class="regalo">
   <span class="regalo-icono" aria-hidden="true">🎁</span>
   <p>Superando los <b>$45.000</b> <span class="regalo-fin">te llevás un <b>regalo</b></span></p>
@@ -1644,23 +1630,6 @@
         : `🎁 Te faltan <b>${formatPrice(falta)}</b> para llevarte un regalo`)
       + `<div class="regalo-barra"><span style="width:${pct}%"></span></div>`;
   }
-
-  // EDITAR ACÁ: cuándo termina el Cyber Monday (hora de Argentina).
-  const FIN_CYBER = new Date("2026-11-04T23:59:59-03:00");
-  function cuentaRegresiva(){
-    const caja = document.getElementById("cuenta");
-    const resta = FIN_CYBER - Date.now();
-    if(resta <= 0){ caja.hidden = true; return; }
-    caja.hidden = false;
-    const seg = Math.floor(resta / 1000);
-    const dos = n => String(n).padStart(2, "0");
-    document.getElementById("cuenta-d").textContent = Math.floor(seg / 86400);
-    document.getElementById("cuenta-h").textContent = dos(Math.floor(seg % 86400 / 3600));
-    document.getElementById("cuenta-m").textContent = dos(Math.floor(seg % 3600 / 60));
-    document.getElementById("cuenta-s").textContent = dos(seg % 60);
-    setTimeout(cuentaRegresiva, 1000 - Date.now() % 1000);
-  }
-  cuentaRegresiva();
 
   // Datos del cliente: nombre y forma de pago. Se piden en el carrito y
   // viajan en el mensaje de WhatsApp junto con el pedido.
