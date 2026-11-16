@@ -26,21 +26,6 @@
          "stock" : 4
       },
       {
-         "brand" : "Star Nutrition",
-         "cat" : "ofertas",
-         "comboOf" : "proteina-star",
-         "comboSize" : 2,
-         "desc" : "Llevate 2 Whey Protein Star de 908g del sabor que quieras: dos iguales o uno de cada uno. Comprándolas juntas pagás menos que llevándolas por separado.",
-         "gallery" : [ "img/combo-proteinas-star.webp" ],
-         "id" : "combo-proteinas-star",
-         "image" : "img/combo-proteinas-star-google.webp",
-         "name" : "Combo 2 Whey Protein 908g a Elección",
-         "offer" : true,
-         "price" : 149500,
-         "priceBefore" : 166000,
-         "stock" : 1
-      },
-      {
          "brand" : "One Fit Nutrition",
          "cat" : "proteinas",
          "desc" : "24g de proteína, 4.5g BCAA y 4g de glutamina por porción. Elegí tu sabor.",
@@ -394,21 +379,6 @@
          "name" : "Creatina Monohidratada Sin Sabor 1kg",
          "price" : 85000,
          "stock" : 2
-      },
-      {
-         "brand" : "Star Nutrition",
-         "cat" : "ofertas",
-         "comboOf" : "colageno-star",
-         "comboSize" : 2,
-         "desc" : "Llevate 2 Collagen de 210g del sabor que quieras: dos iguales o uno de cada uno. Comprándolos juntos pagás menos que llevándolos por separado.",
-         "gallery" : [ "img/combo-colagenos.webp" ],
-         "id" : "combo-colagenos",
-         "image" : "img/combo-colagenos-google.webp",
-         "name" : "Combo 2 Colágenos 210g a Elección",
-         "offer" : true,
-         "price" : 40000,
-         "priceBefore" : 44000,
-         "stock" : 1
       },
       {
          "brand" : "Star Nutrition",
