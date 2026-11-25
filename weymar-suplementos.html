@@ -195,16 +195,16 @@
     background:var(--celeste); color:#06131a; border-color:var(--celeste);
     box-shadow:0 0 18px rgba(52,198,244,0.45);
   }
-  /* Ofertas y Combos va siempre en rojo, como los carteles de oferta. */
+  /* Ofertas Black va siempre en negro y celeste, como el cartel BLACK WEYMAR. */
   .tab[data-cat="ofertas"]{
-    font-family:'Bungee', 'Barlow Condensed', sans-serif; font-weight:400;
-    background:linear-gradient(135deg, #ff3b3b, #c4122f); color:#fff;
-    border-color:#ff6b6b; box-shadow:0 0 16px rgba(255,59,59,0.45);
-    text-shadow:0 1px 0 rgba(0,0,0,0.3);
+    font-family:'Anton', 'Barlow Condensed', sans-serif; font-weight:400; letter-spacing:0.06em;
+    background:#000; color:#fff;
+    border:2px solid var(--celeste); box-shadow:0 0 16px rgba(52,198,244,0.4);
   }
   .tab[data-cat="ofertas"]:hover{border-color:#fff;}
   .tab[data-cat="ofertas"].active{
-    border-color:#fff; box-shadow:0 0 0 3px rgba(255,59,59,0.35), 0 0 26px rgba(255,59,59,0.75);
+    background:#000; color:var(--celeste); border-color:var(--celeste);
+    box-shadow:0 0 0 3px rgba(52,198,244,0.3), 0 0 26px rgba(52,198,244,0.7);
   }
   /* 2 productos por fila: tarjetas grandes para que la foto luzca */
   /* Buscador y filtros del catalogo */
@@ -388,17 +388,17 @@
   }
   .price-before s{text-decoration-thickness:3px; text-decoration-color:#ff3b3b;}
   .price-off{
-    background:#ff3b3b; color:#fff; font-size:0.8em; font-weight:800;
+    background:var(--celeste); color:#000; font-size:0.8em; font-weight:800;
     padding:2px 7px; border-radius:6px; letter-spacing:0.02em;
     text-decoration:none;
   }
-  .card.is-offer{border-color:#ff3b3b; box-shadow:0 0 0 1px #ff3b3b, 0 6px 22px rgba(255,59,59,0.18);}
-  .card.is-offer .offer-badge{
-    background:#ff3b3b; color:#fff;
-    font-family:'Bungee', 'Barlow Condensed', sans-serif; font-weight:400;
-    font-size:1.05rem; letter-spacing:0.03em; padding:6px 16px; top:-15px;
-    box-shadow:0 0 0 2px #fff3, 0 0 16px rgba(255,59,59,0.75);
-    text-shadow:0 1px 0 rgba(0,0,0,0.3);
+  .card.is-offer{border-color:var(--celeste); box-shadow:0 0 0 1px var(--celeste), 0 6px 22px rgba(52,198,244,0.2);}
+  .card.is-offer .offer-badge,
+  .modal-body .offer-badge{
+    background:#000; color:#fff; border:2px solid var(--celeste);
+    font-family:'Anton', 'Barlow Condensed', sans-serif; font-weight:400;
+    font-size:1.1rem; letter-spacing:0.07em; padding:5px 16px; top:-15px;
+    box-shadow:0 0 14px rgba(52,198,244,0.65);
   }
   .price em{font-style:normal; color:var(--muted); font-size:0.7rem; display:block; text-transform:none; font-family:'Work Sans';}
   .add-btn{
