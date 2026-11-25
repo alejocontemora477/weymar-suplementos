@@ -258,57 +258,60 @@
     box-shadow:0 2px 8px rgba(0,0,0,0.35);
     z-index:2;                        /* por encima de la foto */
   }
-  /* Cartel luminoso de Cyber Monday, arriba de todo. */
-  .cyber{
-    display:flex; flex-direction:column; align-items:center; gap:6px;
-    padding:26px 16px 22px; text-align:center; text-decoration:none;
-    background:radial-gradient(ellipse at center, rgba(255,43,214,0.22), transparent 70%), #05070b;
-    border-top:2px solid #ff2bd6; border-bottom:2px solid #34c6f4;
-    box-shadow:inset 0 0 40px rgba(255,43,214,0.25), 0 0 30px rgba(52,198,244,0.25);
+  /* Cartel de Black Friday ("BLACK WEYMAR"), arriba de todo. */
+  .black{
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+    padding:28px 16px 24px; text-align:center; text-decoration:none;
+    background:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 14px, transparent 14px 28px),
+      radial-gradient(ellipse at center, #1a1a1a, #000 72%);
+    border-top:3px solid #ff3b3b; border-bottom:3px solid #ff3b3b;
+    box-shadow:inset 0 0 50px rgba(255,59,59,0.18);
   }
-  .cyber-titulo{
-    font-family:'Audiowide', 'Barlow Condensed', sans-serif;
-    font-size:clamp(1.5rem, 8.4vw, 5rem); line-height:1; text-transform:uppercase;
-    color:#fff0fc; letter-spacing:0.04em;
-    text-shadow:0 0 6px #fff, 0 0 14px #ff2bd6, 0 0 28px #ff2bd6, 0 0 52px #ff2bd6, 0 0 80px #ff2bd6;
-    animation:neon 3s infinite;
+  .black-titulo{
+    font-family:'Bungee', 'Barlow Condensed', sans-serif;
+    font-size:clamp(2rem, 10vw, 5.4rem); line-height:1; text-transform:uppercase;
+    color:#fff; letter-spacing:0.02em;
+    text-shadow:0 0 6px rgba(255,255,255,0.6), 0 0 18px #ff3b3b, 0 0 36px #ff3b3b, 0 0 70px #c4122f;
+    animation:black-brillo 2.6s ease-in-out infinite;
   }
-  .cyber-sub{
+  .black-titulo span{color:#ff3b3b; text-shadow:0 0 10px #ff3b3b, 0 0 30px #ff3b3b;}
+  .black-sub{
     font-family:'Barlow Condensed', sans-serif; font-weight:800;
-    font-size:clamp(1.15rem, 3.4vw, 1.9rem); text-transform:uppercase; letter-spacing:0.06em;
-    color:#e6fbff;
-    text-shadow:0 0 6px #34c6f4, 0 0 16px #34c6f4, 0 0 32px #34c6f4;
+    font-size:clamp(1.1rem, 3.4vw, 1.8rem); text-transform:uppercase; letter-spacing:0.08em;
+    color:#fff;
   }
-  @keyframes neon{
-    0%, 18%, 22%, 25%, 53%, 57%, 100%{opacity:1;}
-    20%, 24%, 55%{opacity:0.45; text-shadow:none;}
+  .black-sub b{color:#ff3b3b;}
+  @keyframes black-brillo{
+    0%, 100%{transform:scale(1); filter:brightness(1);}
+    50%{transform:scale(1.03); filter:brightness(1.2);}
   }
-  @media (prefers-reduced-motion: reduce){ .cyber-titulo{animation:none;} }
-  /* Cuenta regresiva del Cyber, dentro del cartel luminoso. */
+  @media (prefers-reduced-motion: reduce){ .black-titulo{animation:none;} }
+  /* Cronómetro del Black, dentro del cartel. */
   .cuenta{display:flex; flex-direction:column; align-items:center; gap:8px; margin-top:12px;}
   .cuenta[hidden]{display:none;}
   .cuenta-label{
     font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:0.95rem;
-    text-transform:uppercase; letter-spacing:0.22em; color:#ffb8f3;
+    text-transform:uppercase; letter-spacing:0.22em; color:#ff8a8a;
   }
   .cuenta-cajas{display:flex; gap:clamp(6px, 2vw, 12px);}
   .cuenta-caja{
     display:flex; flex-direction:column; align-items:center; justify-content:center;
     width:clamp(62px, 17vw, 84px); padding:10px 0 8px;
-    background:rgba(255,43,214,0.08); border:1px solid rgba(255,43,214,0.7); border-radius:12px;
-    box-shadow:0 0 14px rgba(255,43,214,0.35), inset 0 0 12px rgba(255,43,214,0.15);
+    background:#0b0b0b; border:1px solid #ff3b3b; border-radius:12px;
+    box-shadow:0 0 14px rgba(255,59,59,0.4), inset 0 0 12px rgba(255,59,59,0.15);
   }
   .cuenta-caja b{
-    font-family:'Audiowide', 'Barlow Condensed', sans-serif; font-weight:400;
+    font-family:'Bungee', 'Barlow Condensed', sans-serif; font-weight:400;
     font-size:clamp(1.5rem, 6.5vw, 2.3rem); line-height:1; color:#fff;
     font-variant-numeric:tabular-nums;
-    text-shadow:0 0 8px #ff2bd6, 0 0 18px #ff2bd6;
+    text-shadow:0 0 8px #ff3b3b, 0 0 18px #ff3b3b;
   }
   .cuenta-caja small{
     margin-top:5px; font-family:'Barlow Condensed', sans-serif; font-weight:600;
-    font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:#e6fbff;
+    font-size:0.75rem; text-transform:uppercase; letter-spacing:0.12em; color:#ddd;
   }
-  /* Cartel del regalo, debajo del Cyber. */
+  /* Cartel del regalo, debajo del Black. */
   .regalo{
     display:flex; align-items:center; justify-content:center; gap:12px;
     padding:13px 16px; text-align:left;
@@ -986,6 +989,20 @@
   </div>
 </header>
 
+<a href="#catalogo" class="black" onclick="showCategory('ofertas', document.querySelector('.tab[data-cat=ofertas]'))">
+  <span class="black-titulo">Black <span>Weymar</span></span>
+  <span class="black-sub">Black Friday · <b>Ofertas Black</b> en toda la tienda</span>
+  <span class="cuenta" id="cuenta" hidden>
+    <span class="cuenta-label">Termina en</span>
+    <span class="cuenta-cajas">
+      <span class="cuenta-caja"><b id="cuenta-d">0</b><small>días</small></span>
+      <span class="cuenta-caja"><b id="cuenta-h">00</b><small>horas</small></span>
+      <span class="cuenta-caja"><b id="cuenta-m">00</b><small>min</small></span>
+      <span class="cuenta-caja"><b id="cuenta-s">00</b><small>seg</small></span>
+    </span>
+  </span>
+</a>
+
 <div class="regalo">
   <span class="regalo-icono" aria-hidden="true">🎁</span>
   <p>Superando los <b>$45.000</b> <span class="regalo-fin">te llevás un <b>regalo</b></span></p>
@@ -995,7 +1012,7 @@
   <div class="wrap">
     <p class="catalog-headline">Elegí tus productos 💪</p>
     <div class="tabs">
-      <button class="tab active" data-cat="ofertas" onclick="showCategory('ofertas', this)">🔥 Ofertas y Combos</button>
+      <button class="tab active" data-cat="ofertas" onclick="showCategory('ofertas', this)">🔥 Ofertas Black</button>
       <button class="tab" data-cat="creatina" onclick="showCategory('creatina', this)">Creatinas</button>
       <button class="tab" data-cat="proteinas" onclick="showCategory('proteinas', this)">Proteínas</button>
       <button class="tab" data-cat="pre" onclick="showCategory('pre', this)">Pre-entrenos</button>
@@ -1138,7 +1155,7 @@
     pre: "Pre-entrenos",
     salud: "Salud y Bienestar",
     barritas: "Dulces Fit",
-    ofertas: "Ofertas y Combos"
+    ofertas: "Ofertas Black"
   };
 
   let cart = {}; // { productId: qty }
@@ -1398,7 +1415,7 @@
     }
     grid.innerHTML = items.map(p => `
       <div class="card${enOferta(p) ? ' is-offer' : ''}${sinStock(p) ? ' is-agotado' : ''}" role="button" tabindex="0" aria-label="Ver ${p.name}" onclick="openProduct('${p.id}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openProduct('${p.id}')}">
-        ${enOferta(p) ? '<div class="offer-badge">Súper oferta</div>' : ''}
+        ${enOferta(p) ? '<div class="offer-badge">Oferta Black</div>' : ''}
         <div class="card-thumb">${p.image ? `<img src="${p.image}" alt="${p.name}" loading="lazy" decoding="async" onload="ajustarFoto(this)">` : dumbbellIcon()}<span class="zoom-hint" aria-hidden="true">&#10530;</span></div>
         <div class="brand-tag">${p.brand}</div>
         <h3>${p.name}</h3>
@@ -1430,7 +1447,7 @@
           </button>`).join("")
       : "";
     document.getElementById("modal-badge").innerHTML = enOferta(p)
-      ? '<div class="offer-badge">Súper oferta</div>'
+      ? '<div class="offer-badge">Oferta Black</div>'
       : '';
     document.getElementById("modal-brand").textContent = p.brand;
     document.getElementById("modal-name").textContent = p.name;
@@ -1635,6 +1652,23 @@
         : `🎁 Te faltan <b>${formatPrice(falta)}</b> para llevarte un regalo`)
       + `<div class="regalo-barra"><span style="width:${pct}%"></span></div>`;
   }
+
+  // EDITAR ACÁ: cuándo termina el Black Friday (hora de Argentina).
+  const FIN_BLACK = new Date("2026-11-30T23:59:59-03:00");
+  function cuentaRegresiva(){
+    const caja = document.getElementById("cuenta");
+    const resta = FIN_BLACK - Date.now();
+    if(resta <= 0){ caja.hidden = true; return; }
+    caja.hidden = false;
+    const seg = Math.floor(resta / 1000);
+    const dos = n => String(n).padStart(2, "0");
+    document.getElementById("cuenta-d").textContent = Math.floor(seg / 86400);
+    document.getElementById("cuenta-h").textContent = dos(Math.floor(seg % 86400 / 3600));
+    document.getElementById("cuenta-m").textContent = dos(Math.floor(seg % 3600 / 60));
+    document.getElementById("cuenta-s").textContent = dos(seg % 60);
+    setTimeout(cuentaRegresiva, 1000 - Date.now() % 1000);
+  }
+  cuentaRegresiva();
 
   // Datos del cliente: nombre y forma de pago. Se piden en el carrito y
   // viajan en el mensaje de WhatsApp junto con el pedido.

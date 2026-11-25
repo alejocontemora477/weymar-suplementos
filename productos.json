@@ -9,7 +9,9 @@
          "id" : "proteina-ena",
          "image" : "img/proteina-ena-google.webp",
          "name" : "Truemade Whey Protein 930g",
-         "price" : 79000,
+         "offer" : true,
+         "price" : 74500,
+         "priceBefore" : 98000,
          "stock" : 4
       },
       {
@@ -22,7 +24,9 @@
          "id" : "proteina-star",
          "image" : "img/proteina-star-google.webp",
          "name" : "Whey Protein 2lb (908g)",
-         "price" : 83000,
+         "offer" : true,
+         "price" : 78000,
+         "priceBefore" : 89000,
          "stock" : 4
       },
       {
@@ -34,7 +38,9 @@
          "id" : "proteina-onefit",
          "image" : "img/proteina-onefit-google.webp",
          "name" : "Classic Whey Protein 907g",
-         "price" : 48000,
+         "offer" : true,
+         "price" : 44500,
+         "priceBefore" : 59500,
          "stock" : 13
       },
       {
@@ -47,7 +53,7 @@
          "image" : "img/creatina-star-google.webp",
          "name" : "Creatina Monohidratada - Doypack 300g",
          "offer" : true,
-         "price" : 26500,
+         "price" : 23500,
          "priceBefore" : 29000,
          "stock" : 39
       },
@@ -61,7 +67,7 @@
          "image" : "img/creatina-ena-google.webp",
          "name" : "Creatina Monohidratada Micronizada 300g",
          "offer" : true,
-         "price" : 24500,
+         "price" : 22500,
          "priceBefore" : 29000,
          "stock" : 9
       },
@@ -75,7 +81,7 @@
          "image" : "img/shaker-weymar-google.webp",
          "name" : "Shaker Weymar Premium 600ml",
          "offer" : true,
-         "price" : 12000,
+         "price" : 11500,
          "priceBefore" : 16000,
          "stock" : 1,
          "variantLabel" : "Color"
@@ -122,7 +128,9 @@
          "id" : "magnesio-star-polvo",
          "image" : "img/magnesio-star-polvo-google.webp",
          "name" : "Citrato de Magnesio en Polvo 500g",
-         "price" : 33000,
+         "offer" : true,
+         "price" : 25900,
+         "priceBefore" : 33000,
          "stock" : 2
       },
       {
@@ -191,7 +199,7 @@
          "name" : "Daily Omega 3 - 30 Cápsulas",
          "offer" : true,
          "price" : 22000,
-         "priceBefore" : 28500,
+         "priceBefore" : 29900,
          "stock" : 3
       },
       {
@@ -388,7 +396,9 @@
          "id" : "omega3-star",
          "image" : "img/omega3-star-google.webp",
          "name" : "Omega 3 - Cápsulas",
-         "price" : 32000,
+         "offer" : true,
+         "price" : 29500,
+         "priceBefore" : 37000,
          "stock" : 2
       },
       {
@@ -399,7 +409,7 @@
          "id" : "glutamina-star",
          "image" : "img/glutamina-star-google.webp",
          "name" : "L-Glutamine 300g",
-         "price" : 29900,
+         "price" : 25500,
          "stock" : 1
       },
       {
@@ -467,7 +477,7 @@
          "id" : "shaker-ena-plus",
          "image" : "img/shaker-ena-plus-google.webp",
          "name" : "Shaker Ena Plus con Compartimientos",
-         "price" : 7500,
+         "price" : 8500,
          "stock" : 5
       },
       {
